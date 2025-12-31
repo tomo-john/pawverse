@@ -17,6 +17,7 @@ return new class extends Migration
 
             $table->string('name');
             $table->string('color');
+            $table->string('size');
             $table->boolean('is_public')->default(false);
 
             $table->timestamps();
