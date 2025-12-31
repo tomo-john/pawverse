@@ -22,9 +22,9 @@
             <div>
                 <label>サイズ</label>
                 <select name="size" class="border">
-                    <option value="small">small</option>
-                    <option value="medium">medium</option>
-                    <option value="large">large</option>
+                    @foreach($sizes as $value => $label)
+                        <option value="{{ $value }}">{{ $label }}</option>
+                    @endforeach
                 </select>
             </div>
 
