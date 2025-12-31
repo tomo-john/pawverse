@@ -15,6 +15,7 @@
             @forelse ($dogs as $dog)
                 <li class="border-b py-2">
                     {{ $dog->name }}（{{ $dog->size }}）
+                    <a href="{{ route('dogs.edit', $dog) }}">編集</a>
                 </li>
             @empty
                 <li>まだ犬がいません🐕</li>

@@ -28,7 +28,7 @@ class DogController extends Controller
             'name'  => ['required', 'string', 'max:255'],
             'color' => ['required', 'string', 'max:255'],
             'size'  => ['required', Rule::in(array_keys(Dog::sizes()))],
-            `is_public` => ['nullable'],
+            'is_public' => ['nullable'],
         ]);
 
         Dog::create([
@@ -39,7 +39,7 @@ class DogController extends Controller
             'is_public' => $request->boolean('is_public'),
         ]);
 
-        return redirect()->route('dogs.index');
+        return redirect()->route('dogs.index')->with('success', '登録しました🐶✨');
     }
 
     public function show(Dog $dog)
@@ -49,12 +49,29 @@ class DogController extends Controller
 
     public function edit(Dog $dog)
     {
-        //
+        $this->authorize('update', $dog);
+
+        $sizes = Dog::sizes();
+
+        return view('dogs.edit', compact('dog', 'sizes'));
     }
 
     public function update(Request $request, Dog $dog)
     {
-        //
+        $this->authorize('update', $dog);
+
+        $validated = $request->validate([
+            'name'  => ['required', 'string', 'max:255'],
+            'color' => ['required', 'string', 'max:255'],
+            'size'  => ['required', Rule::in(array_keys(Dog::sizes()))],
+            'is_public' => ['nullable'],
+        ]);
+
+        $validated['is_public'] = $request->boolean('is_public');
+
+        $dog->update($validated);
+
+        return redirect()->route('dogs.index')->with('success', '更新しました🐶✨');
     }
 
     public function destroy(Dog $dog)

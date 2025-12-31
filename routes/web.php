@@ -20,8 +20,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::middleware('auth')->group(function () {
-    Route::resource('dogs', DogController::class)
-      ->only(['index', 'create', 'store']);
+    Route::resource('dogs', DogController::class);
 });
 
 Route::get('/sandbox', function () {
