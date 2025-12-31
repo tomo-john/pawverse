@@ -23,3 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('dogs', DogController::class)
       ->only(['index', 'create', 'store']);
 });
+
+Route::get('/sandbox', function () {
+    return view('sandbox');
+})->middleware('auth')->name('sandbox');
