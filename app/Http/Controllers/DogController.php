@@ -22,8 +22,9 @@ class DogController extends Controller
 
     public function create()
     {
+        $dog = new Dog();
         $sizes = Dog::sizes();
-        return view('dogs.create', compact('sizes'));
+        return view('dogs.create', compact('dog', 'sizes'));
     }
 
     public function store(Request $request)
