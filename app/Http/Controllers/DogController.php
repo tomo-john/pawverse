@@ -11,7 +11,8 @@ class DogController extends Controller
 {
     public function index()
     {
-        $dogs = Dog::where('user_id', Auth::id())->get();
+        // $dogs = Dog::where('user_id', Auth::id())->get();
+        $dogs = Dog::all();
 
         return view('dogs.index', compact('dogs'));
     }
@@ -76,6 +77,10 @@ class DogController extends Controller
 
     public function destroy(Dog $dog)
     {
-        //
+        $this->authorize('delete', $dog);
+
+        $dog->delete();
+
+        return redirect()->route('dogs.index')->with('success', '削除しました🐶');
     }
 }
