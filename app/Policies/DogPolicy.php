@@ -9,11 +9,11 @@ use Illuminate\Auth\Access\Response;
 class DogPolicy
 {
     /**
-     * Determine whether the user can view any models.
+     * 一覧表示
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**

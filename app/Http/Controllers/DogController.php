@@ -11,8 +11,11 @@ class DogController extends Controller
 {
     public function index()
     {
-        // $dogs = Dog::where('user_id', Auth::id())->get();
-        $dogs = Dog::all();
+        $this->authorize('viewAny', Dog::class);
+
+        $dogs = Dog::where('is_public', true)
+            ->orWhere('user_id', auth()->id())
+            ->get();
 
         return view('dogs.index', compact('dogs'));
     }
