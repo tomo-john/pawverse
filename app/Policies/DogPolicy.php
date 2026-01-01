@@ -17,11 +17,17 @@ class DogPolicy
     }
 
     /**
-     * Determine whether the user can view the model.
+     * 詳細ページ
      */
-    public function view(User $user, Dog $dog): bool
+    public function view(?User $user, Dog $dog): bool
     {
-        return false;
+        // 自分の犬ならOK
+        if ($user && $user->id === $dog->user_id) {
+            return true;
+        }
+
+        // 他人の犬でも「公開」ならOK
+        return $dog->is_public;
     }
 
     /**

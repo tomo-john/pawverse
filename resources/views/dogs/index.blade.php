@@ -20,8 +20,8 @@
 
         <ul class="mt-4">
             @forelse ($dogs as $dog)
-                <li class="border-b py-2">
-                    {{ $dog->name }}（{{ $dog->size }}）
+                <li class="border rounded-lg p-4 mb-3 bg-whit shadow-sm">
+                    <a href="{{ route('dogs.show', $dog) }}">{{ $dog->name }}</a>（{{ $dog->size }}）
                     @can('update', $dog)
                         <a href="{{ route('dogs.edit', $dog) }}" class="text-blue-600 underline mr-2">編集</a>
                     @endcan
