@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl">
-            My Dogs 🐶
+            Dogs 🐶
         </h2>
     </x-slot>
     
