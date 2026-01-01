@@ -89,4 +89,12 @@ class DogController extends Controller
 
         return redirect()->route('dogs.index')->with('success', '削除しました🐶');
     }
+    public function public()
+    {
+        $dogs = Dog::where('is_public', true)
+            ->latest()
+            ->get();
+
+        return view('dogs.public', compact('dogs'));
+    }
 }

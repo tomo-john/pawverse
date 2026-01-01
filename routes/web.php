@@ -19,6 +19,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+Route::get('/dogs/public', [DogController::class, 'public'])->name('dogs.public');
 Route::middleware('auth')->group(function () {
     Route::resource('dogs', DogController::class);
 });
