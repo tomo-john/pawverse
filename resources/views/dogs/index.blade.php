@@ -4,6 +4,13 @@
             My Dogs 🐶
         </h2>
     </x-slot>
+    
+    <!-- フラッシュメッセージ -->
+    @if (session('success'))
+        <div class="mb-4 p-3 bg-green-100 text-green-800 rounded">
+            {{ session('success') }}
+        </div>
+    @endif
 
     <div class="p-6">
         <a href="{{ route('dogs.create') }}"
@@ -19,7 +26,10 @@
                         <a href="{{ route('dogs.edit', $dog) }}" class="text-blue-600 underline mr-2">編集</a>
                     @endcan
                     @can('delete', $dog)
-                        <form action="{{ route('dogs.destroy', $dog) }}" method="post" class="inline">
+                        <form action="{{ route('dogs.destroy', $dog) }}" 
+                              method="post"
+                              class="inline"
+                              onclick="return confirm('本当に削除するワン？🐶');">
                             @csrf
                             @method('DELETE')
                             <button class="text-red-600 underline">削除</button>
