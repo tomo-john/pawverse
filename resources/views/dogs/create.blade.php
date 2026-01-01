@@ -13,4 +13,12 @@
             </form>
         </div>
     </div>
+
+    <div class="max-w-2xl mx-auto text-center text-gray-500">
+        <a href="{{ route('dogs.index') }}">
+            <i class="fa-solid fa-backward"></i>
+            一覧へ戻る
+            <i class="fa-solid fa-dog ml-1 -scale-x-100"></i>
+        </a>
+    </div>
 </x-app-layout>
