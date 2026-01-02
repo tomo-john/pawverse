@@ -29,7 +29,7 @@
             <div class="hidden scale-125 translate-x-[700px]"></div>
 
             <!-- Alpine.js 実験 -->
-            <div x-data=" { count:0 }"
+            <div x-data=" { count: 0 }"
                  class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition flex flex-col items-center gap-4">
 
                 <h3 class="font-bold mb-2">Counter Dog(Alpine.js)<h3>
@@ -43,6 +43,29 @@
                         class="px-4 py-2 mt-4 bg-pink-500 hover:bg-pink-600 text-white rounded-full transition">
                     ぽち！
                 </button>
+            </div>
+
+            <!-- Alpine.js 実験その2 -->
+            <div x-data=" { open: false }"
+                 class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition flex flex-col items-center gap-4">
+
+                <h3 class="font-bold mb-2">Open / Close<h3>
+
+                <button @click="open = !open"
+                        class="bg-blue-500 text-white px-4 py-2 rounded-full">
+                    開くわん
+                </button>
+
+                <div x-show="open"
+                     x-transition
+                     class="mt-3 text-gray-700">
+                    表示された🐶
+                </div>
+            </div>
+
+            <!-- コメント-->
+            <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+                <h3 class="text-center font-bold mb-2">タイトル</h3>
             </div>
         </div>
     </div>
