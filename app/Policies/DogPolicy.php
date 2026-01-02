@@ -69,4 +69,11 @@ class DogPolicy
     {
         return false;
     }
+    /**
+     * togglePublic権限(公開・非公開切り替え)
+     */
+    public function togglePublic(User $user, Dog $dog): bool
+    {
+        return $user->id === $dog->user_id;
+    }
 }

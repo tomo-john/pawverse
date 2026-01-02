@@ -89,6 +89,7 @@ class DogController extends Controller
 
         return redirect()->route('dogs.index')->with('success', '削除しました🐶');
     }
+
     public function public()
     {
         $dogs = Dog::where('is_public', true)
@@ -96,5 +97,16 @@ class DogController extends Controller
             ->get();
 
         return view('dogs.public', compact('dogs'));
+    }
+
+    public function togglePublic(Dog $dog)
+    {
+        $this->authorize('togglePublic', $dog);
+
+        $dog->update([
+            'is_public' => ! $dog->is_public,
+        ]);
+
+        return back()->with('success', '公開状態を変更しました🐶');
     }
 }

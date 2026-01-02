@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/dogs/public', [DogController::class, 'public'])->name('dogs.public');
+Route::patch('dogs/{dog}/toggle-public', [DogController::class, 'togglePublic'])->name('dogs.toggle-public');
 Route::middleware('auth')->group(function () {
     Route::resource('dogs', DogController::class);
 });
