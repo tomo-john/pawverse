@@ -68,7 +68,7 @@
                         <!-- 編集・削除 -->
                         @can('update', $dog)
                             <a href="{{ route('dogs.edit', $dog) }}" 
-                               class="text-blue-600 hover:underline">
+                               class="text-sm px-3 py-1 mt-2 bg-blue-500 hover:bg-blue-600 text-white rounded-full">
                                 編集
                             </a>
                         @endcan
@@ -80,7 +80,7 @@
                                   onclick="return confirm('本当に削除するワン？🐶');">
                                 @csrf
                                 @method('DELETE')
-                                <button class="text-red-600 hover:underline">削除</button>
+                                <button class="text-sm px-3 py-1 mt-2 bg-red-500 hover:bg-red-600 text-white rounded-full">削除</button>
                             </form>
                         @endcan
                     </div>
