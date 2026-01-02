@@ -31,7 +31,7 @@
 
                         <!-- size -->
                         <div class="text-sm text-gray-500 flex items-center gap-2 mt-1">
-                            {{ $dog->size }}
+                            {{ $sizes[$dog->size] }}
 
                             @if ($dog->is_public)
                                 <span class="inline-flex items-center text-green-600 text-xs bg-green-100 px-2 py-0.5 rounded-full">
@@ -58,9 +58,15 @@
                                 <button
                                     class="text-sm px-3 py-1 rounded-full
                                            {{ $dog->is_public
-                                                ? 'bg-gray-200 hover:bg-gray-300 text-gray-700'
-                                                : 'bg-pink-500 hover:bg-pink-600 text-white' }}">
-                                    {{ $dog->is_public ? '非公開にする' : '公開する'}}
+                                                ? 'text-green-600 hover:bg-green-100'
+                                                : 'text-gray-400 hover:bg-gray-100' }}"
+                                    title="{{ $dog->is_public ? '非公開にする' : '公開する'}}">
+
+                                    @if ($dog->is_public)
+                                        <i class="fa-solid fa-eye"></i>
+                                    @else
+                                        <i class="fa-solid fa-eye-slash"></i>
+                                    @endif
                                 </button>
                             </form>
                         @endcan

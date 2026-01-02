@@ -17,7 +17,9 @@ class DogController extends Controller
             ->orWhere('user_id', auth()->id())
             ->get();
 
-        return view('dogs.index', compact('dogs'));
+        $sizes = Dog::sizes();
+
+        return view('dogs.index', compact('dogs', 'sizes'));
     }
 
     public function create()
@@ -96,7 +98,9 @@ class DogController extends Controller
             ->latest()
             ->get();
 
-        return view('dogs.public', compact('dogs'));
+        $sizes = Dog::sizes();
+
+        return view('dogs.public', compact('dogs', 'sizes'));
     }
 
     public function togglePublic(Dog $dog)

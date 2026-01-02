@@ -22,7 +22,7 @@
                         </a>
 
                         <div class="text-sm text-gray-500">
-                            {{ $dog->size }}
+                            {{ $sizes[$dog->size] }}
                             <span class="ml-2 text-green-600"><i class="fa-solid fa-palette text-yellow-500 mr-1"></i>公開中</span>
                         </div>
                     </div>
