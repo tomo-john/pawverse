@@ -20,7 +20,7 @@
 
         <ul class="mt-4">
             @forelse ($dogs as $dog)
-                <li class="max-w-4xl mx-auto border rounded-lg p-4 mb-3 bg-whit shadow-sm flex justify-between items-center">
+                <li class="group max-w-4xl mx-auto border rounded-lg p-4 mb-3 bg-whit shadow-sm flex justify-between items-center">
                     <!-- 左側: 犬情報 -->
                     <!-- name(showへのリンク) -->
                      <div>
@@ -46,7 +46,8 @@
                     </div>
 
                     <!-- 右側: 操作ボタン -->
-                    <div class="flex items-center gap-3 text-sm">
+                    <div class="flex items-center gap-3 text-sm
+                                opacity-0 group-hover:opacity-100 transition duration-200">
                         <!-- 公開・非公開切り替え -->
                         @can('togglePublic', $dog)
                             <form action="{{ route('dogs.toggle-public', $dog) }}"
@@ -59,7 +60,7 @@
                                     class="text-sm px-3 py-1 rounded-full
                                            {{ $dog->is_public
                                                 ? 'text-green-600 hover:bg-green-100'
-                                                : 'text-gray-400 hover:bg-gray-100' }}"
+                                                : 'text-gray-400 hover:bg-gray-200' }}"
                                     title="{{ $dog->is_public ? '非公開にする' : '公開する'}}">
 
                                     @if ($dog->is_public)
