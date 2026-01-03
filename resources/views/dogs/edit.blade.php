@@ -5,15 +5,37 @@
         </h2>
     </x-slot>
 
-    <div class="max-w-2xl mx-auto px-6 py-8">
-        <div class="bg-white rounded-2xl shadow-md p-6">
-            <form method="POST" action="{{ route('dogs.update', $dog) }}" class="space-y-5">
-                @csrf
-                @method('PUT')
-                @include('dogs._form', ['submitText' => '編集'])
-            </form>
-        </div>
-    </div>
+    <div x-data="{
+            name: '{{ old('name', $dog->name ?? '') }}',
+            color: '{{ old('color', $dog->color ?? 'gray') }}',
+            size: '{{ old('size', $dog->size ?? 'medium') }}',
+            sizeClass() {
+                return {
+                    small: 'text-4xl',
+                    medium: 'text-6xl',
+                    large: 'text-8xl'
+                }[this.size]
+            },
+            colorClass() {
+                return {
+                    white: 'text-white drop-shadow',
+                    black: 'text-black',
+                    gray: 'text-gray-500',
+                    brown: 'text-amber-800',
+                    gold: 'text-yellow-500'
+                }[this.color]
+            }
+    }">
+        <!-- プレビューエリア -->
+        @include('dogs._preview')
+
+        <!-- 登録フォーム -->
+        @include('dogs._form', [
+            'action' => route('dogs.update', $dog),
+            'method' => 'PUT',
+            'dog' => $dog,
+            'submitText' => '更新'
+        ])
 
     <div class="max-w-2xl mx-auto text-center text-gray-500">
         <a href="{{ route('dogs.index') }}">
