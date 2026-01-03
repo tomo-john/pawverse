@@ -39,6 +39,7 @@
                             <i class="fa-solid fa-dog text-rose-500 mr-1"></i>名前
                         </label>
                         <input name="name"
+                               x-model="name"
                                class="w-full rounded-lg border-gray-300 focus:border-pink-400 focus:ring-pink-300"
                                value="{{ old('name', $dog->name ) }}">
                         @error('name')
@@ -51,9 +52,14 @@
                         <label class="block text-sm font-medium text-gray-700 mb-1">
                             <i class="fa-solid fa-palette text-yellow-500 mr-1"></i>毛色
                         </label>
-                        <input name="color"
-                               class="w-full rounded-lg border-gray-300 focus:border-pink-400 focus:ring-pink-300"
-                               value="{{ old('color', $dog->color) }}">
+                        <select name="color"
+                                x-model="color"
+                                class="w-full rounded-lg border-gray-300 focus:border-pink-400 focus:ring-pink-300">
+                            <option value="text-gray-400">グレー</option>
+                            <option value="text-yellow-500">茶色</option>
+                            <option value="text-black">黒</option>
+                            <option value="text-white">白</option>
+                        </select>
                         @error('color')
                           <p class="text-sm text-red-500">{{ $message }}</p>
                         @enderror
@@ -65,13 +71,11 @@
                             <i class="fa-solid fa-weight-scale text-blue-500 mr-1"></i>サイズ
                         </label>
                         <select name="size"
+                                x-model="size"
                                 class="w-full rounded-lg border-gray-300 focus:border-pink-400 focus:ring-pink-300">
-                                  @foreach($sizes as $value => $label)
-                                      <option value="{{ $value }}"
-                                          @selected(old('size', $dog->size) === $value)>
-                                          {{ $label }}
-                                      </option>
-                                  @endforeach
+                            <option value="text-4xl">小型犬</option>
+                            <option value="text-6xl">中型犬</option>
+                            <option value="text-8xl">大型犬</option>
                         </select>
                         @error('size')
                           <p class="text-sm text-red-500">{{ $message }}</p>
