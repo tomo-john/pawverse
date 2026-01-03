@@ -28,8 +28,8 @@
             </div>
             <div class="hidden scale-125 translate-x-[700px]"></div>
 
-            <!-- Alpine.js 実験 -->
-            <div x-data=" { count: 0 }"
+            <!-- Alpine.js (カウンタ) -->
+            <div x-data="{ count: 0 }"
                  class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition flex flex-col items-center gap-4">
 
                 <h3 class="font-bold mb-2">Counter Dog(Alpine.js)<h3>
@@ -45,8 +45,8 @@
                 </button>
             </div>
 
-            <!-- Alpine.js 実験その2 -->
-            <div x-data=" { open: false }"
+            <!-- Alpine.js (表示・非表示) -->
+            <div x-data="{ open: false }"
                  class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition flex flex-col items-center gap-4">
 
                 <h3 class="font-bold mb-2">Open / Close<h3>
@@ -63,9 +63,17 @@
                 </div>
             </div>
 
-            <!-- コメント-->
-            <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-                <h3 class="text-center font-bold mb-2">タイトル</h3>
+            <!-- 大きさを変える -->
+            <div x-data="{ big: false }"
+                 class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+                <h3 class="text-center font-bold mb-2">Scale Dog(Apline.js)</h3>
+                <div class="text-6xl text-center py-4">
+                    <i class="fa-solid fa-dog cursor-pointer transition transform"
+                       @click="big = !big"
+                       :class="big ? 'scale-125 text-pink-500' : 'scale-100'">
+                    </i>
+                </div>
+                <p class="text-sm text-gray-500 text-center">Alpine.jsで大きくする</p>
             </div>
         </div>
     </div>
