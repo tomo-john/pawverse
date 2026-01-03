@@ -32,7 +32,7 @@
             <div x-data="{ count: 0 }"
                  class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition flex flex-col items-center gap-4">
 
-                <h3 class="font-bold mb-2">Counter Dog(Alpine.js)<h3>
+                <h3 class="font-bold mb-2">Counter<h3>
 
                 <div class="text-4xl">
                     <i class="fa-solid fa-dog"></i>
@@ -66,7 +66,7 @@
             <!-- 大きさを変える -->
             <div x-data="{ big: false }"
                  class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-                <h3 class="text-center font-bold mb-2">Scale Dog(Apline.js)</h3>
+                <h3 class="text-center font-bold mb-2">Scale Dog(Alpine.js)</h3>
                 <div class="text-6xl text-center py-4">
                     <i class="fa-solid fa-dog cursor-pointer transition transform"
                        @click="big = !big"
@@ -74,6 +74,32 @@
                     </i>
                 </div>
                 <p class="text-sm text-gray-500 text-center">Alpine.jsで大きくする</p>
+            </div>
+
+            <!-- ふるえる -->
+            <div x-data="{ isHungry: false }"
+                 class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+                <h3 class="text-center font-bold mb-2">Shake Dog</h3>
+                <div class="text-6xl text-center py-4">
+                    <i class="fa-solid fa-dog cursor-pointer transition transform"
+                       @click="isHungry = !isHungry"
+                       :class="isHungry ? 'animate-bounce' : ''">
+                    </i>
+                </div>
+                <p x-show="isHungry" class="text-sm text-gray-500 text-center">お腹すいたわん🐶</p>
+            </div>
+
+            <!-- 移動する -->
+            <div x-data="{ isActive: false }"
+                 class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+                <h3 class="text-center font-bold mb-2">Run Dog(Apline.js)</h3>
+                <div class="text-6xl text-center py-4">
+                    <i class="fa-solid fa-dog cursor-pointer transition-transform duration-500 ease-in-out"
+                       @click="isActive = !isActive"
+                       :class="isActive ? 'translate-x-[100px] text-red-500' : ''">
+                    </i>
+                </div>
+                <p x-show="isActive" class="text-sm text-gray-500 text-center">GO!🐶</p>
             </div>
         </div>
     </div>
