@@ -6,19 +6,34 @@
     </x-slot>
 
     <div x-data="{
-           name: '',
-           color: 'text-gray-400',
-           size: 'text-6xl'
-         }"
-    >
+        name: '{{ old('name') }}',
+        color: '{{ old('color', 'gray') }}',
+        size: '{{ old('size', 'medium') }}',
+        sizeClass() {
+            return {
+                small: 'text-4xl',
+                medium: 'text-6xl',
+                large: 'text-8xl'
+            }[this.size]
+        },
+        colorClass() {
+            return {
+                white: 'text-white drop-shadow',
+                black: 'text-black',
+                gray: 'text-gray-500',
+                brown: 'text-amber-800',
+                gold: 'text-yellow-500'
+            }[this.color]
+        }
+    }">
 
         <!-- プレビューエリア -->
-        <div class="w-[256px] h-[256px] border bg-gray-200 mx-auto m-8 shadow-inner rounded-lg overflow-hiddne">
+        <div class="w-[256px] h-[256px] border bg-gray-200 mx-auto m-8 shadow-inner rounded-lg overflow-hidden">
             <div class="h-full flex flex-col p-4">
                 <p class="text-xs text-gray-400 font-mono font-bold text-center italic">preview_dog</p>
-                <div class="flex-grow flex items-center justify-center">
-                    <i class="fa-solid fa-dog transition"
-                       :class="[color, size]">
+                <div class="flex-grow flex items-center justify-center transition">
+                    <i class="fa-solid fa-dog transition-all  duration-1000"
+                       :class="[ sizeClass(), colorClass() ]">
                     </i>
                 </div>
                 <p class="text-md font-mono font-semibold text-center border-t border-dashed pt-2"
@@ -55,10 +70,12 @@
                         <select name="color"
                                 x-model="color"
                                 class="w-full rounded-lg border-gray-300 focus:border-pink-400 focus:ring-pink-300">
-                            <option value="text-gray-400">グレー</option>
-                            <option value="text-yellow-500">茶色</option>
-                            <option value="text-black">黒</option>
-                            <option value="text-white">白</option>
+                            @foreach ($colors as $value => $label)
+                                <option value="{{ $value }}"
+                                        @selected(old('color', $dog->color) === $value)>
+                                        {{ $label }}
+                                </option>
+                            @endforeach
                         </select>
                         @error('color')
                           <p class="text-sm text-red-500">{{ $message }}</p>
@@ -73,9 +90,12 @@
                         <select name="size"
                                 x-model="size"
                                 class="w-full rounded-lg border-gray-300 focus:border-pink-400 focus:ring-pink-300">
-                            <option value="text-4xl">小型犬</option>
-                            <option value="text-6xl">中型犬</option>
-                            <option value="text-8xl">大型犬</option>
+                            @foreach ($sizes as $value => $label)
+                                <option value="{{ $value }}"
+                                        @selected(old('size', $dog->size) === $value)>
+                                        {{ $label }}
+                                </option>
+                            @endforeach
                         </select>
                         @error('size')
                           <p class="text-sm text-red-500">{{ $message }}</p>

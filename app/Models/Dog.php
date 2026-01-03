@@ -26,7 +26,7 @@ class Dog extends Model
     }
 
     /**
-     * sizeをenumっぽく
+     * size
      */
     const SIZE_SMALL  = 'small';
     const SIZE_MEDIUM = 'medium';
@@ -35,9 +35,29 @@ class Dog extends Model
     public static function sizes(): array
     {
         return [
-            self::SIZE_SMALL  => '小型',
-            self::SIZE_MEDIUM => '中型',
-            self::SIZE_LARGE  => '大型',
+            self::SIZE_SMALL  => '小型犬',
+            self::SIZE_MEDIUM => '中型犬',
+            self::SIZE_LARGE  => '大型犬',
+        ];
+    }
+
+    /**
+     * color
+     */
+    const COLOR_WHITE = 'white';
+    const COLOR_BLACK = 'black';
+    const COLOR_GRAY  = 'gray';
+    const COLOR_BROWN = 'brown';
+    const COLOR_GOLD  = 'gold';
+
+    public static function colors(): array
+    {
+        return [
+            self::COLOR_WHITE => '白',
+            self::COLOR_BLACK => '黒',
+            self::COLOR_GRAY  => 'グレー',
+            self::COLOR_BROWN => '茶色',
+            self::COLOR_GOLD  => 'ゴールド',
         ];
     }
 }

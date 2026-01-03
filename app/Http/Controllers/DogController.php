@@ -16,24 +16,26 @@ class DogController extends Controller
         $dogs = Dog::where('is_public', true)
             ->orWhere('user_id', auth()->id())
             ->get();
-
+        $colors = Dog::colors();
         $sizes = Dog::sizes();
 
-        return view('dogs.index', compact('dogs', 'sizes'));
+        return view('dogs.index', compact('dogs', 'colors', 'sizes'));
     }
 
     public function create()
     {
         $dog = new Dog();
+        $colors = Dog::colors();
         $sizes = Dog::sizes();
-        return view('dogs.create', compact('dog', 'sizes'));
+
+        return view('dogs.create', compact('dog', 'colors', 'sizes'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
             'name'  => ['required', 'string', 'max:255'],
-            'color' => ['required', 'string', 'max:255'],
+            'color' => ['required', Rule::in(array_keys(Dog::colors()))],
             'size'  => ['required', Rule::in(array_keys(Dog::sizes()))],
             'is_public' => ['nullable'],
         ]);
@@ -59,10 +61,10 @@ class DogController extends Controller
     public function edit(Dog $dog)
     {
         $this->authorize('update', $dog);
-
+        $colors = Dog::colors();
         $sizes = Dog::sizes();
 
-        return view('dogs.edit', compact('dog', 'sizes'));
+        return view('dogs.edit', compact('dog', 'colors', 'sizes'));
     }
 
     public function update(Request $request, Dog $dog)
@@ -71,7 +73,7 @@ class DogController extends Controller
 
         $validated = $request->validate([
             'name'  => ['required', 'string', 'max:255'],
-            'color' => ['required', 'string', 'max:255'],
+            'color' => ['required', Rule::in(array_keys(Dog::colors()))],
             'size'  => ['required', Rule::in(array_keys(Dog::sizes()))],
             'is_public' => ['nullable'],
         ]);
@@ -97,10 +99,10 @@ class DogController extends Controller
         $dogs = Dog::where('is_public', true)
             ->latest()
             ->get();
-
+        $colors = Dog::colors();
         $sizes = Dog::sizes();
 
-        return view('dogs.public', compact('dogs', 'sizes'));
+        return view('dogs.public', compact('dogs', 'colors', 'sizes'));
     }
 
     public function togglePublic(Dog $dog)
