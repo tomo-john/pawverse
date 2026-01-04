@@ -1,25 +1,11 @@
 <!-- Alpine -->
-<div x-data="{
-        name: '{{ old('name', $dog->name ?? '') }}',
-        color: '{{ old('color', $dog->color ?? 'gray') }}',
-        size: '{{ old('size', $dog->size ?? 'medium') }}',
-        sizeClass() {
-            return {
-                small: 'text-4xl',
-                medium: 'text-6xl',
-                large: 'text-8xl'
-            }[this.size]
-        },
-        colorClass() {
-            return {
-                white: 'text-white drop-shadow',
-                black: 'text-black',
-                gray: 'text-gray-500',
-                brown: 'text-amber-800',
-                gold: 'text-yellow-500'
-            }[this.color]
-        }
-    }"
+<div x-data="dogForm(
+        @js([
+            'name' => old('name', $dog->name ?? ''),
+            'color' => old('color', $dog->color ?? 'gray'),
+            'size' => old('size', $dog->size ?? 'medium'),
+        ])
+    )"
 >
     <!-- プレビュー -->
     <div class="w-[256px] h-[256px] border bg-gray-200 mx-auto m-8 shadow-inner rounded-lg overflow-hidden">
