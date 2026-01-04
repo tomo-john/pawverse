@@ -5,6 +5,7 @@
         </h2>
     </x-slot>
 
+    <!-- componment呼び出し -->
     <x-dog.form
         :dog="$dog"
         :colors="$colors"
