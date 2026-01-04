@@ -9,11 +9,12 @@
 
     <div class="p-6 space-y-4">
         <div class="bg-white p-4 rounded shadow">
-            Tailwind実験用エリア🐕💨
+            Tailwind・JS・Component 実験場
         </div>
     </div>
 
     <div class="p-6">
+        <h2 class="text-sm text-gray-500 m-2">JavaScript</h2>
         <!-- Gridでカードを並べる -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -101,6 +102,16 @@
                 </div>
                 <p x-show="isActive" class="text-sm text-gray-500 text-center">GO!🐶</p>
             </div>
+        </div>
+    </div>
+
+    <!-- component -->
+    <div class="p-6">
+        <h2 class="text-sm text-gray-500 m-2">Component</h2>
+        <div class="flex gap-4">
+          <x-sandbox.test>じょん</x-sandbox.test>
+          <x-sandbox.test>ぴょんきち</x-sandbox.test>
+          <x-sandbox.test>もこもか</x-sandbox.test>
         </div>
     </div>
 </x-app-layout>
