@@ -18,82 +18,58 @@
             <i class="fa-regular fa-square-plus mr-1"></i>新しい犬を登録
         </a>
 
-        <ul class="mt-4">
+        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
             @forelse ($dogs as $dog)
-                <li class="group max-w-4xl mx-auto border rounded-lg p-4 mb-3 bg-whit shadow-sm flex justify-between items-center">
-                    <!-- 左側: 犬情報 -->
-                    <!-- name(showへのリンク) -->
-                     <div>
-                        <a href="{{ route('dogs.show', $dog) }}"
-                           class="font-semibold text-lg text-gray-800 hover:text-pink-500">
-                            {{ $dog->name }}
-                        </a>
-
-                        <!-- size -->
-                        <div class="text-sm text-gray-500 flex items-center gap-2 mt-1">
-                            {{ $sizes[$dog->size] }}
-
-                            @if ($dog->is_public)
-                                <span class="inline-flex items-center text-green-600 text-xs bg-green-100 px-2 py-0.5 rounded-full">
-                                  <i class="fa-solid fa-palette text-yellow-500 mr-1"></i>公開
-                                </span>
-                            @else
-                                <span class="inline-flex items-center text-gray-500 text-xs bg-gray-100 px-2 py-0.5 rounded-full">
-                                  <i class="fa-solid fa-lock mr-1"></i>非公開
-                                </span>
-                            @endif
-                        </div>
+                <li class="bg-white rounded-2xl shadow hover:shadow-lg transition p-4">
+                
+                    <!-- 犬アイコン -->
+                    <div class="flex justify-center mb-3">
+                        <i class="fa-solid fa-dog
+                            {{ $dog->size === 'small' ? 'text-4xl' : ($dog->size === 'large' ? 'text-7xl' : 'text-5xl') }}
+                            {{ 'text-gray-500' }}">
+                        </i>
                     </div>
 
-                    <!-- 右側: 操作ボタン -->
-                    <div class="flex items-center gap-3 text-sm
-                                opacity-0 group-hover:opacity-100 transition duration-200">
-                        <!-- 公開・非公開切り替え -->
-                        @can('togglePublic', $dog)
-                            <form action="{{ route('dogs.toggle-public', $dog) }}"
-                                  method="post"
-                                  class="mt-2">
-                                @csrf
-                                @method('PATCH')
+                    <!-- 名前 -->
+                    <h3 class="text-center font-semibold text-lg">
+                        <a href="{{ route('dogs.show', $dog) }}" class="hover:text-pink-500">{{ $dog->name }}</a>
+                    </h3>
 
-                                <button
-                                    class="text-sm px-3 py-1 rounded-full
-                                           {{ $dog->is_public
-                                                ? 'text-green-600 hover:bg-green-100'
-                                                : 'text-gray-400 hover:bg-gray-200' }}"
-                                    title="{{ $dog->is_public ? '非公開にする' : '公開する'}}">
+                    <!-- メタ情報 -->
+                    <div class="mt-2 text-center text-sm text-gray-500 flex justify-center gap-2">
+                        <span>{{ $sizes[$dog->size] }}</span>
 
-                                    @if ($dog->is_public)
-                                        <i class="fa-solid fa-eye"></i>
-                                    @else
-                                        <i class="fa-solid fa-eye-slash"></i>
-                                    @endif
-                                </button>
-                            </form>
-                        @endcan
+                        @if ($dog->is_public)
+                            <span class="text-green-600 bg-green-100 px-2 rounded-full text-xs">公開</span>
+                        @else
+                            <span class="text-gray-400 bg-gray-100 px-2 rounded-full text-xs">非公開</span>
+                        @endif
+                    </div>
 
-                        <!-- 編集・削除 -->
+                    <!-- 操作 -->
+                    <div class="mt-4 flex justify-center gap-2 text-sm">
                         @can('update', $dog)
-                            <a href="{{ route('dogs.edit', $dog) }}" 
-                               class="text-sm px-3 py-1 mt-2 bg-blue-500 hover:bg-blue-600 text-white rounded-full">
+                            <a href="{{ route('dogs.edit', $dog) }}"
+                               class="px-3 py-1 bg-blue-500 text-white rounded-full">
                                 編集
                             </a>
                         @endcan
 
                         @can('delete', $dog)
-                            <form action="{{ route('dogs.destroy', $dog) }}" 
-                                  method="post"
-                                  class="inline"
-                                  onclick="return confirm('本当に削除するワン？🐶');">
+                            <form action="{{ route('dogs.destroy', $dog) }}"
+                                  method="POST"
+                                  onsubmit="return confirm('本当に削除するワン？🐶');">
                                 @csrf
                                 @method('DELETE')
-                                <button class="text-sm px-3 py-1 mt-2 bg-red-500 hover:bg-red-600 text-white rounded-full">削除</button>
+                                <button class="px-3 py-1 bg-red-500 text-white rounded-full">
+                                    削除
+                                </button>
                             </form>
                         @endcan
                     </div>
                 </li>
             @empty
-                <li>まだ犬がいません🐕</li>
+                <p>まだ犬がいません🐕</p>
             @endforelse
         </ul>
     </div>
