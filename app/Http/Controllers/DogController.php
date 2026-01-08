@@ -13,9 +13,7 @@ class DogController extends Controller
     {
         $this->authorize('viewAny', Dog::class);
 
-        $dogs = Dog::where('is_public', true)
-            ->orWhere('user_id', auth()->id())
-            ->get();
+        $dogs = Dog::where('user_id', auth()->id())->get();
         $colors = Dog::colors();
         $sizes = Dog::sizes();
 
