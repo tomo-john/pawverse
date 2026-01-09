@@ -9,6 +9,12 @@ export default {
         './resources/views/**/*.blade.php',
     ],
 
+    safelist: [
+        'text-4xl',
+        'text-6xl',
+        'text-8xl',
+    ],
+
     theme: {
         extend: {
             fontFamily: {
