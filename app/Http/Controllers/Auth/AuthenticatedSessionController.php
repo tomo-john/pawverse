@@ -28,7 +28,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dogs.index'));
+        return redirect()->intended(route('mypage'));
     }
 
     /**
