@@ -16,20 +16,21 @@
 
         <!-- 犬アイコンたち -->
         <div class="flex gap-6 text-5xl text-gray-400">
-            <i class="fa-solid fa-dog"></i>
-            <i class="fa-solid fa-dog -scale-x-100"></i>
-            <i class="fa-solid fa-dog"></i>
-        </div>
-
-        <!-- できること -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl w-full">
-            <div class="bg-white rounded-2xl shadow p-6">
+            <div x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                <i class="fa-solid fa-dog transition-transform duration-300"
+                   :class="hover ? 'rotate-6' : ''"></i>
             </div>
-
-            <div class="bg-white rounded-2xl shadow p-6">
+            <div x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                <i class="fa-solid fa-dog transition-transform duration-300"
+                   :class="hover ? 'scale-110' : ''"></i>
             </div>
-
-            <div class="bg-white rounded-2xl shadow p-6">
+            <div x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                <i class="fa-solid fa-dog transition-transform duration-300"
+                   :class="hover ? '-translate-y-1' : ''"></i>
+            </div>
+            <div x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                <i class="fa-solid fa-dog transition-transform duration-300"
+                   :class="hover ? 'opacity-75' : ''"></i>
             </div>
         </div>
 
