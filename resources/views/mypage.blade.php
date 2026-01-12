@@ -25,7 +25,33 @@
             @else
                 <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     @foreach ($dogs as $dog)
+                        <li
+                            x-data="dogUi({
+                                name: '{{ $dog->name }}',
+                                color: '{{ $dog->color }}',
+                                size: '{{ $dog->size }}',
+                            })"
+                            class="relative bg-gray-200 rounded-2xl shadow p-5 space-y-4
+                                   hover:shadow-lg transition"
+                        >
 
+                            <!-- 名前 -->
+                            <div class="text-center">
+                                <h4 class="text-lg font-semibold">
+                                    {{ $dog->name }}
+                                </h4>
+                            </div>
+
+                            <!-- 犬アイコン -->
+                            <div class="flex justify-center">
+                                <div
+                                    class="transition transform hover:scale-110"
+                                    :class="[sizeClass(), colorClass()]"
+                                >
+                                    <i class="fa-solid fa-dog"></i>
+                                </div>
+                            </div>
+                        </li>
                     @endforeach
                 </ul>
             @endif

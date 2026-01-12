@@ -1,5 +1,5 @@
 document.addEventListener('alpine:init', () => {
-    Alpine.data('dogUi', (initial) => ({
+    Alpine.data('dogUi', (initial = {}) => ({
 
         // state
         name: initial.name ?? '',
