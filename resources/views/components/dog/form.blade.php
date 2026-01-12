@@ -1,5 +1,5 @@
 <!-- Alpine -->
-<div x-data="dogForm(
+<div x-data="dogUi(
         @js([
             'name' => old('name', $dog->name ?? ''),
             'color' => old('color', $dog->color ?? 'gray'),

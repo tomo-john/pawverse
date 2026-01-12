@@ -2,7 +2,7 @@ import './bootstrap';
 import './sandbox';
 
 // dog 関連
-import './dog/form';
+import './dog/ui';
 
 import Alpine from 'alpinejs';
 
