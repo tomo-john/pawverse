@@ -6,6 +6,8 @@ document.addEventListener('alpine:init', () => {
         color: initial.color ?? 'gray',
         size: initial.size ?? 'medium',
 
+        isHoverd: false,
+
         // computed
         sizeClass() {
             return {
@@ -24,5 +26,6 @@ document.addEventListener('alpine:init', () => {
                 gold: 'text-yellow-500',
             }[this.color]
         },
+
     }))
 })

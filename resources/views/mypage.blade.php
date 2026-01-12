@@ -44,9 +44,15 @@
 
                             <!-- 犬アイコン -->
                             <div class="flex justify-center">
-                                <div
+                               <div
+                                    @mouseenter="isHoverd = true"
+                                    @mouseleave="isHoverd = false"
                                     class="transition transform hover:scale-110"
-                                    :class="[sizeClass(), colorClass()]"
+                                    :class="[
+                                        sizeClass(),
+                                        colorClass(),
+                                        isHoverd ? 'rotate-6 scale-110' : ''
+                                    ]"
                                 >
                                     <i class="fa-solid fa-dog"></i>
                                 </div>
