@@ -1,21 +1,32 @@
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('sandbox js loaded 🐶');
+document.addEventListener('alpine:init', () => {
+    Alpine.data('sandboxUi', (initial = {}) => ({
 
-    const dog = document.getElementById('dog');
+        // state
+        name: initial.name ?? 'no name',
+        color: initial.color ?? 'white',
+        size: initial.size ?? '1',
 
-    if (!dog) return;
+        // computed
+        sizeClass() {
+            return {
+                1: 'text-xl',
+                2: 'text-2xl',
+                3: 'text-3xl',
+                4: 'text-4xl',
+                5: 'text-5xl',
+                6: 'text-6xl',
+                7: 'text-7xl',
+                8: 'text-8xl',
+                9: 'text-9xl',
+            }[this.size]
+        },
 
-    dog.addEventListener('click', () => {
-        dog.classList.toggle('scale-125');
-        console.log(dog);
-    });
+        colorClass() {
+            return {
+                white: 'text-white drop-shadow',
+                black: 'text-black',
+            }[this.color]
+        },
 
-    const rightDog = document.getElementById('right-dog');
-
-    if (!rightDog) return;
-
-    rightDog.addEventListener('click', () => {
-        rightDog.classList.toggle('translate-x-[700px]');
-        console.log(rightDog);
-    });
-});
+    }))
+})

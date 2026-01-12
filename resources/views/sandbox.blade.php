@@ -3,7 +3,7 @@
         <h2 class="font-semibold text-xl text-pink-500">
             <span class="px-2 inline-block"><i class="fa-solid fa-dog"></i></span>
             pawverse sandbox
-            <span class="px-2 inline-block transition transform duration-1000 cursor-pointer" id="right-dog"><i class="fa-solid fa-dog"></i></span>
+            <span class="px-2 inline-block"><i class="fa-solid fa-dog"></i></span>
         </h2>
     </x-slot>
 
@@ -11,107 +11,52 @@
         <div class="bg-white p-4 rounded shadow">
             Tailwind・JS・Component 実験場
         </div>
-    </div>
 
-    <div class="p-6">
-        <h2 class="text-sm text-gray-500 m-2">JavaScript</h2>
-        <!-- Gridでカードを並べる -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Alpine sandboxUi -->
+        <div x-data="sandboxUi()">
+            <div class="flex flex-col items-center gap-6">
 
-            <!-- Simple JavaScript-->
-            <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-                <h3 class="text-center font-bold mb-2">Scale Dog(Simple JS)</h3>
-                <div id="dog"
-                     class="text-6xl text-center py-4 cursor-pointer transition transform">
-                  <i class="fa-solid fa-dog"></i>
-                </div>
-                <p class="text-sm text-gray-500 text-center">クリックで大きくなるテスト</p>
-            </div>
-            <div class="hidden scale-125 translate-x-[700px]"></div>
-
-            <!-- Alpine.js (カウンタ) -->
-            <div x-data="{ count: 0 }"
-                 class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition flex flex-col items-center gap-4">
-
-                <h3 class="font-bold mb-2">Counter<h3>
-
-                <div class="text-4xl">
-                    <i class="fa-solid fa-dog"></i>
-                    <span x-text="count"></span>
-                </div>
-
-                <button @click="count++"
-                        class="px-4 py-2 mt-4 bg-pink-500 hover:bg-pink-600 text-white rounded-full transition">
-                    ぽち！
-                </button>
-            </div>
-
-            <!-- Alpine.js (表示・非表示) -->
-            <div x-data="{ open: false }"
-                 class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition flex flex-col items-center gap-4">
-
-                <h3 class="font-bold mb-2">Open / Close<h3>
-
-                <button @click="open = !open"
-                        class="bg-blue-500 text-white px-4 py-2 rounded-full">
-                    開くわん
-                </button>
-
-                <div x-show="open"
-                     x-transition
-                     class="mt-3 text-gray-700">
-                    表示された🐶
-                </div>
-            </div>
-
-            <!-- 大きさを変える -->
-            <div x-data="{ big: false }"
-                 class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-                <h3 class="text-center font-bold mb-2">Scale Dog(Alpine.js)</h3>
-                <div class="text-6xl text-center py-4">
-                    <i class="fa-solid fa-dog cursor-pointer transition transform"
-                       @click="big = !big"
-                       :class="big ? 'scale-125 text-pink-500' : 'scale-100'">
+                <!-- dog icon -->
+                <div class="h-[256px] w-[256px] flex justify-center items-center bg-gray-200 border rounded-full">
+                    <i
+                        class="fa-solid fa-dog"
+                        :class="[sizeClass(), colorClass()]">
                     </i>
                 </div>
-                <p class="text-sm text-gray-500 text-center">Alpine.jsで大きくする</p>
-            </div>
 
-            <!-- ふるえる -->
-            <div x-data="{ isHungry: false }"
-                 class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-                <h3 class="text-center font-bold mb-2">Shake Dog</h3>
-                <div class="text-6xl text-center py-4">
-                    <i class="fa-solid fa-dog cursor-pointer transition transform"
-                       @click="isHungry = !isHungry"
-                       :class="isHungry ? 'animate-bounce' : ''">
-                    </i>
+                <!-- namea -->
+                <div class="text-lg font-semibold">
+                    <span x-text="name"></span>
                 </div>
-                <p x-show="isHungry" class="text-sm text-gray-500 text-center">お腹すいたわん🐶</p>
-            </div>
 
-            <!-- 移動する -->
-            <div x-data="{ isActive: false }"
-                 class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-                <h3 class="text-center font-bold mb-2">Run Dog(Apline.js)</h3>
-                <div class="text-6xl text-center py-4">
-                    <i class="fa-solid fa-dog cursor-pointer transition-transform duration-500 ease-in-out"
-                       @click="isActive = !isActive"
-                       :class="isActive ? 'translate-x-[100px] text-red-500' : ''">
-                    </i>
+                <!-- input -->
+                <div class="flex">
+                    <input type="text" x-model="name" placeholder="名前を入力">
+
+                    <select x-model="size">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                    </select>
+
+                    <select x-model="color">
+                      <option value="white">white</option>
+                      <option value="black">black</option>
+                    </select>
                 </div>
-                <p x-show="isActive" class="text-sm text-gray-500 text-center">GO!🐶</p>
-            </div>
-        </div>
-    </div>
 
-    <!-- component -->
-    <div class="p-6">
-        <h2 class="text-sm text-gray-500 m-2">Component</h2>
-        <div class="flex gap-4">
-          <x-sandbox.test>じょん</x-sandbox.test>
-          <x-sandbox.test>ぴょんきち</x-sandbox.test>
-          <x-sandbox.test>もこもか</x-sandbox.test>
+                <!-- state -->
+                <div class="border rounded-xl m-4 p-4">
+                    <span class="text-sm text-blue-500">state</span>
+                    <pre x-text="JSON.stringify({ name, size, color }, null, 2)"></pre>
+                </div>
+            </div>
         </div>
     </div>
 </x-app-layout>
