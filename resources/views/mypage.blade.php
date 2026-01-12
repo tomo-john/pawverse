@@ -20,7 +20,9 @@
 
                 <a href="{{ route('dogs.create') }}"
                    class="inline-block mt-3 px-5 py-2 bg-pink-500 text-white rounded-lg">
-                    犬を迎える
+                    <i class="fa-regular fa-square-plus"></i>
+                    新しい犬を迎える
+                    <i class="fa-solid fa-dog"></i>
                 </a>
             @else
                 <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -70,16 +72,6 @@
             </h3>
 
             <div class="flex gap-4 flex-wrap">
-                <a href="{{ route('dogs.index') }}"
-                   class="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200">
-                    犬一覧
-                </a>
-
-                <a href="{{ route('dogs.create') }}"
-                   class="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200">
-                    新しい犬を迎える
-                </a>
-
                 <span class="px-4 py-2 rounded-lg bg-gray-50 text-gray-400">
                     お世話（準備中）
                 </span>

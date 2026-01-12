@@ -35,7 +35,7 @@
         </div>
 
         <!-- CTA -->
-        <div class="flex gap-4 mt-6">
+        <div class="flex flex-col gap-4 mt-6">
             <a href="{{ route('register') }}"
                class="px-8 py-3 bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition">
                 はじめる 🐾
@@ -45,6 +45,26 @@
                class="px-8 py-3 border rounded-xl hover:bg-gray-100 transition">
                 ログイン
             </a>
+        </div>
+
+        <!-- 犬アイコンたち -->
+        <div class="flex gap-6 text-5xl text-gray-400">
+            <div x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                <i class="fa-solid fa-dog transition-transform duration-300"
+                   :class="hover ? 'rotate-180' : ''"></i>
+            </div>
+            <div x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                <i class="fa-solid fa-dog transition-transform duration-300"
+                   :class="hover ? 'scale-90' : ''"></i>
+            </div>
+            <div x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                <i class="fa-solid fa-dog transition-transform duration-300"
+                   :class="hover ? '-scale-x-100' : ''"></i>
+            </div>
+            <div x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false">
+                <i class="fa-solid fa-dog transition-transform duration-300"
+                   :class="hover ? 'translate-x-10' : ''"></i>
+            </div>
         </div>
 
     </div>
