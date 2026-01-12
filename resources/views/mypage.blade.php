@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="space-y-10">
+    <div class="m-4 space-y-10">
 
         <!-- あなたの犬たち -->
         <section>
@@ -25,19 +25,7 @@
             @else
                 <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     @foreach ($dogs as $dog)
-                        <li class="bg-white rounded-xl shadow p-4">
-                            <div class="text-4xl text-center mb-2">
-                                <i class="fa-solid fa-dog"></i>
-                            </div>
 
-                            <p class="text-center font-semibold">
-                                {{ $dog->name }}
-                            </p>
-
-                            <div class="text-center text-sm text-gray-500 mt-1">
-                                {{ \App\Models\Dog::sizes()[$dog->size] }}
-                            </div>
-                        </li>
                     @endforeach
                 </ul>
             @endif
