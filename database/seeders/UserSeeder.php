@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
             'name' => 'john',
             'email' => 'john@gmail.com',
             'password' => Hash::make('password'),
-            'role' => 'adimn',
+            'role' => 'adminn',
         ]);
 
         // 一般ユーザー
@@ -26,5 +26,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'role' => 'user',
         ]);
+
+        // ランダムユーザー
+        User::factory()->count(2)->create();
     }
 }
