@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Dog extends Model
 {
+    use HasFactory;
+
     /**
      * マスアサインメント(一括代入)を許可
      */
