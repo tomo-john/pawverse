@@ -2,7 +2,7 @@
     <div class="min-h-screen flex flex-col justify-center items-center px-6 text-center gap-10">
 
         <!-- タイトル -->
-        <div class="space-y-3">
+        <div class="space-y-3 mb-4">
             <h1 class="text-5xl font-extrabold tracking-tight">
                 pawverse
             </h1>
