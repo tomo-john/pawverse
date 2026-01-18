@@ -10,14 +10,14 @@
 
         <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-            <!-- Home -->
+            <!-- Mypage -->
             <li>
-                <a href="/" class="block bg-white rounded-2xl shadow p-6 hover:shadow-lg hover:-translate-y-1 transition">
+                <a href="{{ route('mypage') }}" class="block bg-white rounded-2xl shadow p-6 hover:shadow-lg hover:-translate-y-1 transition">
                     <div class="text-4xl text-pink-400 mb-3">
                         <i class="fa-solid fa-house"></i>
                     </div>
-                    <h3 class="text-lg font-semibold mb-1">Home</h3>
-                    <p class="text-sm text-gray-500">Pawverseの入り口</p>
+                    <h3 class="text-lg font-semibold mb-1">My page</h3>
+                    <p class="text-sm text-gray-500">paswverse</p>
                 </a>
             </li>
 
