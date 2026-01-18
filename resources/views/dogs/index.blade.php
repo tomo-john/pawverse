@@ -45,7 +45,9 @@
                         <!-- 左: 犬アイコン + 基本情報 -->
                         <div class="flex items-center gap-4">
                             <div class="w-10 flex justify-center">
-                                <i class="fa-solid fa-dog text-3xl {{ $dogColorClasses[$dog->color] ?? 'text-gray-400' }}"></i>
+                                <a href="{{ route('dogs.show', $dog) }}"
+                                    <i class="fa-solid fa-dog text-3xl {{ $dogColorClasses[$dog->color] ?? 'text-gray-400' }}"></i>
+                                </a>
                             </div>
 
                             <div class="space-y-1">

@@ -52,8 +52,10 @@ class DogController extends Controller
     public function show(Dog $dog)
     {
         $this->authorize('view', $dog);
+        $colors = Dog::colors();
+        $sizes = Dog::sizes();
 
-        return view('dogs.show', compact('dog'));
+        return view('dogs.show', compact('dog', 'colors', 'sizes'));
     }
 
     public function edit(Dog $dog)
