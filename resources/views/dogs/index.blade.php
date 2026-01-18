@@ -1,3 +1,13 @@
+@php
+    $dogColorClasses = [
+        'white' => 'text-white drop-shadow',
+        'black' => 'text-black',
+        'gray'  => 'text-gray-500',
+        'brown' => 'text-amber-800',
+        'gold'  => 'text-yellow-500',
+    ];
+@endphp
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl">
@@ -29,32 +39,38 @@
         <div class="bg-white rounded-2xl shadow overflow-hidden">
             <ul class="divide-y">
                 @forelse ($dogs as $dog)
-                    <li class="flex items-center justify-between px-6 py-4
+                    <li class="flex items-center justify-between px-8 py-4
                                hover:bg-gray-50 transition">
 
-                        <!-- 左：基本情報 -->
-                        <div class="space-y-1">
-                            <a href="{{ route('dogs.show', $dog) }}"
-                               class="font-semibold text-gray-800 hover:text-pink-500">
-                                {{ $dog->name }}
-                            </a>
+                        <!-- 左: 犬アイコン + 基本情報 -->
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 flex justify-center">
+                                <i class="fa-solid fa-dog text-3xl {{ $dogColorClasses[$dog->color] ?? 'text-gray-400' }}"></i>
+                            </div>
 
-                            <div class="text-sm text-gray-500 flex gap-2 items-center">
-                                <span>{{ $sizes[$dog->size] }}</span>
+                            <div class="space-y-1">
+                                <a href="{{ route('dogs.show', $dog) }}"
+                                   class="font-semibold text-gray-800 hover:text-pink-500">
+                                    {{ $dog->name }}
+                                </a>
 
-                                @if ($dog->is_public)
-                                    <span class="text-green-600 bg-green-100 px-2 rounded-full text-xs">
-                                        公開
-                                    </span>
-                                @else
-                                    <span class="text-gray-400 bg-gray-100 px-2 rounded-full text-xs">
-                                        非公開
-                                    </span>
-                                @endif
+                                <div class="text-sm text-gray-500 flex gap-2 items-center">
+                                    <span>{{ $sizes[$dog->size] }}</span>
+
+                                    @if ($dog->is_public)
+                                        <span class="text-green-600 bg-green-100 px-2 rounded-full text-xs">
+                                            公開
+                                        </span>
+                                    @else
+                                        <span class="text-gray-400 bg-gray-100 px-2 rounded-full text-xs">
+                                            非公開
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
                         </div>
 
-                        <!-- 右：操作 -->
+                        <!-- 右: 操作 -->
                         <div class="flex gap-2 text-sm">
                             @can('update', $dog)
                                 <a href="{{ route('dogs.edit', $dog) }}"
