@@ -44,15 +44,17 @@
             </li>
 
             <!-- Admin Dashboard -->
-            <li>
-                <a href="{{ route('admin.dashboard') }}" class="block bg-white rounded-2xl shadow p-6 hover:shadow-lg hover:-translate-y-1 transition">
-                    <div class="text-4xl text-red-400 mb-3">
-                        <i class="fa-solid fa-crown"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold mb-1">Admin Dashboard</h3>
-                    <p class="text-sm text-gray-500">管理者画面</p>
-                </a>
-            </li>
+            @if(auth()->user()->isAdmin())
+                <li>
+                    <a href="{{ route('admin.dashboard') }}" class="block bg-white rounded-2xl shadow p-6 hover:shadow-lg hover:-translate-y-1 transition">
+                        <div class="text-4xl text-red-400 mb-3">
+                            <i class="fa-solid fa-crown"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-1">Admin Dashboard</h3>
+                        <p class="text-sm text-gray-500">管理者画面</p>
+                    </a>
+                </li>
+            @endif
 
         </ul>
     </div>
