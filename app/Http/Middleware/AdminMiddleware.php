@@ -18,7 +18,7 @@ class AdminMiddleware
         $user = $request->user();
 
         if (! $user || ! $user->isAdmin()) {
-            abort(403), 'Admin only 🐶';
+            abort(403, 'Admin only 🐶');
         }
 
         return $next($request);
