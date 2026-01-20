@@ -31,16 +31,28 @@ class Dog extends Model
     /**
      * size
      */
-    const SIZE_SMALL  = 'small';
-    const SIZE_MEDIUM = 'medium';
-    const SIZE_LARGE  = 'large';
+    const SIZE_1 = 1;
+    const SIZE_2 = 2;
+    const SIZE_3 = 3;
+    const SIZE_4 = 4;
+    const SIZE_5 = 5;
+    const SIZE_6 = 6;
+    const SIZE_7 = 7;
+    const SIZE_8 = 8;
+    const SIZE_9 = 9;
 
     public static function sizes(): array
     {
         return [
-            self::SIZE_SMALL  => '小型犬',
-            self::SIZE_MEDIUM => '中型犬',
-            self::SIZE_LARGE  => '大型犬',
+            self::SIZE_1 => 'XS',
+            self::SIZE_2 => 'S',
+            self::SIZE_3 => 'M',
+            self::SIZE_4 => 'L',
+            self::SIZE_5 => 'XL',
+            self::SIZE_6 => 'XXL',
+            self::SIZE_7 => 'Monster',
+            self::SIZE_8 => 'Legend',
+            self::SIZE_9 => 'Godzilla',
         ];
     }
 
