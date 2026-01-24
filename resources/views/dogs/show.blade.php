@@ -5,6 +5,10 @@
         'gray'  => 'text-gray-500',
         'brown' => 'text-amber-800',
         'gold'  => 'text-yellow-500',
+        'red'    => 'text-red-500',
+        'blue'   => 'text-blue-500',
+        'pink'   => 'text-pink-500',
+        'violet' => 'text-violet-500',
     ];
 @endphp
 

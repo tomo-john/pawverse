@@ -59,20 +59,30 @@ class Dog extends Model
     /**
      * color
      */
-    const COLOR_WHITE = 'white';
-    const COLOR_BLACK = 'black';
-    const COLOR_GRAY  = 'gray';
-    const COLOR_BROWN = 'brown';
-    const COLOR_GOLD  = 'gold';
+    const COLOR_WHITE  = 'white';
+    const COLOR_BLACK  = 'black';
+    const COLOR_GRAY   = 'gray';
+    const COLOR_BROWN  = 'brown';
+    const COLOR_GOLD   = 'gold';
+    const COLOR_RED    = 'red';
+    const COLOR_BLUE   = 'blue';
+    const COLOR_GREEN  = 'green';
+    const COLOR_PINK   = 'pink';
+    const COLOR_VIOLET = 'violet';
 
     public static function colors(): array
     {
         return [
-            self::COLOR_WHITE => '白',
-            self::COLOR_BLACK => '黒',
-            self::COLOR_GRAY  => 'グレー',
-            self::COLOR_BROWN => '茶色',
-            self::COLOR_GOLD  => 'ゴールド',
+            self::COLOR_WHITE  => '白',
+            self::COLOR_BLACK  => '黒',
+            self::COLOR_GRAY   => 'グレー',
+            self::COLOR_BROWN  => '茶色',
+            self::COLOR_GOLD   => 'ゴールド',
+            self::COLOR_RED    => 'レッド',
+            self::COLOR_BLUE   => 'ブルー',
+            self::COLOR_GREEN  => 'グリーン',
+            self::COLOR_PINK   => 'ピンク',
+            self::COLOR_VIOLET => 'バイオレット',
         ];
     }
 }

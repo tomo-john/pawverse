@@ -10,15 +10,15 @@ export default {
     ],
 
     safelist: [
-        'text-xl',
-        'text-2xl',
-        'text-3xl',
-        'text-4xl',
-        'text-5xl',
-        'text-6xl',
-        'text-7xl',
-        'text-8xl',
-        'text-9xl',
+        /* サイズ */
+        {
+            pattern: /text-(xl|[2-9]xl)/,
+        },
+
+        /* 色 */
+        {
+            pattern: /text-(white|black|gray|brown|gold|yellow|amber|pink|violet)-(50|100|200|300|400|500|600|700|800)/,
+        },
     ],
 
     theme: {
