@@ -3,7 +3,7 @@
         @js([
             'name' => old('name', $dog->name ?? ''),
             'color' => old('color', $dog->color ?? 'gray'),
-            'size' => old('size', $dog->size ?? 'medium'),
+            'size' => old('size', $dog->size ?? 3),
         ])
     )"
 >

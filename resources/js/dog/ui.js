@@ -4,17 +4,25 @@ document.addEventListener('alpine:init', () => {
         // state
         name: initial.name ?? '',
         color: initial.color ?? 'gray',
-        size: initial.size ?? 'medium',
+        size: initial.size ?? 3,
 
         isHoverd: false,
 
         // computed
         sizeClass() {
+            const size = Number(this.size)
+
             return {
-                small: 'text-4xl',
-                medium: 'text-6xl',
-                large: 'text-8xl',
-            }[this.size]
+                1: 'text-xl',
+                2: 'text-2xl',
+                3: 'text-3xl',
+                4: 'text-4xl',
+                5: 'text-5xl',
+                6: 'text-6xl',
+                7: 'text-7xl',
+                8: 'text-8xl',
+                9: 'text-9xl',
+            }[this.size] ?? 'text-3xl'
         },
 
         colorClass() {
