@@ -37,3 +37,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/sandbox', function () {
     return view('sandbox');
 })->middleware('auth')->name('sandbox');
+
+Route::get('/paw-notes', function () {
+    return view('paw-notes');
+})->middleware('auth')->name('paw-notes.index');

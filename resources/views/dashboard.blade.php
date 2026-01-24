@@ -32,6 +32,17 @@
                 </a>
             </li>
 
+            <!-- Paw Notes -->
+            <li>
+                <a href="{{ route('paw-notes.index') }}" class="block bg-white rounded-2xl shadow p-6 hover:shadow-lg hover:-translate-y-1 transition">
+                    <div class="text-4xl text-blue-400 mb-3">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-1">Paw Notes</h3>
+                    <p class="text-sm text-gray-500">Livewire</p>
+                </a>
+            </li>
+
             <!-- Sandbox -->
             <li>
                 <a href="{{ route('sandbox') }}" class="block bg-white rounded-2xl shadow p-6 hover:shadow-lg hover:-translate-y-1 transition">

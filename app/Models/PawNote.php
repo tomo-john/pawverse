@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PawNote extends Model
 {
-    //
+    protected $fillable = [
+        'body',
+    ];
 }
