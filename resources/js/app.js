@@ -4,8 +4,9 @@ import './sandbox';
 // dog 関連
 import './dog/ui';
 
-import Alpine from 'alpinejs';
+// Livewireでは以下不要
+// import Alpine from 'alpinejs';
 
-window.Alpine = Alpine;
+// window.Alpine = Alpine;
 
-Alpine.start();
+// Alpine.start();
