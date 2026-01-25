@@ -11,7 +11,7 @@ class PawNotes extends Component
 
     public function save()
     {
-        sleep(2);
+        sleep(1);
 
         $this->validate([
             'body' => 'required|string|max:255'
