@@ -16,12 +16,7 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-        <!-- livewire -->
-        @livewireStyles
-
-        <!-- Flux -->
-        @fluxStyles
+        @fluxAppearance
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -41,7 +36,7 @@
                 {{ $slot }}
             </main>
         </div>
-        <!-- livewire -->
-        @livewireScripts
+        <!-- Livewire & Flux -->
+        @fluxScripts
     </body>
 </html>

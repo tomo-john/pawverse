@@ -8,11 +8,10 @@ use App\Models\PawNote;
 class PawNotes extends Component
 {
     public string $body = '';
+    public bool $saved = false;
 
     public function save()
     {
-        sleep(1);
-
         $this->validate([
             'body' => 'required|string|max:255'
         ]);
@@ -22,6 +21,7 @@ class PawNotes extends Component
         ]);
 
         $this->reset('body');
+        $this->saved = true;
     }
 
     public function render()
