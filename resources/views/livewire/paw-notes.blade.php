@@ -1,11 +1,13 @@
 <div class="max-w-xl mx-auto space-y-6">
-    <div class="max-w-xl mx-auto border p-4 flex justify-center items-center">
+    <div class="max-w-xl mx-auto p-4 flex justify-center items-center">
         <div class="relative">
             <i class="fa-solid fa-dog text-5xl text-black"></i>
 
             @if ($saved)
-                <div class="absolute left-full top-1/2 ^translate-y-1/2 ml-3">
-                    <span class="text-black whitespace-nowrap">保存しました<i class="fa-solid fa-paw"></i></span>
+                <div class="absolute left-full top-1/2 -translate-y-1/2 bg-green-400 text-sm text-white border border-green-500 rounded-xl ml-3 p-3">
+                    <span class="flex items-center whitespace-nowrap">
+                        保存しました<i class="fa-solid fa-paw ml-2"></i>
+                    </span>
                 </div>
             @endif
         </div>
