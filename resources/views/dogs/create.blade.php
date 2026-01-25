@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl">
+        <h2 class="font-semibold text-xl text-gray-800">
             犬を登録する 🐶
         </h2>
     </x-slot>

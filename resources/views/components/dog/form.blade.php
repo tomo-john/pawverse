@@ -20,7 +20,7 @@
                 </i>
             </div>
 
-            <p class="text-md font-mono font-semibold text-center border-t border-dashed pt-2"
+            <p class="text-md text-gray-800 font-mono font-semibold text-center border-t border-dashed pt-2"
                x-text="name || 'no name'">
             </p>
         </div>
@@ -28,7 +28,7 @@
 
     <!-- フォーム -->
     <div class="max-w-2xl mx-auto px-6 py-4">
-        <div class="bg-white rounded-2xl shadow-md p-6">
+        <div class="bg-white text-gray-800 rounded-2xl shadow-md p-6">
             <form method="POST" action="{{ $action }}" class="space-y-5">
                 @csrf
                 @if ($method !== 'POST')

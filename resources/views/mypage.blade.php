@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold">
+        <h2 class="text-xl text-gray-800 font-semibold">
             ようこそ、{{ auth()->user()->name }}さん 🐶
         </h2>
     </x-slot>
@@ -9,7 +9,7 @@
 
         <!-- あなたの犬たち -->
         <section>
-            <h3 class="text-lg font-semibold mb-4">
+            <h3 class="text-lg text-gray-800 font-semibold mb-4">
                 あなたの犬たち
             </h3>
 
@@ -39,7 +39,7 @@
 
                             <!-- 名前 -->
                             <div class="text-center">
-                                <h4 class="text-lg font-semibold">
+                                <h4 class="text-lg text-gray-800 font-semibold">
                                     {{ $dog->name }}
                                 </h4>
                             </div>
@@ -67,12 +67,12 @@
 
         <!-- ナビゲーション -->
         <section>
-            <h3 class="text-lg font-semibold mb-4">
+            <h3 class="text-lg text-gray-800 font-semibold mb-4">
                 できること
             </h3>
 
             <div class="flex gap-4 flex-wrap">
-                <span class="px-4 py-2 rounded-lg bg-gray-50 text-gray-400">
+                <span class="px-4 py-2 rounded-lg bg-gray-50 text-gray-500">
                     お世話（準備中）
                 </span>
             </div>

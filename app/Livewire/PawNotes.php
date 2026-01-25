@@ -22,6 +22,7 @@ class PawNotes extends Component
 
         $this->reset('body');
         $this->saved = true;
+        $this->dispatch('paw-saved');
     }
 
     public function render()

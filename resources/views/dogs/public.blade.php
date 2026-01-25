@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl">
+        <h2 class="font-semibold text-xl text-gray-800">
             Public Dogs 🐶
         </h2>
     </x-slot>
@@ -17,7 +17,7 @@
                 <li class="flex gap-4 border rounded-xl p-4 mb-4 bg-white shadow-sm">
                     <div>
                         <a href="{{ route('dogs.show', $dog) }}"
-                           class="font-semibold text-lg hover:text-pink-500">
+                           class="font-semibold text-lg text-gray-800 hover:text-pink-500">
                             {{ $dog->name }}
                         </a>
 
