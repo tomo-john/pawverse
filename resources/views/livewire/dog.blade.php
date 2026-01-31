@@ -1,3 +1,6 @@
 <div>
-    {{-- You must be the change you wish to see in the world. - Mahatma Gandhi --}}
+    <p>
+        test
+        <i class="fa-solid fa-dog m-2"></i>
+    </p>
 </div>

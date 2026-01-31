@@ -16,6 +16,14 @@
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
+
+                <!-- Dog Componet -->
+                <flux:sidebar.group heading="Dog" class="grid">
+                    <flux:sidebar.item icon="star" :href="route('dog.index')" :current="request()->routeIs('dog.index')" wire:navigate>
+                        Dog Componet
+                    </flux:sidebar.item>
+                </flux:sidebar.group>
+
             </flux:sidebar.nav>
 
             <flux:spacer />
