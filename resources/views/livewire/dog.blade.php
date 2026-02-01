@@ -39,8 +39,14 @@
             </div>
         </div>
 
+        <!-- met_at-->
+        <flux:input label="When did you first meet ?" type="date" wire:model="met_at"/>
+
         <!-- is_good_boy-->
         <flux:checkbox label="is_good_boy?🐶" wire:model.live="is_good_boy"></flux:checkbox>
+
+        <!-- Submit Button-->
+        <flux:button wire:click="save">保存</flux:button>
     </div>
 
     <!-- プレビュー -->
