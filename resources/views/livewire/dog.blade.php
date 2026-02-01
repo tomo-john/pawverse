@@ -7,8 +7,15 @@
 
     <div class="max-w-5xl mx-auto space-y-6">
         <!-- フォーム -->
-        <div class="max-w-xl mx-auto border rounded-xl space-y-4 p-4 flex flex-col">
-            <div class="text-sm fon-medium text-gray-500">登録フォーム</div>
+        <div class="max-w-xl mx-auto border rounded-xl space-y-4 p-4">
+            <div class="text-sm fon-medium text-gray-500">
+                登録フォーム
+                @if ($this->editingId)
+                    <i class="fa-solid fa-dog mx-1"></i>
+                    編集中
+                    <i class="fa-solid fa-dog mx-1"></i>
+                @endif
+            </div>
 
             <!-- name -->
             <flux:input label="Name" wire:model.live.debounce.500ms="name"/>
@@ -50,7 +57,15 @@
             <flux:checkbox label="is_good_boy?🐶" wire:model.live="is_good_boy"></flux:checkbox>
 
             <!-- Submit Button-->
-            <flux:button wire:click="save">保存</flux:button>
+            <div class="flex gap-4">
+            <flux:button wire:click="save">
+                {{ $this->editingId ? '更新' : '保存' }}
+            </flux:button>
+
+            <flux:button wire:click="resetForm" variant="ghost">
+                キャンセル
+            </flux:button>
+            </div>
         </div>
 
         <!-- プレビュー -->
@@ -81,7 +96,7 @@
     </div>
 
     <flux:separator variant="subtle" class="my-6" />
-    
+
     <!-- Index -->
     <flux:heading size="md">
         <i class="fa-solid fa-dog"></i>
@@ -91,7 +106,8 @@
 
     <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         @forelse($this->dogs as $dog)
-            <div class="rounded-2xl bg-white ring-1 ring-gray-200 p-4
+            <div wire:key="dog-{{ $dog->id }}"
+                 class="rounded-2xl bg-white ring-1 ring-gray-200 p-4
                         flex flex-col items-center gap-3
                         hover:shadow-2xl hover:-translate-y-1
                         transition-all duration-300">
@@ -115,7 +131,7 @@
 
                 <!-- met_at -->
                 <div class="text-[11px] text-gray-400">
-                    met at {{ $dog->met_at ? $dog->met_at->format('Y-m-d') : 'unknown' }}
+                    met at: {{ $dog->met_at ? $dog->met_at->format('Y-m-d') : 'unknown' }}
                 </div>
 
                 <!-- アクション -->

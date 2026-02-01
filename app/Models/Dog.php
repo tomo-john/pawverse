@@ -19,7 +19,7 @@ class Dog extends Model
     ];
 
     protected $casts = [
-        'met_at' => 'date',
+        'met_at' => 'immutable_date',
         'is_good_boy' => 'boolean',
     ];
 

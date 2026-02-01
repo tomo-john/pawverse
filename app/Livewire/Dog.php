@@ -61,13 +61,13 @@ class Dog extends Component
             'name'        => $this->name,
             'color'       => $this->color,
             'size_level'  => $this->size_level,
-            'met_at'      => $this->met_at,
+            'met_at'      => $this->met_at ?:null,
             'is_good_boy' => $this->is_good_boy,
         ];
     }
 
     // フォームリセット
-    protected function resetForm(): void
+    public function resetForm(): void
     {
         $this->reset([
             'name',
@@ -87,9 +87,13 @@ class Dog extends Component
         $this->validateDog();
 
         if ($this->editingId) {
-
+            $dog = DogModel::findOrFail($this->editingId);
+            $dog->update($this->dogPayload());
+            $this->dogs = $this->dogs->map(
+                fn($d) => $d->id === $dog->id ? $dog : $d
+            );
         } else {
-            $dog = DogModel::create($this->dogPayLoad());
+            $dog = DogModel::create($this->dogPayload());
             $this->dogs = $this->dogs->prepend($dog);
         }
 
@@ -99,11 +103,24 @@ class Dog extends Component
     // 編集用フォーム
     public function edit(int $id): void
     {
+        $dog = DogModel::findOrFail($id);
+
+        $this->editingId = $dog->id;
+        $this->name = $dog->name;
+        $this->color = $dog->color;
+        $this->size_level = $dog->size_level;
+        $this->met_at = optional($dog->met_at)->format('Y-m-d');
+        $this->is_good_boy = $dog->is_good_boy;
     }
 
     // 削除処理
     public function delete(int $id): void
     {
+        DogModel::findOrFail($id)->delete();
+        $this->dogs = $this->dogs->reject(
+            fn($d) => $d->id === $id
+        );
+        // $this->resetForm();
     }
 
     // Blade
