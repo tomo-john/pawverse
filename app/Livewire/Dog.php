@@ -96,6 +96,16 @@ class Dog extends Component
         $this->resetForm();
     }
 
+    // 編集用フォーム
+    public function edit(int $id): void
+    {
+    }
+
+    // 削除処理
+    public function delete(int $id): void
+    {
+    }
+
     // Blade
     public function render()
     {
