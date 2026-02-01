@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Dog extends Model
@@ -42,7 +43,7 @@ class Dog extends Model
 
     public function getSizeClassAttribute(): string
     {
-        return self::SIZE_CLASSES[$this->size_level] ?? 'text-4xl';
+        return self::SIZE_CLASSES[$this->size_level] ?? 'text-5xl';
     }
 
     // is_good_boy
