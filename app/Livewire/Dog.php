@@ -97,6 +97,11 @@ class Dog extends Component
             $this->dogs = $this->dogs->prepend($dog);
         }
 
+        $this->dispatch('notify',
+            message: $this->editingId ? '更新しました' : '登録しました',
+            variant: 'success'
+        );
+
         $this->resetForm();
     }
 
@@ -119,6 +124,11 @@ class Dog extends Component
         DogModel::findOrFail($id)->delete();
         $this->dogs = $this->dogs->reject(
             fn($d) => $d->id === $id
+        );
+
+        $this->dispatch('notify',
+            message: 'お別れしました...',
+            variant: 'danger'
         );
         // $this->resetForm();
     }

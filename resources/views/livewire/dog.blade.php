@@ -5,6 +5,8 @@
         Pawverse Dog
     </flux:heading>
 
+    <x-dog.toast />
+
     <div class="max-w-5xl mx-auto space-y-6">
         <!-- フォーム -->
         <div class="max-w-xl mx-auto border rounded-xl space-y-4 p-4">
