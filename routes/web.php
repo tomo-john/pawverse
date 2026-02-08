@@ -18,4 +18,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 });
 
+// Sandbox
+Route::get('/sandbox', function () {
+    return view('sandbox.index');
+})->name('sandbox.index');
+
 require __DIR__.'/settings.php';
