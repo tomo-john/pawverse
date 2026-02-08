@@ -4,7 +4,14 @@
         @include('partials.head')
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-800">
-        <i class="fa-solid fa-dog"></i>
+        <div>
+            sandbox.index本体
+            <i class="fa-solid fa-dog text-yellow-500"></i>
+        </div>
+
+        <!-- Component呼び出し -->
+        <x-sandbox.dog />
+
         @fluxScripts
     </body>
 </html>
