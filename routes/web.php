@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\Dog;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.top');
 })->name('home');
 
 // ログイン必須のエリアをグループ化
