@@ -8,8 +8,12 @@
 
             <flux:main container>
                 <!-- Hero -->
-                <flux:heading size="xl" level="1">Pawverse</flux:heading>
-                <flux:text class="mt-2 mb-6 text-base">あたなだけのわんこを育てて記録するアプリ🐶</flux:text>
+                <flux:heading size="xl" level="1" class="bg-gradient-to-r from-pink-500 via-rose-500 to-fuchsia-500 bg-clip-text text-transparent">
+                    Pawverse
+                </flux:heading>
+                <flux:text class="mt-2 mb-6 text-base">
+                    あたなだけのわんこを育てて記録するアプリ🐶
+                </flux:text>
                 <flux:separator variant="subtle" class="mb-4" />
 
                 <!-- 説明 -->
@@ -41,18 +45,14 @@
                 <!-- CTA的な -->
                 <flux:heading size="md" level="2">気になったら🐶</flux:heading>
                 <div class="flex gap-4 mt-2 mb-6 bg-zinc-100 dark:bg-zinc-900 rounded-2xl p-8">
-                    <a href="{{ route('register') }}">
-                        <flux:button variant="primary" color="pink" class="px-8 shadow-lg">
-                            わんこを迎えてみる(新規登録)
-                            <i class="fa-solid fa-dog mx-1"></i>
-                        </flux:button>
-                    </a>
-                    <a href="{{ route('login') }}">
-                        <flux:button variant="ghost" class="px-8 shadow-lg">
-                            ログイン
-                            <i class="fa-solid fa-dog mx-1"></i>
-                        </flux:button>
-                    </a>
+                    <flux:button variant="primary" color="pink" class="px-8 shadow-lg" as="a" href="{{ route('register') }}">
+                        わんこを迎えてみる(新規登録)
+                        <i class="fa-solid fa-dog mx-1"></i>
+                    </flux:button>
+                    <flux:button variant="ghost" class="px-8 shadow-lg" as="a" href="{{ route('login') }}">
+                        ログイン
+                        <i class="fa-solid fa-dog mx-1"></i>
+                    </flux:button>
                 </div>
                 <flux:separator variant="subtle" class="mb-4" />
 
@@ -75,7 +75,9 @@
                 <footer class="mt-20 border-t border-pink-200 dark:border-pink-900 pt-8 pb-6 text-center">
 
                     <div class="text-lg font-semibold text-pink-600">
-                        Pawverse 🐶
+                        <img src="{{ asset('favicon.svg')}}" alt="Pawverse logo" class="w-8 h-8 inline align-middle">
+                        Pawverse
+                        <i class="fa-solid fa-dog"></i>
                     </div>
 
                     <p class="text-sm text-zinc-500 mt-2">
