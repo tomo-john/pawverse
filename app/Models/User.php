@@ -69,4 +69,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Dog::class);
     }
+
+    /**
+     * 管理者フラグ
+     */
+    public function isAdmin(): bool
+    {
+        return (bool) $this->is_admin;
+    }
 }

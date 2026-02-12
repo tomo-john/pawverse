@@ -10,7 +10,7 @@
     <div class="max-w-5xl mx-auto space-y-6">
         <!-- フォーム -->
         <div class="max-w-xl mx-auto border rounded-xl space-y-4 p-4">
-            <div class="text-sm fon-medium text-gray-500">
+            <div class="text-sm font-medium text-gray-500">
                 登録フォーム
                 @if ($this->editingId)
                     <i class="fa-solid fa-dog mx-1"></i>
