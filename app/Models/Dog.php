@@ -51,4 +51,10 @@ class Dog extends Model
     {
         return $this->is_good_boy ? 'Good boy 🐶' : 'Naughty dog 😈';
     }
+
+    // RealDogリレーション
+    public function realDog()
+    {
+        return $this->hasOne(RealDog::class);
+    }
 }

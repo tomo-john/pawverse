@@ -24,14 +24,14 @@
     <div class="bg-white rounded-2xl p-6 shadow-sm border">
         <h2 class="font-bold text-gray-700 mb-4">ステータス</h2>
 
-        <div class="space-y-2 text-sm">
+        <div class="space-y-2 text-sm text-gray-600">
             <div>Level : 1</div>
             <div>EXP : 0</div>
             <div>Happy : 50</div>
         </div>
     </div>
 
-    {{-- リアルわんこ --}}}
+    {{-- リアルわんこ --}}
     <div class="bg-white rounded-2xl p-6 shadow-sm border">
         <h2 class="font-bold text-gray-700 mb-4">リアルわんこ</h2>
 
@@ -48,7 +48,7 @@
     <div class="bg-white rounded-2xl p-6 shadow-sm border">
         <h2 class="font-bold text-gray-700 mb-4">できること</h2>
 
-        <div class="flex gap-3 text-sm">
+        <div class="flex gap-3 text-sm text-gray-600">
             <button class="px-3 py-1 bg-blue-100 rounded-lg">散歩</button>
             <button class="px-3 py-1 bg-yellow-100 rounded-lg">ごはん</button>
             <button class="px-3 py-1 bg-green-100 rounded-lg">なでる</button>
