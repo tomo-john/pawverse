@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Dog\Index;
+use App\Livewire\Dog\Show;
 
 Route::get('/', function () {
     return view('pages.top');
@@ -15,6 +16,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Dog Componet
     Route::get('dogs', Index::class)->name('dog.index');
+    Route::get('dogs/{dog}', Show::class)->name('dog.show');
 
 });
 
