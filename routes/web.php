@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Livewire\Dog;
+use App\Livewire\Dog\Index;
 
 Route::get('/', function () {
     return view('pages.top');
@@ -14,12 +14,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
 
     // Dog Componet
-    Route::get('dog', Dog::class)->name('dog.index');
+    Route::get('dogs', Index::class)->name('dog.index');
 
 });
 
 // Sandbox
-Route::get('/sandbox', function () {
+Route::get('sandbox', function () {
     return view('sandbox.index');
 })->name('sandbox.index');
 

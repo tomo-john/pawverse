@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Dog;
 
 use Livewire\Component;
 use App\Models\Dog as DogModel;
 
-class Dog extends Component
+class Index extends Component
 {
     // プロパティ
     public $name;
@@ -136,6 +136,6 @@ class Dog extends Component
     // Blade
     public function render()
     {
-        return view('livewire.dog');
+        return view('livewire.dog.index');
     }
 }
