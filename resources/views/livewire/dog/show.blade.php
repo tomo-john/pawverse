@@ -39,9 +39,9 @@
             まだ現実のわんことリンクされていません
         </p>
 
-        <button class="mt-3 px-4 py-2 bg-pink-500 text-white rounded-xl text-sm">
+        <flux:button variant="primary" wire:click="openModal" color="pink">
             リンクする
-        </button>
+        </flux:button>
     </div>
 
     {{-- アクション --}}
@@ -54,4 +54,27 @@
             <button class="px-3 py-1 bg-green-100 rounded-lg">なでる</button>
         </div>
     </div>
+
+    {{-- モーダル --}}
+    <flux:modal wire:model="showModal">
+        <div class="space-y-4">
+
+            <flux:heading size="md">
+                リアルわんこ情報
+            </flux:heading>
+
+            <flux:input label="犬種" wire:model="breed" />
+
+            <flux:input label="性別" wire:model="sex" />
+
+            <flux:input label="性格" wire:model="personality" />
+
+            <div class="flex justify-end gap-3">
+                <flux:button variant="ghost" wire:click="closeModal">キャンセル</flux:button>
+                <flux:button variant="primary" wire:click="save">保存</flux:button>
+            </div>
+        </div>
+    </flux:modal>
+
 </div>
+
