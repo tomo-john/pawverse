@@ -20,6 +20,12 @@ class Show extends Component
     public function mount(Dog $dog)
     {
         $this->dog = $dog;
+
+        if ($this->dog->realDog) {
+            $this->breed = $dog->realDog->breed;
+            $this->sex = $dog->realDog->sex;
+            $this->personality = $dog->realDog->personality;
+        }
     }
 
     public function openModal()
