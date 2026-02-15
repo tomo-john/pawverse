@@ -36,16 +36,19 @@
         <h2 class="font-bold text-gray-700 mb-4">リアルわんこ情報</h2>
 
         @if ($dog->realDog)
-            <div class="space-y-2 text-sm text-gray-600">
-                <div>犬種 : {{ $breed ? $breed : '未登録' }}</div>
-                <div>性別 : {{ $sex ? $sex : '未登録' }}</div>
-                <div>性格 : {{ $personality ? $personality : '未登録' }}</div>
+            <p class="text-green-500 text-sm my-2">
+                リンク済み
+            </p>
+            <div class="space-y-2 text-sm text-gray-600 my-2">
+                <div>犬種 : {{ $breed ?? '未登録' }}</div>
+                <div>性別 : {{ $sex ?? '未登録' }}</div>
+                <div>性格 : {{ $personality ?? '未登録' }}</div>
             </div>
             <flux:button variant="primary" wire:click="openModal" color="pink">
                 編集する
             </flux:button>
         @else
-            <p class="text-gray-500 text-sm">
+            <p class="text-gray-500 text-sm my-2">
                 まだ現実のわんことリンクされていません
             </p>
 

@@ -19,22 +19,19 @@ class Show extends Component
 
     public function mount(Dog $dog)
     {
-        $this->dog = $dog;
-
-        if ($this->dog->realDog) {
-            $this->breed = $dog->realDog->breed;
-            $this->sex = $dog->realDog->sex;
-            $this->personality = $dog->realDog->personality;
-        }
+        $this->dog = $dog->load('realDog');
     }
 
     public function openModal()
     {
+        $this->fillRealDogForm();
         $this->showModal = true;
     }
 
     public function closeModal()
     {
+        $this->resetValidation();
+        $this->fillRealDogForm();
         $this->showModal = false;
     }
 
@@ -50,6 +47,17 @@ class Show extends Component
         );
 
         $this->closeModal();
+    }
+
+    public function fillRealDogForm() :void
+    {
+        if ($this->dog->realDog) {
+            $this->breed = $this->dog->realDog->breed;
+            $this->sex = $this->dog->realDog->sex;
+            $this->personality = $this->dog->realDog->personality;
+        } else {
+            $this->reset(['breed', 'sex', 'personality']);
+        }
     }
 
     public function render()
