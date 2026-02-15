@@ -21,7 +21,7 @@ class Show extends Component
 
     public array $personalities = [];
 
-    // マウント
+    // 初期化処理
     public function mount(Dog $dog)
     {
         $this->dog = $dog;
@@ -44,21 +44,6 @@ class Show extends Component
         $this->showModal = false;
     }
 
-    // 保存処理
-    public function save()
-    {
-        $this->dog->realDog()->updateOrCreate(
-            ['dog_id' => $this->dog->id],
-            [
-                'breed' => $this->breed,
-                'sex' => $this->sex,
-                'personality' => $this->personality,
-            ]
-        );
-        $this->dog->load('realDog');
-        $this->closeModal();
-    }
-
     // モーダルの入力値
     public function fillRealDogForm() :void
     {
@@ -67,8 +52,51 @@ class Show extends Component
             $this->sex = $this->dog->realDog->sex;
             $this->personality = $this->dog->realDog->personality;
         } else {
-            $this->reset(['breed', 'sex', 'personality']);
+            $this->resetRealDogFrom;
         }
+    }
+
+    // モーダルのフォームリセット
+    public function resetRealDogFrom() :void
+    {
+        $this->reset(['breed', 'sex', 'personality']);
+    }
+
+    // バリデーションルール
+    protected function rules(): array
+    {
+        return [
+            'breed'       => 'nullable|string|max:50',
+            'sex'         => 'nullable|in:male,female',
+            'personality' => 'nullable|in:' . implode(',', array_keys(RealDog::PERSONALITIES))
+        ];
+    }
+
+    // バリデーションメソッド
+    public function validateRealDog(): void
+    {
+        $this->validate();
+    }
+
+    protected function realDogPayload(): array
+    {
+        return [
+            'breed'       => $this->breed ?: null,
+            'sex'         => $this->sex ?: null,
+            'personality' => $this->personality ?: null,
+        ];
+    }
+
+    // 保存処理
+    public function save()
+    {
+        $this->validateRealDog();
+        $this->dog->realDog()->updateOrCreate(
+            ['dog_id' => $this->dog->id],
+            $this->realDogPayLoad()
+        );
+        $this->dog->load('realDog');
+        $this->closeModal();
     }
 
     // レンダー
