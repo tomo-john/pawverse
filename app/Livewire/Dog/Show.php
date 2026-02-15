@@ -4,9 +4,11 @@ namespace App\Livewire\Dog;
 
 use Livewire\Component;
 use App\Models\Dog;
+use App\Models\RealDog;
 
 class Show extends Component
 {
+    // プロパティ
     public Dog $dog;
 
     public $breed;
@@ -17,17 +19,24 @@ class Show extends Component
 
     public $showModal = false;
 
+    public array $personalities = [];
+
+    // マウント
     public function mount(Dog $dog)
     {
-        $this->dog = $dog->load('realDog');
+        $this->dog = $dog;
+        $this->dog->load('realDog');
+        $this->personalities = RealDog::PERSONALITIES;
     }
 
+    // モーダルオープン
     public function openModal()
     {
         $this->fillRealDogForm();
         $this->showModal = true;
     }
 
+    // モーダルクローズ
     public function closeModal()
     {
         $this->resetValidation();
@@ -35,6 +44,7 @@ class Show extends Component
         $this->showModal = false;
     }
 
+    // 保存処理
     public function save()
     {
         $this->dog->realDog()->updateOrCreate(
@@ -45,10 +55,11 @@ class Show extends Component
                 'personality' => $this->personality,
             ]
         );
-
+        $this->dog->load('realDog');
         $this->closeModal();
     }
 
+    // モーダルの入力値
     public function fillRealDogForm() :void
     {
         if ($this->dog->realDog) {
@@ -60,6 +71,7 @@ class Show extends Component
         }
     }
 
+    // レンダー
     public function render()
     {
         return view('livewire.dog.show');

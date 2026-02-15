@@ -40,9 +40,9 @@
                 リンク済み
             </p>
             <div class="space-y-2 text-sm text-gray-600 my-2">
-                <div>犬種 : {{ $breed ?? '未登録' }}</div>
-                <div>性別 : {{ $sex ?? '未登録' }}</div>
-                <div>性格 : {{ $personality ?? '未登録' }}</div>
+                <div>犬種 : {{ $dog->realDog->breed ?? '未登録' }}</div>
+                <div>性別 : {{ $dog->realDog->sex_label }}</div>
+                <div>性格 : {{ $dog->realDog->personality_label }}</div>
             </div>
             <flux:button variant="primary" wire:click="openModal" color="pink">
                 編集する
@@ -79,9 +79,18 @@
 
             <flux:input label="犬種" wire:model="breed" />
 
-            <flux:input label="性別" wire:model="sex" />
+            <flux:select label="性別" wire:model="sex">
+                <option value="">未登録</option>
+                <option value="male">オス</option>
+                <option value="female">メス</option>
+            </flux:select>
 
-            <flux:input label="性格" wire:model="personality" />
+            <flux:select label="性格" wire:model="personality">
+                <option value="">未登録</option>
+                @foreach ($personalities as $key => $label)
+                    <option value="{{ $key }}">{{ $label }}</option>
+                @endforeach
+            </flux:select>
 
             <div class="flex justify-end gap-3">
                 <flux:button variant="ghost" wire:click="closeModal">キャンセル</flux:button>
