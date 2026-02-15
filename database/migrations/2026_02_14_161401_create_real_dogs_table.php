@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('real_dogs', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('dog_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('dog_id')->constrained()->cascadeOnDelete()->unique();
             $table->string('breed')->nullable();
             $table->string('sex', 10)->nullable();
             $table->text('personality')->nullable();

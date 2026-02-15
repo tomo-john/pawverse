@@ -52,12 +52,12 @@ class Show extends Component
             $this->sex = $this->dog->realDog->sex;
             $this->personality = $this->dog->realDog->personality;
         } else {
-            $this->resetRealDogFrom;
+            $this->resetRealDogForm();
         }
     }
 
     // モーダルのフォームリセット
-    public function resetRealDogFrom() :void
+    public function resetRealDogForm() :void
     {
         $this->reset(['breed', 'sex', 'personality']);
     }
@@ -78,6 +78,7 @@ class Show extends Component
         $this->validate();
     }
 
+    // 保存用配列切り出しメソッド
     protected function realDogPayload(): array
     {
         return [

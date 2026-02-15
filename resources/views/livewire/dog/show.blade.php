@@ -5,8 +5,7 @@
 
         <div class="flex justify-center items-center w-48 h-48 border-4 border-pink-100 rounded-full bg-white shadow-sm flex-shrink-0">
             <i class="fa-solid fa-dog {{ $dog->size_class }} drop-shadow-sm"
-               style="color: {{ $dog->color }}">
-            </i>
+               style="color: {{ $dog->color }}"></i>
         </div>
 
         <div class="relative bg-white border-2 border-pink-200 p-4 rounded-2xl shadow-sm">
