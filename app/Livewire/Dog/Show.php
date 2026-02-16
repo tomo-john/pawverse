@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Dog;
 use App\Models\RealDog;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class Show extends Component
 {
@@ -106,6 +107,13 @@ class Show extends Component
 
         // 画像があるときだけ保存
         if ($this->photo) {
+
+            // 古い画像があれば削除
+            if ($this->dog->realDog?->photo_path) {
+                Storage::disk('public')->delete($this->dog->realDog->photo_path);
+            }
+
+            // 新しい画像を保存
             $path = $this->photo->store('dogs/avatar', 'public');
             $data['photo_path'] = $path;
         }
