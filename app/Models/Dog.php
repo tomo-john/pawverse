@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Dog extends Model
 {
@@ -50,6 +51,16 @@ class Dog extends Model
     public function getGoodBoyLabelAttribute(): string
     {
         return $this->is_good_boy ? 'Good boy 🐶' : 'Naughty dog 😈';
+    }
+
+    // dog削除時にreal_dogsテーブルに紐づいた写真も削除
+    protected static function booted()
+    {
+        static::deleting(function ($dog) {
+            if ($dog->realDog?->photo_path) {
+                Storage::disk('public')->delete($dog->realDog->photo_path);
+            }
+        });
     }
 
     // RealDogリレーション
