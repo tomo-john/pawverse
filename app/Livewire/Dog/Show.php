@@ -5,9 +5,12 @@ namespace App\Livewire\Dog;
 use Livewire\Component;
 use App\Models\Dog;
 use App\Models\RealDog;
+use Livewire\WithFileUploads;
 
 class Show extends Component
 {
+    use WithFileUploads;
+
     // プロパティ
     public Dog $dog;
 
@@ -15,7 +18,7 @@ class Show extends Component
     public $sex;
     public $personality;
     public $birthday;
-    public $photo_path;
+    public $photo;
 
     public $showModal = false;
 
@@ -60,7 +63,7 @@ class Show extends Component
     // モーダルのフォームリセット
     public function resetRealDogForm() :void
     {
-        $this->reset(['breed', 'sex', 'personality', 'birthday']);
+        $this->reset(['breed', 'sex', 'personality', 'birthday', 'photo']);
     }
 
     // バリデーションルール
@@ -71,6 +74,7 @@ class Show extends Component
             'sex'         => 'nullable|in:male,female',
             'personality' => 'nullable|in:' . implode(',', array_keys(RealDog::PERSONALITIES)),
             'birthday'    => 'nullable|date|before_or_equal:today',
+            'photo'       => 'nullable|image|max:2048',
         ];
     }
 
@@ -94,11 +98,25 @@ class Show extends Component
     // 保存処理
     public function save()
     {
+        // バリデーション
         $this->validateRealDog();
+
+        // 保存データを準備
+        $data = $this->realDogPayLoad();
+
+        // 画像があるときだけ保存
+        if ($this->photo) {
+            $path = $this->photo->store('dogs/avatar', 'public');
+            $data['photo_path'] = $path;
+        }
+
+        // update or create
         $this->dog->realDog()->updateOrCreate(
             ['dog_id' => $this->dog->id],
-            $this->realDogPayload()
+            $data
         );
+
+        // 再読み込み & 後処理
         $this->dog->load('realDog');
         $this->closeModal();
     }
