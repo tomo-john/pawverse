@@ -20,6 +20,7 @@ class RealDog extends Model
         'birthday' => 'date',
     ];
 
+    // 性格の種類定義(ドラクエ3風)
     public const PERSONALITIES = [
         'brave' => 'ゆうかん',
         'gentle' => 'やさしい',
@@ -28,11 +29,13 @@ class RealDog extends Model
         'shy' => 'おくびょう',
     ];
 
+    // 性格・アクセサ
     public function getPersonalityLabelAttribute()
     {
         return self::PERSONALITIES[$this->personality] ?? '未登録';
     }
 
+    // 性別・アクセサ
     public function getSexLabelAttribute()
     {
         return [
@@ -41,6 +44,7 @@ class RealDog extends Model
         ][$this->sex] ?? '未登録';
     }
 
+    // 年齢・アクセサ (誕生日より算出)
     public function getAgeAttribute(): ?int
     {
         if (! $this->birthday) {
@@ -50,6 +54,17 @@ class RealDog extends Model
         return Carbon::parse($this->birthday)->age;
     }
 
+    // 写真・アクセサ (デフォルト画像)
+    public function getPhotoUrlAttribute(): string
+    {
+        if ($this->photo_path) {
+            return asset('storage/' . $this->photo_path);
+        }
+
+        return asset('images/dogs/dog_default.jpg');
+    }
+
+    // Dogモデルとのリレーション
     public function dog()
     {
         return $this->belongsTo(Dog::class);

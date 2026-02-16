@@ -46,9 +46,7 @@
                     誕生日 : {{ $dog->realDog->birthday?->format('Y年n月j日') ?? '未登録' }}
                     {{ $dog->realDog->age !== null ? ' (' . $dog->realDog->age . ' 才)' : '' }}
                 </div>
-                @if ($dog->realDog->photo_path)
-                    <img src="{{ asset('storage/' . $dog->realDog->photo_path) }}" alt="" class="w-32 h-32 object-cover roundex-xl mt-2">
-                @endif
+                <img src="{{ $dog->realDog->photo_url }}" alt="" class="w-32 h-32 object-cover roundex-xl mt-2">
             </div>
             <flux:button variant="primary" wire:click="openModal" color="pink">
                 編集する
