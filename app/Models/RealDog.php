@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class RealDog extends Model
 {
@@ -13,6 +14,10 @@ class RealDog extends Model
         'personality',
         'birthday',
         'photo_path'
+    ];
+
+    protected $casts = [
+        'birthday' => 'date',
     ];
 
     public const PERSONALITIES = [
@@ -34,6 +39,15 @@ class RealDog extends Model
             'male' => 'オス',
             'female' => 'メス',
         ][$this->sex] ?? '未登録';
+    }
+
+    public function getAgeAttribute(): ?int
+    {
+        if (! $this->birthday) {
+            return null;
+        }
+
+        return Carbon::parse($this->birthday)->age;
     }
 
     public function dog()

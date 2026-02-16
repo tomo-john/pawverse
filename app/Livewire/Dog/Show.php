@@ -51,6 +51,7 @@ class Show extends Component
             $this->breed = $this->dog->realDog->breed;
             $this->sex = $this->dog->realDog->sex;
             $this->personality = $this->dog->realDog->personality;
+            $this->birthday = $this->dog->realDog?->birthday?->format('Y-m-d');
         } else {
             $this->resetRealDogForm();
         }
@@ -59,7 +60,7 @@ class Show extends Component
     // モーダルのフォームリセット
     public function resetRealDogForm() :void
     {
-        $this->reset(['breed', 'sex', 'personality']);
+        $this->reset(['breed', 'sex', 'personality', 'birthday']);
     }
 
     // バリデーションルール
@@ -68,7 +69,8 @@ class Show extends Component
         return [
             'breed'       => 'nullable|string|max:50',
             'sex'         => 'nullable|in:male,female',
-            'personality' => 'nullable|in:' . implode(',', array_keys(RealDog::PERSONALITIES))
+            'personality' => 'nullable|in:' . implode(',', array_keys(RealDog::PERSONALITIES)),
+            'birthday'    => 'nullable|date|before_or_equal:today',
         ];
     }
 
@@ -85,6 +87,7 @@ class Show extends Component
             'breed'       => $this->breed ?: null,
             'sex'         => $this->sex ?: null,
             'personality' => $this->personality ?: null,
+            'birthday'    => $this->birthday ?: null,
         ];
     }
 
@@ -94,7 +97,7 @@ class Show extends Component
         $this->validateRealDog();
         $this->dog->realDog()->updateOrCreate(
             ['dog_id' => $this->dog->id],
-            $this->realDogPayLoad()
+            $this->realDogPayload()
         );
         $this->dog->load('realDog');
         $this->closeModal();

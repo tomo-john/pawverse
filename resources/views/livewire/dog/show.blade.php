@@ -42,6 +42,10 @@
                 <div>犬種 : {{ $dog->realDog->breed ?? '未登録' }}</div>
                 <div>性別 : {{ $dog->realDog->sex_label }}</div>
                 <div>性格 : {{ $dog->realDog->personality_label }}</div>
+                <div>
+                    誕生日 : {{ $dog->realDog->birthday?->format('Y年n月j日') ?? '未登録' }}
+                    {{ $dog->realDog->age !== null ? ' (' . $dog->realDog->age . ' 才)' : '' }}
+                </div>
             </div>
             <flux:button variant="primary" wire:click="openModal" color="pink">
                 編集する
@@ -90,6 +94,8 @@
                     <option value="{{ $key }}">{{ $label }}</option>
                 @endforeach
             </flux:select>
+
+            <flux:input label="誕生日" wire:model="birthday" type="date" />
 
             <div class="flex justify-end gap-3">
                 <flux:button variant="ghost" wire:click="closeModal">キャンセル</flux:button>
