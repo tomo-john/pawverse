@@ -67,6 +67,18 @@ class Show extends Component
         $this->reset(['breed', 'sex', 'personality', 'birthday', 'photo']);
     }
 
+
+    // 画像削除
+    public function removePhoto()
+    {
+        if ($this->dog->realDog?->photo_path) {
+            Storage::disk('public')->delete($this->dog->realDog->photo_path);
+            $this->dog->realDog->update(['photo_path' => null]);
+            $this->photo = null;
+            $this->dog->load('realDog');
+        }
+    }
+
     // バリデーションルール
     protected function rules(): array
     {
@@ -103,7 +115,7 @@ class Show extends Component
         $this->validateRealDog();
 
         // 保存データを準備
-        $data = $this->realDogPayLoad();
+        $data = $this->realDogPayload();
 
         // 画像があるときだけ保存
         if ($this->photo) {

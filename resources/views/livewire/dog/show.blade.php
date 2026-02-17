@@ -48,6 +48,13 @@
                 <img src="{{ $dog->realDog?->photo_url ?? asset('images/dogs/dog_default.jpg') }}"
                      class="w-32 h-32 object-cover rounded-full border shadow-sm"
                 >
+                @if ($dog->realDog?->photo_path)
+                    <div class="absolute bottom-1 right-1">
+                    <flux:button size="xs" icon="trash" wire:click="removePhoto" wire:target="removePhoto" wire:confirm="写真を初期状態に戻しますか？🐶"
+                                 class="shadow cursor-pointer">
+                    </flux:button>
+                    </div>
+                @endif
             </div>
 
             {{-- 情報 --}}
@@ -80,7 +87,7 @@
                 </div>
             @endif
         </div>
-        
+
         <div class="mt-6">
             <flux:button variant="primary" wire:click="openModal" color="pink">
                 {{ $dog->realDog ? '編集する' : 'リンクする' }}
