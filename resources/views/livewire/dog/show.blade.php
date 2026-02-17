@@ -32,34 +32,60 @@
 
     {{-- リアルわんこ --}}
     <div class="bg-white rounded-2xl p-6 shadow-sm border">
-        <h2 class="font-bold text-gray-700 mb-4">リアルわんこ情報</h2>
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="font-bold text-gray-700 mb-4">
+                リアルわんこ情報
+            </h2>
 
-        @if ($dog->realDog)
-            <p class="text-green-500 text-sm my-2">
-                リンク済み
-            </p>
-            <div class="space-y-2 text-sm text-gray-600 my-2">
-                <div>犬種 : {{ $dog->realDog->breed ?? '未登録' }}</div>
-                <div>性別 : {{ $dog->realDog->sex_label }}</div>
-                <div>性格 : {{ $dog->realDog->personality_label }}</div>
-                <div>
-                    誕生日 : {{ $dog->realDog->birthday?->format('Y年n月j日') ?? '未登録' }}
-                    {{ $dog->realDog->age !== null ? ' (' . $dog->realDog->age . ' 才)' : '' }}
-                </div>
-                <img src="{{ $dog->realDog->photo_url }}" alt="" class="w-32 h-32 object-cover roundex-xl mt-2">
+            @if ($dog->realDog)
+                <flux:badge rounded variant="solid" icon="link" color="green">リンク済み</flux:badge>
+            @endif
+        </div>
+
+        <div class="flex items-start gap-6">
+            {{-- 画像 --}}
+            <div class="relative">
+                <img src="{{ $dog->realDog?->photo_url ?? asset('images/dogs/dog_default.jpg') }}"
+                     class="w-32 h-32 object-cover rounded-full border shadow-sm"
+                >
             </div>
-            <flux:button variant="primary" wire:click="openModal" color="pink">
-                編集する
-            </flux:button>
-        @else
-            <p class="text-gray-500 text-sm my-2">
-                まだ現実のわんことリンクされていません
-            </p>
 
+            {{-- 情報 --}}
+            @if ($dog->realDog)
+                <div class="flex-1 grid grid-cols-2 gap-x-6 gap-y-3 text-sm text-gray-600">
+                    <div>
+                        <span class="text-xs text-gray-400 block">犬種</span>
+                        {{ $dog->realDog->breed ?? '未登録' }}
+                    </div>
+
+                    <div>
+                        <span class="text-xs text-gray-400 block">性別</span>
+                        {{ $dog->realDog->sex_label }}
+                    </div>
+
+                    <div>
+                        <span class="text-xs text-gray-400 block">性格</span>
+                        {{ $dog->realDog->personality_label }}
+                    </div>
+
+                    <div>
+                        <span class="text-xs text-gray-400 block">誕生日</span>
+                        {{ $dog->realDog->birthday?->format('Y年n月j日') ?? '未登録' }}
+                        {{ $dog->realDog->age !== null ? ' (' . $dog->realDog->age . ' 才)' : '' }}
+                    </div>
+                </div>
+            @else
+                <div class="flex items-center text-sm text-gray-500">
+                    まだ現実のわんことリンクされていません
+                </div>
+            @endif
+        </div>
+        
+        <div class="mt-6">
             <flux:button variant="primary" wire:click="openModal" color="pink">
-                リンクする
+                {{ $dog->realDog ? '編集する' : 'リンクする' }}
             </flux:button>
-        @endif
+        </div>
     </div>
 
     {{-- アクション --}}
