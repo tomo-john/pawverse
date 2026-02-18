@@ -88,6 +88,7 @@ class Index extends Component
 
         if ($this->editingId) {
             $dog = DogModel::findOrFail($this->editingId);
+            $this->authorize('update', $dog);
             $dog->update($this->dogPayload());
             $this->dogs = $this->dogs->map(
                 fn($d) => $d->id === $dog->id ? $dog : $d
@@ -109,6 +110,7 @@ class Index extends Component
     public function edit(int $id): void
     {
         $dog = DogModel::findOrFail($id);
+        $this->authorize('update', $dog);
 
         $this->editingId = $dog->id;
         $this->name = $dog->name;
@@ -121,7 +123,9 @@ class Index extends Component
     // 削除処理
     public function delete(int $id): void
     {
-        DogModel::findOrFail($id)->delete();
+        $dog = DogModel::findOrFail($id);
+        $this->authorize('delete', $dog);
+        $dog->delete();
         $this->dogs = $this->dogs->reject(
             fn($d) => $d->id === $id
         );

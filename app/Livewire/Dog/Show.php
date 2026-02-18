@@ -28,6 +28,7 @@ class Show extends Component
     // 初期化処理
     public function mount(Dog $dog)
     {
+        $this->authorize('view', $dog);
         $this->dog = $dog;
         $this->dog->load('realDog');
         $this->personalities = RealDog::PERSONALITIES;
