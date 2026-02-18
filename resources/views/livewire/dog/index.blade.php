@@ -55,6 +55,9 @@
             <!-- met_at-->
             <flux:input label="When did you first meet ?" type="date" wire:model="met_at"/>
 
+            <!-- is_public -->
+            <flux:checkbox label="公開する🐶？" wire:model="is_public" />
+
             <!-- Submit Button-->
             <div class="flex gap-4">
             <flux:button wire:click="save">

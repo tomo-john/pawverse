@@ -12,6 +12,7 @@ class Index extends Component
     public $color = '#000000';
     public $size_level = 5;
     public $met_at;
+    public $is_public;
     public $editingId = null;
 
     public $dogs; // 一覧表示用 => テーブルと同期させる
@@ -36,6 +37,7 @@ class Index extends Component
             'color'       => ['required', 'regex:/^#[0-9A-Fa-f]{6}$/'],
             'size_level'  => 'required|integer|min:1|max:9',
             'met_at'      => 'nullable|date',
+            'is_public'   => 'required|boolean',
         ];
     }
 
@@ -54,6 +56,7 @@ class Index extends Component
             'color'       => $this->color,
             'size_level'  => $this->size_level,
             'met_at'      => $this->met_at ?:null,
+            'is_public'   => $this->is_public ?? false,
         ];
     }
 
@@ -68,6 +71,7 @@ class Index extends Component
         // デフォルト値
         $this->color = '#000000';
         $this->size_level = 5;
+        $this->is_public = false;
         $this->editingId = null;
     }
 
@@ -107,6 +111,7 @@ class Index extends Component
         $this->color = $dog->color;
         $this->size_level = $dog->size_level;
         $this->met_at = optional($dog->met_at)->format('Y-m-d');
+        $this->is_public = $dog->is_public;
     }
 
     // 削除処理
