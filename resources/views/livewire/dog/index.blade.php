@@ -119,8 +119,7 @@
                 <!-- Dog Icon -->
                 <div class="flex items-center justify-center h-36">
                     <i class="fa-solid fa-dog {{ $dog->size_class }}"
-                       style="color: {{ $dog->color }}">
-                    </i>
+                       style="color: {{ $dog->color }}"></i>
                 </div>
 
                 <!-- Name -->
@@ -140,12 +139,17 @@
 
                 <!-- アクション -->
                 <div class="flex gap-4 z-10">
-                    <button wire:click="edit({{ $dog->id }})">
-                        <i class="fa-regular fa-pen-to-square text-blue-300 hover:text-blue-400 cursor-pointer"></i>
-                    </button>
-                    <button wire:click="delete({{ $dog->id }})" wire:confirm="お別れしてよろしいですか？🐶">
-                        <i class="fa-solid fa-circle-minus text-red-300 hover:text-red-400 cursor-pointer"></i>
-                    </button>
+                    @can('update', $dog)
+                        <button wire:click="edit({{ $dog->id }})">
+                            <i class="fa-regular fa-pen-to-square text-blue-300 hover:text-blue-400 cursor-pointer"></i>
+                        </button>
+                    @endcan
+
+                    @can('delete', $dog)
+                        <button wire:click="delete({{ $dog->id }})" wire:confirm="お別れしてよろしいですか？🐶">
+                            <i class="fa-solid fa-circle-minus text-red-300 hover:text-red-400 cursor-pointer"></i>
+                        </button>
+                    @endcan
                 </div>
             </div>
         @empty
