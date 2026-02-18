@@ -12,7 +12,7 @@ class Index extends Component
     public $color = '#000000';
     public $size_level = 5;
     public $met_at;
-    public $is_public;
+    public $is_public = false;
     public $editingId = null;
 
     public $dogs; // 一覧表示用 => テーブルと同期させる
@@ -20,7 +20,15 @@ class Index extends Component
     // 初期化処理
     public function mount()
     {
-        $this->dogs = DogModel::latest()->get();
+        // 全件取得(デバッグ用)
+        // $this->dogs = DogModel::latest()->get();
+
+        // 自分(ログインUser)のDogだけを取得
+        $this->dogs = auth()->user()
+            ->dogs()
+            ->latest()
+            ->get();
+
     }
 
     // sizeクラス
@@ -37,7 +45,7 @@ class Index extends Component
             'color'       => ['required', 'regex:/^#[0-9A-Fa-f]{6}$/'],
             'size_level'  => 'required|integer|min:1|max:9',
             'met_at'      => 'nullable|date',
-            'is_public'   => 'required|boolean',
+            'is_public'   => 'boolean',
         ];
     }
 

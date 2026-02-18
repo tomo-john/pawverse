@@ -119,8 +119,8 @@
                 </div>
 
                 <!-- Public Badge -->
-                <div class="absolute top-4 right-3 z-10">
-                    <span class="{{ $dog->public_visibility['class'] }} rounded-lg p-2">
+                <div class="absolute top-2 right-2 z-10">
+                    <span class="{{ $dog->public_visibility['class'] }} text-xs rounded-full px-2 py-1">
                         {{ $dog->public_visibility['label'] }}
                     </span>
                 </div>
