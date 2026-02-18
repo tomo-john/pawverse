@@ -97,9 +97,9 @@
 
     <!-- Index -->
     <flux:heading size="md">
-        <i class="fa-solid fa-dog"></i>
-        Index
-        <i class="fa-solid fa-dog"></i>
+        <i class="fa-solid fa-dog mx-1"></i>
+        Your Dogs
+        <i class="fa-solid fa-dog mx-1"></i>
     </flux:heading>
 
     <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -116,6 +116,13 @@
                 <div class="flex items-center justify-center h-36">
                     <i class="fa-solid fa-dog {{ $dog->size_class }}"
                        style="color: {{ $dog->color }}"></i>
+                </div>
+
+                <!-- Public Badge -->
+                <div class="absolute top-4 right-3 z-10">
+                    <span class="{{ $dog->public_visibility['class'] }} rounded-lg p-2">
+                        {{ $dog->public_visibility['label'] }}
+                    </span>
                 </div>
 
                 <!-- Name -->
