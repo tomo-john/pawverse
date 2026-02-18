@@ -52,7 +52,7 @@ class Dog extends Model
     public function getPublicVisibilityAttribute(): array
     {
         return [
-            'label' => $this->is_public ? '公開🐶' : '非公開🔒',
+            'label' => $this->is_public ? '公開中🐶' : '非公開🔒',
             'class' => $this->is_public
                 ? 'bg-pink-100 text-pink-700'
                 : 'bg-gray-100 text-gray-700'

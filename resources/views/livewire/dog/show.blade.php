@@ -1,17 +1,29 @@
 <div class="max-w-4xl mx-auto space-y-6">
 
+
     {{-- ヘッダー --}}
     <div class="flex items-center gap-6">
 
-        <div class="flex justify-center items-center w-48 h-48 border-4 border-pink-100 rounded-full bg-white shadow-sm flex-shrink-0">
+        <div class="relative flex justify-center items-center w-48 h-48 border-4 border-pink-100 rounded-full bg-white shadow-sm flex-shrink-0">
+
+            {{-- Public Badge --}}
+            <div class="absolute bottom-1 right-1">
+                <span class="{{ $dog->public_visibility['class'] }} text-xs rounded-full shadow px-2 py-1">
+                    {{ $dog->public_visibility['label'] }}
+                </span>
+            </div>
+
             <i class="fa-solid fa-dog {{ $dog->size_class }} drop-shadow-sm"
                style="color: {{ $dog->color }}"></i>
         </div>
 
+        {{-- 吹き出し --}}
         <div class="relative bg-white border-2 border-pink-200 p-4 rounded-2xl shadow-sm">
             <div class="absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-l-2 border-b-2 border-pink-200 rotate-45"></div>
 
-            <div class="relative flex items-center gap-2 text-lg font-bold text-gray-700">
+            <div class="flex items-center gap-2 text-lg font-bold text-gray-700">
+
+                {{-- 吹き出しのセリフ --}}
                 <i class="fa-solid fa-paw text-pink-400"></i>
                 <span>ボクの名前は <span class="text-pink-600">{{ $dog->name }}</span> だわん！</span>
             </div>
