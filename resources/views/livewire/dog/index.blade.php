@@ -55,9 +55,6 @@
             <!-- met_at-->
             <flux:input label="When did you first meet ?" type="date" wire:model="met_at"/>
 
-            <!-- is_good_boy-->
-            <flux:checkbox label="is_good_boy?🐶" wire:model.live="is_good_boy"></flux:checkbox>
-
             <!-- Submit Button-->
             <div class="flex gap-4">
             <flux:button wire:click="save">
@@ -87,13 +84,9 @@
 
             <div class="flex flex-1 justify-center items-center">
                 <i class="fa-solid fa-dog {{ $this->sizeClass }} drop-shadow-sm transition-all duration-500"
-                   style="color: {{ $color }}">
-                </i>
+                   style="color: {{ $color }}"></i>
             </div>
 
-            <div class="text-xs text-gray-500">
-                {{ $this->goodBoyLabel }}
-            </div>
         </div>
     </div>
 
@@ -125,11 +118,6 @@
                 <!-- Name -->
                 <div class="text-sm font-medium text-gray-800">
                     {{ $dog->name }}
-                </div>
-
-                <!-- Good boy -->
-                <div class="text-xs text-gray-500">
-                    {{ $dog->good_boy_label }}
                 </div>
 
                 <!-- met_at -->

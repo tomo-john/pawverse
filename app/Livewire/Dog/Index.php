@@ -12,7 +12,6 @@ class Index extends Component
     public $color = '#000000';
     public $size_level = 5;
     public $met_at;
-    public $is_good_boy = true;
     public $editingId = null;
 
     public $dogs; // 一覧表示用 => テーブルと同期させる
@@ -29,12 +28,6 @@ class Index extends Component
         return DogModel::SIZE_CLASSES[$this->size_level] ?? 'text-5xl';
     }
 
-    // is_good_boyラベル
-    public function getGoodBoyLabelProperty(): string
-    {
-        return $this->is_good_boy ? 'Good boy 🐶' : 'Naughty dog 😈';
-    }
-
     // バリデーションルール
     protected function rules(): array
     {
@@ -43,7 +36,6 @@ class Index extends Component
             'color'       => ['required', 'regex:/^#[0-9A-Fa-f]{6}$/'],
             'size_level'  => 'required|integer|min:1|max:9',
             'met_at'      => 'nullable|date',
-            'is_good_boy' => 'boolean',
         ];
     }
 
@@ -62,7 +54,6 @@ class Index extends Component
             'color'       => $this->color,
             'size_level'  => $this->size_level,
             'met_at'      => $this->met_at ?:null,
-            'is_good_boy' => $this->is_good_boy,
         ];
     }
 
@@ -77,7 +68,6 @@ class Index extends Component
         // デフォルト値
         $this->color = '#000000';
         $this->size_level = 5;
-        $this->is_good_boy = true;
         $this->editingId = null;
     }
 
@@ -117,7 +107,6 @@ class Index extends Component
         $this->color = $dog->color;
         $this->size_level = $dog->size_level;
         $this->met_at = optional($dog->met_at)->format('Y-m-d');
-        $this->is_good_boy = $dog->is_good_boy;
     }
 
     // 削除処理

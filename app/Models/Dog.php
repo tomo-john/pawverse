@@ -16,12 +16,10 @@ class Dog extends Model
         'color',
         'size_level',
         'met_at',
-        'is_good_boy',
     ];
 
     protected $casts = [
         'met_at' => 'immutable_date',
-        'is_good_boy' => 'boolean',
     ];
 
     public function user()
@@ -45,12 +43,6 @@ class Dog extends Model
     public function getSizeClassAttribute(): string
     {
         return self::SIZE_CLASSES[$this->size_level] ?? 'text-5xl';
-    }
-
-    // is_good_boy
-    public function getGoodBoyLabelAttribute(): string
-    {
-        return $this->is_good_boy ? 'Good boy 🐶' : 'Naughty dog 😈';
     }
 
     // dog削除時にreal_dogsテーブルに紐づいた写真も削除
