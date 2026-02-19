@@ -40,10 +40,21 @@
                         <span class="text-sm font-bold text-fuchsia-700">そしてわんこは...</span>
                     </div>
                 </div>
+
+                <div class="flex items-center gap-4 mb-6">
+                    <flux:button href="{{ route('public.dog.index') }}" variant="subtle" icon="sparkles" wire:navigate>
+                        Public Dogs
+                    </flux:button>
+                    <span class="text-sm text-gray-500 font-medium">
+                        <i class="fa-solid fa-circle-left"></i>
+                        よかったらのぞいてみてね🐶
+                    </span>
+                </div>
+
                 <flux:separator variant="subtle" class="mb-4" />
 
                 <!-- CTA的な -->
-                <flux:heading size="md" level="2">気になったら🐶</flux:heading>
+                <flux:heading size="md" level="2">🐶気になったら🐶</flux:heading>
                 <div class="flex gap-4 mt-2 mb-6 bg-zinc-100 dark:bg-zinc-900 rounded-2xl p-8">
                     <flux:button variant="primary" color="pink" class="px-8 shadow-lg" as="a" href="{{ route('register') }}">
                         わんこを迎えてみる(新規登録)

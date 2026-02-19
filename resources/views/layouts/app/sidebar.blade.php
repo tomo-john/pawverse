@@ -17,10 +17,16 @@
                     </flux:sidebar.item>
                 </flux:sidebar.group>
 
-                <!-- Dog Componet -->
+                <!-- Dogs -->
                 <flux:sidebar.group heading="Dog" class="grid">
+                    <!-- My Dogs -->
                     <flux:sidebar.item icon="star" :href="route('dog.index')" :current="request()->routeIs('dog.index')" wire:navigate>
-                        Dog Componet
+                        My Dogs
+                    </flux:sidebar.item>
+
+                    <!-- Public Dogs -->
+                    <flux:sidebar.item icon="star" :href="route('public.dog.index')" :current="request()->routeIs('public.dog.index')" wire:navigate>
+                        Public Dogs
                     </flux:sidebar.item>
                 </flux:sidebar.group>
 
