@@ -5,6 +5,11 @@
         Public Dogs
     </flux:heading>
 
+    {{-- ページネーション --}}
+    <div class="my-4">
+        {{ $dogs->links() }}
+    </div>
+
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         @forelse ($dogs as $dog)
             <div class="flex flex-col justify-center items-center rounded-2xl bg-white p-4 shadow">

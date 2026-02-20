@@ -3,23 +3,25 @@
 namespace App\Livewire\PublicDog;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 use App\Models\Dog;
 
 class Index extends Component
 {
-    public $dogs;
+    use WithPagination;
 
-    public function mount()
-    {
-        $this->dogs = Dog::query()
-            ->where('is_public', true)
-            ->latest()
-            ->get();
-    }
+    protected $paginationTheme = 'tailwind';
 
     public function render()
     {
-        return view('livewire.public-dog.index')
-            ->layout('layouts::guest');
+        $dogs = Dog::query()
+            ->with('user') // N+1問題回避🐶
+            ->where('is_public', true)
+            ->latest()
+            ->paginate(9);
+
+        return view('livewire.public-dog.index', [
+            'dogs' => $dogs,
+        ])->layout('layouts::guest');
     }
 }
