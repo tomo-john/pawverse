@@ -12,7 +12,7 @@ class DogStatus extends Model
         'exp',
         'happy',
         'stamina',
-        'hanger',
+        'hunger',
     ];
 
     public function dog()

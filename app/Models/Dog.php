@@ -59,13 +59,19 @@ class Dog extends Model
         ];
     }
 
-    // dog削除時にreal_dogsテーブルに紐づいた写真も削除
+    // Modelイベント
     protected static function booted()
     {
+        // dog削除時にreal_dogsテーブルに紐づいた写真も削除
         static::deleting(function ($dog) {
             if ($dog->realDog?->photo_path) {
                 Storage::disk('public')->delete($dog->realDog->photo_path);
             }
+        });
+
+        // Dog作成時にDogStatusも作成
+        static::created(function ($dog) {
+            $dog->status()->create();
         });
     }
 
