@@ -9,7 +9,7 @@
     <div class="my-4">
         <flux:input wire:model.live.debounce.500ms="search" icon="magnifying-glass" placeholder="名前 or 飼い主名で検索..."/>
     </div>
-    <div wire:loading wire:target="search" class="text-sm text-gray-400">
+    <div wire:loading.delay wire:target="search" class="text-sm text-gray-400">
         検索中...
         <i class="fa-solid fa-dog fa-spin"></i>
     </div>
@@ -36,9 +36,14 @@
                 </div>
             </div>
         @empty
-            <p class="text-gray-500">
-                まだ公開されているわんこはいません 🐾
-            </p>
+            <div class="col-span-full py-12 text-center">
+                <p class="text-gray-500">
+                    {{$this->search
+                        ? '見つかりませんでした🐾'
+                        : 'まだ公開されているわんこはいません🐾'
+                    }}
+                </p>
+            </div>
         @endforelse
     </div>
 </div>
