@@ -69,9 +69,15 @@ class Dog extends Model
         });
     }
 
-    // RealDogリレーション
+    // RealDogリレーション(1対1)
     public function realDog()
     {
         return $this->hasOne(RealDog::class);
+    }
+
+    // DogStatusリレーション(1対1)
+    public function status()
+    {
+        return $this->hasOne(DogStatus::class);
     }
 }
