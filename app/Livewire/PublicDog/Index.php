@@ -13,15 +13,30 @@ class Index extends Component
     protected $paginationTheme = 'tailwind';
 
     public string $search = '';
+    public string $sort = 'latest';
 
     public function updatingSearch()
     {
         $this->resetPage();
     }
 
+    public function updatingSort()
+    {
+        $this->resetPage();
+    }
+
+    public function applySort($query)
+    {
+        return match ($this->sort) {
+            'oldest' => $query->oldest(),
+            'name'   => $query->orderBy('name'),
+            'size'   => $query->orderBy('size_level'),
+            default  => $query->latest(),
+        };
+    }
+
     public function render()
     {
-        sleep(1); // ローディング表示確認用
         $dogs = Dog::query()
             ->with('user') // N+1問題回避🐶
             ->where('is_public', true)
@@ -32,8 +47,8 @@ class Index extends Component
                                 $u->where('name', 'like', "%{$this->search}%")
                              );
                 });
-            })
-            ->latest()
+            });
+        $dogs = $this->applySort($dogs)
             ->paginate(9);
 
         return view('livewire.public-dog.index', compact('dogs'))

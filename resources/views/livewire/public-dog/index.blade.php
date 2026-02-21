@@ -14,9 +14,21 @@
         <i class="fa-solid fa-dog fa-spin"></i>
     </div>
 
-    {{-- ページネーション --}}
-    <div class="my-4">
-        {{ $dogs->links() }}
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 my-6">
+        {{-- ページネーション: 左） --}}
+        <div class="flex-1">
+            {{ $dogs->links() }}
+        </div>
+
+        {{-- 並べ替え: 右 --}}
+        <div class="w-full md:w-auto">
+            <flux:select wire:model.live="sort">
+                <option value="latest">新着順</option>
+                <option value="oldest">古い順</option>
+                <option value="size">サイズ順</option>
+                <option value="name">名前順</option>
+            </flux:select>
+        </div>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
