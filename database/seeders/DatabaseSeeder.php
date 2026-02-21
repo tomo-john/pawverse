@@ -38,5 +38,8 @@ class DatabaseSeeder extends Seeder
 
         // ランダムユーザーの作成
         // User::factory(10)->create();
+
+        // ランダムDog生成
+        $this->call(DogSeeder::class);
     }
 }
