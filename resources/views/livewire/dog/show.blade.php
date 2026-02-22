@@ -57,7 +57,7 @@
             </div>
 
             <div class="w-full bg-gray-200 rounded-full h-2">
-                <div class="bg-pink-400 h-2 rounded-full" style="width: {{ $dog->status->happy }}%"></div>
+                <div class="bg-pink-400 h-2 rounded-full transition-all duration-500" style="width: {{ $dog->status->happy }}%"></div>
             </div>
         </div>
 
@@ -69,7 +69,7 @@
             </div>
 
             <div class="w-full bg-gray-200 rounded-full h-2">
-                <div class="bg-green-400 h-2 rounded-full" style="width: {{ $dog->status->stamina }}%"></div>
+                <div class="bg-green-400 h-2 rounded-full transition-all duration-500" style="width: {{ $dog->status->stamina }}%"></div>
             </div>
         </div>
 
@@ -81,7 +81,7 @@
             </div>
 
             <div class="w-full bg-gray-200 rounded-full h-2">
-                <div class="bg-yellow-400 h-2 rounded-full" style="width: {{ $dog->status->hunger }}%"></div>
+                <div class="bg-yellow-400 h-2 rounded-full transition-all duration-500" style="width: {{ $dog->status->hunger }}%"></div>
             </div>
         </div>
 
@@ -157,9 +157,9 @@
         <h2 class="font-bold text-gray-700 mb-4">できること</h2>
 
         <div class="flex gap-3 text-sm text-gray-600">
-            <button class="px-3 py-1 bg-blue-100 rounded-lg">散歩</button>
-            <button class="px-3 py-1 bg-yellow-100 rounded-lg">ごはん</button>
-            <button class="px-3 py-1 bg-green-100 rounded-lg">なでる</button>
+            <button wire:click="action('walk')" class="px-3 py-1 bg-blue-100 rounded-lg">散歩</button>
+            <button wire:click="action('snack')" class="px-3 py-1 bg-green-100 rounded-lg">おやつ</button>
+            <button wire:click="action('meal')" class="px-3 py-1 bg-yellow-100 rounded-lg">ごはん</button>
         </div>
     </div>
 

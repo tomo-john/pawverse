@@ -5,6 +5,7 @@ namespace App\Livewire\Dog;
 use Livewire\Component;
 use App\Models\Dog;
 use App\Models\RealDog;
+use App\Services\DogActionService;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
 
@@ -151,6 +152,14 @@ class Show extends Component
         // 再読み込み & 後処理
         $this->dog->load('realDog');
         $this->closeModal();
+    }
+
+    // Action操作
+    public function action(string $type)
+    {
+        app(DogActionService::class)->execute($this->dog, $type);
+
+        $this->dog->refresh();
     }
 
     // レンダー
