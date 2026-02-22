@@ -30,7 +30,7 @@ class Show extends Component
     {
         $this->authorize('view', $dog);
         $this->dog = $dog;
-        $this->dog->load('realDog');
+        $this->dog->load(['realDog', 'status']);
         $this->personalities = RealDog::PERSONALITIES;
     }
 
@@ -72,21 +72,24 @@ class Show extends Component
     // 画像削除
     public function removePhoto()
     {
-        if ($this->dog->realDog?->photo_path) {
-            Storage::disk('public')->delete($this->dog->realDog->photo_path);
+        $path = $this->dog->realDog?->photo_path;
+
+        if ($path) {
+            Storage::disk('public')->delete($path);
             $this->dog->realDog->update(['photo_path' => null]);
-            $this->photo = null;
-            $this->dog->load('realDog');
+            $this->dog->refresh();
         }
     }
 
     // バリデーションルール
     protected function rules(): array
     {
+        $personalityKeys = implode(',', array_keys(RealDog::PERSONALITIES));
+
         return [
             'breed'       => 'nullable|string|max:50',
             'sex'         => 'nullable|in:male,female',
-            'personality' => 'nullable|in:' . implode(',', array_keys(RealDog::PERSONALITIES)),
+            'personality' => "nullable|in:$personalityKeys",
             'birthday'    => 'nullable|date|before_or_equal:today',
             'photo'       => 'nullable|image|max:2048',
         ];
@@ -109,6 +112,22 @@ class Show extends Component
         ];
     }
 
+    // photo保存メソッド
+    protected function storePhoto(): ?string
+    {
+        if (!$this->photo) {
+            return null;
+        }
+
+        $oldPath = $this->dog->realDog?->photo_path;
+
+        if ($oldPath) {
+            Storage::disk('public')->delete($oldPath);
+        }
+
+        return $this->photo->store('dogs/avatar','public');
+    }
+
     // 保存処理
     public function save()
     {
@@ -119,15 +138,7 @@ class Show extends Component
         $data = $this->realDogPayload();
 
         // 画像があるときだけ保存
-        if ($this->photo) {
-
-            // 古い画像があれば削除
-            if ($this->dog->realDog?->photo_path) {
-                Storage::disk('public')->delete($this->dog->realDog->photo_path);
-            }
-
-            // 新しい画像を保存
-            $path = $this->photo->store('dogs/avatar', 'public');
+        if ($path = $this->storePhoto()) {
             $data['photo_path'] = $path;
         }
 
