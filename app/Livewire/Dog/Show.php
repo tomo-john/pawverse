@@ -70,7 +70,7 @@ class Show extends Component
     }
 
 
-    // 画像削除
+    // photo削除メソッド
     public function removePhoto()
     {
         $path = $this->dog->realDog?->photo_path;
@@ -80,6 +80,22 @@ class Show extends Component
             $this->dog->realDog->update(['photo_path' => null]);
             $this->dog->refresh();
         }
+    }
+
+    // photo保存メソッド
+    protected function storePhoto(): ?string
+    {
+        if (!$this->photo) {
+            return null;
+        }
+
+        $oldPath = $this->dog->realDog?->photo_path;
+
+        if ($oldPath) {
+            Storage::disk('public')->delete($oldPath);
+        }
+
+        return $this->photo->store('dogs/avatar','public');
     }
 
     // バリデーションルール
@@ -111,22 +127,6 @@ class Show extends Component
             'personality' => $this->personality ?: null,
             'birthday'    => $this->birthday ?: null,
         ];
-    }
-
-    // photo保存メソッド
-    protected function storePhoto(): ?string
-    {
-        if (!$this->photo) {
-            return null;
-        }
-
-        $oldPath = $this->dog->realDog?->photo_path;
-
-        if ($oldPath) {
-            Storage::disk('public')->delete($oldPath);
-        }
-
-        return $this->photo->store('dogs/avatar','public');
     }
 
     // 保存処理
