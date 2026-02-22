@@ -32,14 +32,51 @@
     </div>
 
     {{-- ステータス --}}
-    <div class="bg-white rounded-2xl p-6 shadow-sm border">
+    <div class="bg-white rounded-2xl p-6 shadow-sm border space-y-6">
         <h2 class="font-bold text-gray-700 mb-4">ステータス</h2>
 
-        <div class="space-y-2 text-sm text-gray-600">
-            <div>Level : 1</div>
-            <div>EXP : 0</div>
-            <div>Happy : 50</div>
+        {{-- Level / EXP--}}
+        <div class="flex gap-6 text-md text-gray-600">
+            <div>Level : {{ $dog->status->level }}</div>
+            <div>EXP : {{ $dog->status->exp }}</div>
         </div>
+
+        {{-- Happy --}}
+        <div class="space-y-2">
+            <div class="flex justify-between text-xs text-gray-600">
+                <span>Happy</span>
+                <span>{{ $dog->status->happy }}</span>
+            </div>
+
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="bg-pink-400 h-2 rounded-full" style="width: {{ $dog->status->happy }}%"></div>
+            </div>
+        </div>
+
+        {{-- Stamina --}}
+        <div class="space-y-2">
+            <div class="flex justify-between text-xs text-gray-600">
+                <span>Stamina</span>
+                <span>{{ $dog->status->stamina }}</span>
+            </div>
+
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="bg-green-400 h-2 rounded-full" style="width: {{ $dog->status->stamina }}%"></div>
+            </div>
+        </div>
+
+        {{-- Hunger --}}
+        <div class="space-y-2">
+            <div class="flex justify-between text-xs text-gray-600">
+                <span>Hunger</span>
+                <span>{{ $dog->status->hunger }}</span>
+            </div>
+
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="bg-yellow-400 h-2 rounded-full" style="width: {{ $dog->status->hunger }}%"></div>
+            </div>
+        </div>
+
     </div>
 
     {{-- リアルわんこ --}}
