@@ -5,7 +5,7 @@
  * Action定義クラス
  */
 
-namespace App\Actions;
+namespace App\Actions\Dog;
 
 class DogAction
 {

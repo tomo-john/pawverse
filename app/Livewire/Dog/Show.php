@@ -5,7 +5,7 @@ namespace App\Livewire\Dog;
 use Livewire\Component;
 use App\Models\Dog;
 use App\Models\RealDog;
-use App\Services\DogActionService;
+use App\Services\Dog\DogActionService;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
 

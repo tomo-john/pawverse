@@ -5,10 +5,10 @@
  * Dog Status変更処理ロジック
  */
 
-namespace App\Services;
+namespace App\Services\Dog;
 
 use App\Models\Dog;
-use App\Actions\DogAction;
+use App\Actions\Dog\DogAction;
 use Illuminate\Support\Facades\DB;
 
 class DogActionService
