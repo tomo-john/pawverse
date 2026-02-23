@@ -86,4 +86,10 @@ class Dog extends Model
     {
         return $this->hasOne(DogStatus::class);
     }
+
+    // DogActionLosリレーション(1対多)
+    public function actionLogs()
+    {
+        return $this->hasMany(DogActionLog::class);
+    }
 }
