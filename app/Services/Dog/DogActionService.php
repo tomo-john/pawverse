@@ -33,10 +33,11 @@ class DogActionService
                 $status->$key = $this->clamp($status->$key + $value);
             }
 
-            $status->save();
-
             // DIされたServiceを使う
             $this->levelUpService->handle($dog);
+
+            // 最後に保存
+            $status->save();
         });
     }
 

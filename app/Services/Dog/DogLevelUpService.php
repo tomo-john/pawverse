@@ -28,8 +28,5 @@ class DogLevelUpService
             // レベルアップ(+1)
             $status->level++;
         }
-
-        // 保存
-        $status->save();
     }
 }
