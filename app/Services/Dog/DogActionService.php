@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\DB;
 
 class DogActionService
 {
+    // コンストラクタで受け取る
+    public function __construct(
+        private DogLevelUpService $levelUpService
+    ) {}
+
     public function execute(Dog $dog, string $action): void
     {
         // トランザクション
@@ -30,8 +35,8 @@ class DogActionService
 
             $status->save();
 
-            // レベルアップ処理を呼び出し
-            app(DogLevelUpService::class)->handle($dog);
+            // DIされたServiceを使う
+            $this->levelUpService->handle($dog);
         });
     }
 

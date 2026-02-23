@@ -155,9 +155,9 @@ class Show extends Component
     }
 
     // Action操作
-    public function action(string $type)
+    public function action(string $type, DogActionService $service)
     {
-        app(DogActionService::class)->execute($this->dog, $type);
+        $service->execute($this->dog, $type);
 
         $this->dog->refresh();
     }
