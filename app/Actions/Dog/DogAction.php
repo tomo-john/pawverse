@@ -23,7 +23,7 @@ class DogAction
                     'happy' => +20,
                     'stamina' => -10,
                     'hunger' => +10,
-                    'exp' => +5,
+                    'exp' => +10,
                 ],
             ],
 
