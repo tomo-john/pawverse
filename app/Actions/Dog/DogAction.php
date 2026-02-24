@@ -18,6 +18,9 @@ class DogAction
         return [
             self::WALK => [
                 'label' => '散歩',
+                'icon' => 'fa-solid fa-paw',
+                'color' => 'text-sky-600',
+                'bg' => 'bg-sky-50 border-sky-200',
                 'cooldown' => 10,
                 'effects' => [
                     'happy' => +20,

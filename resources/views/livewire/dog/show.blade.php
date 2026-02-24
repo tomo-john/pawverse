@@ -169,10 +169,19 @@
         @if ($Logs->isNotEmpty())
             <div class="h-80 overflow-y-auto space-y-3 pr-6 text-sm text-gray-600">
                 @foreach($Logs as $log)
-                    <div class="border rounded-lg p-3">
+
+                    @php
+                        $action = \App\Actions\Dog\DogAction::get($log->action);
+                    @endphp
+
+                    <div class="border rounded-xl p-3 {{ $action['bg'] }}">
 
                         <div class="felx justify-between text-xs text-gray-400">
-                            <span>{{ $log->action }}</span>
+                            <div class="flex items-center gap-2 {{ $action['color'] }}">
+                                <i class="{{ $action['icon'] }}"></i>
+                                <span>{{ $action['label'] }}</span>
+                            </div>
+
                             <span>{{ $log->created_at->diffForHumans() }}</span>
                         </div>
 
