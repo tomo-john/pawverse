@@ -174,7 +174,7 @@
                         $action = \App\Actions\Dog\DogAction::get($log->action);
                     @endphp
 
-                    <div class="border rounded-xl p-3 {{ $action['bg'] }}">
+                    <div class="flex gap-6 border rounded-xl p-3 {{ $action['bg'] }}">
 
                         <div class="felx justify-between text-xs text-gray-400">
                             <div class="flex items-center gap-2 {{ $action['color'] }}">

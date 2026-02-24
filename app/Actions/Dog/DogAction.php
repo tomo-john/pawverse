@@ -32,6 +32,9 @@ class DogAction
 
             self::SNACK => [
                 'label' => 'おやつ',
+                'icon' => 'fa-solid fa-bone',
+                'color' => 'text-green-600',
+                'bg' => 'bg-green-50 border-green-200',
                 'cooldown' => 5,
                 'effects' => [
                     'happy' => +10,
@@ -43,6 +46,9 @@ class DogAction
 
             self::MEAL => [
                 'label' => 'ごはん',
+                'icon' => 'fa-solid fa-bowl-food',
+                'color' => 'text-pink-600',
+                'bg' => 'bg-pink-50 border-pink-200',
                 'cooldown' => 30,
                 'effects' => [
                     'happy' => +10,
