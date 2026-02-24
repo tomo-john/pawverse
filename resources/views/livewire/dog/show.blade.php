@@ -170,16 +170,12 @@
             <div class="h-80 overflow-y-auto space-y-3 pr-6 text-sm text-gray-600">
                 @foreach($Logs as $log)
 
-                    @php
-                        $action = \App\Actions\Dog\DogAction::get($log->action);
-                    @endphp
-
-                    <div class="flex gap-6 border rounded-xl p-3 {{ $action['bg'] }}">
+                    <div class="flex gap-6 border rounded-xl p-3 {{ $log->definition['bg'] }}">
 
                         <div class="felx justify-between text-xs text-gray-400">
-                            <div class="flex items-center gap-2 {{ $action['color'] }}">
-                                <i class="{{ $action['icon'] }}"></i>
-                                <span>{{ $action['label'] }}</span>
+                            <div class="flex items-center gap-2 {{ $log->definition['color'] }}">
+                                <i class="{{ $log->definition['icon'] }}"></i>
+                                <span>{{ $log->definition['label'] }}</span>
                             </div>
 
                             <span>{{ $log->created_at->diffForHumans() }}</span>
