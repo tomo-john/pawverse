@@ -1,6 +1,5 @@
 <div class="max-w-4xl mx-auto space-y-6">
 
-
     {{-- ヘッダー --}}
     <div class="flex items-center gap-6">
 
@@ -168,7 +167,7 @@
         <h2 class="font-bold text-gray-700 mb-4">アクション履歴</h2>
 
         <div class="h-80 overflow-y-auto space-y-3 pr-6 text-sm text-gray-600">
-            @foreach($dog->actionLogs as $log)
+            @foreach($Logs as $log)
                 <div class="border rounded-lg p-3">
 
                     <div class="felx justify-between text-xs text-gray-400">
@@ -184,6 +183,11 @@
                 </div>
             @endforeach
         </div>
+
+        <div class="mt-4">
+            {{ $Logs->links() }}
+        </div>
+
     </div>
 
 

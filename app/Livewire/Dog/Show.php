@@ -7,11 +7,13 @@ use App\Models\Dog;
 use App\Models\RealDog;
 use App\Services\Dog\DogActionService;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 use Illuminate\Support\Facades\Storage;
 
 class Show extends Component
 {
     use WithFileUploads;
+    use WithPagination;
 
     // プロパティ
     public Dog $dog;
@@ -31,7 +33,7 @@ class Show extends Component
     {
         $this->authorize('view', $dog);
         $this->dog = $dog;
-        $this->dog->load(['realDog', 'status', 'actionLogs']);
+        $this->dog->load(['realDog', 'status']);
         $this->personalities = RealDog::PERSONALITIES;
     }
 
@@ -159,12 +161,17 @@ class Show extends Component
     {
         $service->execute($this->dog, $type);
 
-        $this->dog->refresh()->load('actionLogs');
+        $this->dog->refresh();
     }
 
     // レンダー
     public function render()
     {
-        return view('livewire.dog.show');
+        return view('livewire.dog.show', [
+            'Logs' => $this->dog
+                ->actionLogs()
+                ->latest()
+                ->paginate(10)
+        ]);
     }
 }
