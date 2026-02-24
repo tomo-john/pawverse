@@ -31,7 +31,7 @@ class Show extends Component
     {
         $this->authorize('view', $dog);
         $this->dog = $dog;
-        $this->dog->load(['realDog', 'status']);
+        $this->dog->load(['realDog', 'status', 'actionLogs']);
         $this->personalities = RealDog::PERSONALITIES;
     }
 
@@ -159,7 +159,7 @@ class Show extends Component
     {
         $service->execute($this->dog, $type);
 
-        $this->dog->refresh();
+        $this->dog->refresh()->load('actionLogs');
     }
 
     // レンダー

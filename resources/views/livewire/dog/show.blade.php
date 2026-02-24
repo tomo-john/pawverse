@@ -163,6 +163,30 @@
         </div>
     </div>
 
+    {{-- ログ --}}
+    <div class="bg-white rounded-2xl p-6 shadow-sm border">
+        <h2 class="font-bold text-gray-700 mb-4">アクション履歴</h2>
+
+        <div class="h-80 overflow-y-auto space-y-3 pr-6 text-sm text-gray-600">
+            @foreach($dog->actionLogs as $log)
+                <div class="border rounded-lg p-3">
+
+                    <div class="felx justify-between text-xs text-gray-400">
+                        <span>{{ $log->action }}</span>
+                        <span>{{ $log->created_at->diffForHumans() }}</span>
+                    </div>
+
+                    <div class="text-gray-600 mt-1">
+                        Lv {{ $log->payload['before']['level'] }}
+                        <i class="fa-solid fa-circle-right"></i>
+                        Lv {{ $log->payload['after']['level'] }}
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+
+
     {{-- モーダル --}}
     <flux:modal wire:model="showModal">
         <div class="space-y-4">
