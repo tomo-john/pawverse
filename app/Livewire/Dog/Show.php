@@ -171,7 +171,7 @@ class Show extends Component
             'Logs' => $this->dog
                 ->actionLogs()
                 ->latest()
-                ->paginate(10)
+                ->simplePaginate(10)
         ]);
     }
 }
