@@ -153,12 +153,12 @@
 
     {{-- アクション --}}
     <div class="bg-white rounded-2xl p-6 shadow-sm border">
-        <h2 class="font-bold text-gray-700 mb-4">できること</h2>
+        <h2 class="font-bold text-gray-700 mb-4">お世話</h2>
 
         <div class="flex gap-3 text-sm text-gray-600">
-            <button wire:click="action('walk')" class="px-3 py-1 bg-blue-100 rounded-lg">散歩</button>
-            <button wire:click="action('snack')" class="px-3 py-1 bg-green-100 rounded-lg">おやつ</button>
-            <button wire:click="action('meal')" class="px-3 py-1 bg-yellow-100 rounded-lg">ごはん</button>
+            <flux:button wire:click="action('walk')" variant="primary" color="sky" size="sm">散歩</flux:button>
+            <flux:button wire:click="action('snack')" variant="primary" color="green" size="sm">おやつ</flux:button>
+            <flux:button wire:click="action('meal')" variant="primary" color="pink" size="sm">ごはん</flux:button>
         </div>
     </div>
 
@@ -166,27 +166,37 @@
     <div class="bg-white rounded-2xl p-6 shadow-sm border">
         <h2 class="font-bold text-gray-700 mb-4">アクション履歴</h2>
 
-        <div class="h-80 overflow-y-auto space-y-3 pr-6 text-sm text-gray-600">
-            @foreach($Logs as $log)
-                <div class="border rounded-lg p-3">
+        @if ($Logs->isNotEmpty())
+            <div class="h-80 overflow-y-auto space-y-3 pr-6 text-sm text-gray-600">
+                @foreach($Logs as $log)
+                    <div class="border rounded-lg p-3">
 
-                    <div class="felx justify-between text-xs text-gray-400">
-                        <span>{{ $log->action }}</span>
-                        <span>{{ $log->created_at->diffForHumans() }}</span>
+                        <div class="felx justify-between text-xs text-gray-400">
+                            <span>{{ $log->action }}</span>
+                            <span>{{ $log->created_at->diffForHumans() }}</span>
+                        </div>
+
+                        <div class="text-gray-600 mt-1">
+                            Lv {{ $log->payload['before']['level'] }}
+                            <i class="fa-solid fa-circle-right"></i>
+                            Lv {{ $log->payload['after']['level'] }}
+                        </div>
                     </div>
+                @endforeach
+            </div>
 
-                    <div class="text-gray-600 mt-1">
-                        Lv {{ $log->payload['before']['level'] }}
-                        <i class="fa-solid fa-circle-right"></i>
-                        Lv {{ $log->payload['after']['level'] }}
-                    </div>
-                </div>
-            @endforeach
-        </div>
+            <div class="mt-4">
+                {{ $Logs->links(data: ['scrollTo' => false]) }}
+            </div>
+        @else
+            <div class="text-sm text-gray-600">
+                <p>
+                    まだアクションログがありません
+                    <i class="fa-solid fa-dog mx-1"></i>
+                </p>
+            </div>
+        @endif
 
-        <div class="mt-4">
-            {{ $Logs->links(data: ['scrollTo' => false]) }}
-        </div>
 
     </div>
 
