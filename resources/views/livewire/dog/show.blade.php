@@ -170,9 +170,9 @@
             <div class="h-80 overflow-y-auto space-y-3 pr-6 text-sm text-gray-600">
                 @foreach($Logs as $log)
 
-                    <div class="flex gap-6 border rounded-xl p-3 {{ $log->definition['bg'] }}">
+                    <div class="border rounded-xl p-4 {{ $log->definition['bg'] }}">
 
-                        <div class="felx justify-between text-xs text-gray-400">
+                        <div class="flex items-center justify-between text-xs text-gray-400">
                             <div class="flex items-center gap-2 {{ $log->definition['color'] }}">
                                 <i class="{{ $log->definition['icon'] }}"></i>
                                 <span>{{ $log->definition['label'] }}</span>
@@ -181,10 +181,18 @@
                             <span>{{ $log->created_at->diffForHumans() }}</span>
                         </div>
 
-                        <div class="text-gray-600 mt-1">
+                        <div class="text-sm text-gray-700 mt-2">
                             Lv {{ $log->payload['before']['level'] }}
-                            <i class="fa-solid fa-circle-right"></i>
+                            <i class="fa-solid fa-circle-right mx-1 text-gray-700"></i>
                             Lv {{ $log->payload['after']['level'] }}
+                        </div>
+                        <div class="mt-2 flex flex-wrap gap-2 text-xs">
+                            @foreach($log->payload['effects'] as $key => $value)
+                                <span class="px-2 py-1 rounded-full bg-white/60">
+                                    {{ ucfirst($key) }}
+                                    {{ $value > 0 ? '+' : '' }}{{ $value }}
+                                </span>
+                            @endforeach
                         </div>
                     </div>
                 @endforeach
@@ -201,7 +209,6 @@
                 </p>
             </div>
         @endif
-
 
     </div>
 
