@@ -119,24 +119,11 @@ stamina => -10
 
 ---
 
----
 
 # 4. 処理フロー
 
 ```
-UI
-↓
-Livewire action()
-↓
-DogActionService::execute()
-↓
-DogAction 定義取得
-↓
-Status更新
-↓
-LevelUpService
-↓
-Log保存
+UI => Livewire action() => DogActionService::execute() => DogAction 定義取得 => Status更新 => LevelUpService => Log保存
 ```
 
 ---
