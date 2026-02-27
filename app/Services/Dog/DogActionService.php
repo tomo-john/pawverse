@@ -11,6 +11,7 @@ namespace App\Services\Dog;
 use App\Models\Dog;
 use App\Actions\Dog\DogAction;
 use App\Services\Dog\DogLevelUpService;
+use App\Services\Dog\DogCooldownServece;
 use App\Models\DogActionLog;
 use Illuminate\Support\Facades\DB;
 
@@ -18,11 +19,18 @@ class DogActionService
 {
     // コンストラクタで受け取る
     public function __construct(
-        private DogLevelUpService $levelUpService
+        private DogLevelUpService $levelUpService,
+        private DogCooldownService $cooldownService
     ) {}
 
     public function execute(Dog $dog, string $action): void
     {
+        // クールダウンチェック
+        if (! $this->cooldownService->canExexute($dog, $action)) {
+            $remaining = $this->cooldownService->getRemainingSeconds($dog, $action);
+            throw new \Exception("Cooldown active: {$remaining} seconds remaining");
+        }
+
         // トランザクション
         DB::transaction(function () use ($dog, $action) {
 
