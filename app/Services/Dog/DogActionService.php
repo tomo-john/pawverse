@@ -28,7 +28,7 @@ class DogActionService
         // クールダウンチェック
         if (! $this->cooldownService->canExecute($dog, $action)) {
             $remaining = $this->cooldownService->getRemainingSeconds($dog, $action);
-            throw new \Exception("Cooldown active: {$remaining} seconds remaining");
+            throw new \RuntimeException("まだ実行できません🐶(残り: {$remaining} 秒)");
         }
 
         // トランザクション

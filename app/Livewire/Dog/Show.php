@@ -5,7 +5,9 @@ namespace App\Livewire\Dog;
 use Livewire\Component;
 use App\Models\Dog;
 use App\Models\RealDog;
+use App\Actions\Dog\DogAction;
 use App\Services\Dog\DogActionService;
+use App\Services\Dog\DogCooldownService;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Storage;
@@ -27,6 +29,15 @@ class Show extends Component
     public $showModal = false;
 
     public array $personalities = [];
+    public array $cooldowns = [];
+
+    // bootでDI
+    protected DogCooldownService $cooldownService;
+
+    public function boot(DogCooldownService $cooldownService)
+    {
+        $this->cooldownService = $cooldownService;
+    }
 
     // 初期化処理
     public function mount(Dog $dog)
@@ -35,6 +46,7 @@ class Show extends Component
         $this->dog = $dog;
         $this->dog->load(['realDog', 'status']);
         $this->personalities = RealDog::PERSONALITIES;
+        $this->loadCooldowns();
     }
 
     // モーダルオープン
@@ -162,6 +174,14 @@ class Show extends Component
         $service->execute($this->dog, $type);
 
         $this->dog->refresh();
+    }
+
+    // クールダウンタイム取得
+    public function loadCooldowns()
+    {
+        foreach (DogAction::all() as $key => $def) {
+            $this->cooldowns[$key] = $this->cooldownService->getRemainingSeconds($this->dog, $key);
+        }
     }
 
     // レンダー
