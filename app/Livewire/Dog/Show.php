@@ -30,7 +30,6 @@ class Show extends Component
 
     public array $personalities = [];
     public array $cooldowns = [];
-    public array $disabledActions = [];
 
     // bootでDI
     protected DogCooldownService $cooldownService;
@@ -175,16 +174,34 @@ class Show extends Component
         $service->execute($this->dog, $type);
 
         $this->dog->refresh();
+
+        $this->loadCooldowns();
     }
 
-    // クールダウンタイム取得と判定
+    // クールダウンタイム取得
     public function loadCooldowns()
     {
         foreach (DogAction::all() as $key => $def) {
             $remaining = $this->cooldownService->getRemainingSeconds($this->dog, $key);
             $this->cooldowns[$key] = $remaining;
-            $this->disabledActions[$key] = $remaining > 0;
         }
+    }
+
+    // クールダウン判定用
+    public function isDisabled(string $action): bool
+    {
+        return ($this->cooldowns[$action] ?? 0) > 0;
+    }
+
+    // クールダウン残り時間フォーマット
+    public function cooldownFormatted(string $action): string
+    {
+        $sec = $this->cooldowns[$action] ?? 0;
+
+        $m = floor($sec / 60);
+        $s = $sec % 60;
+
+        return sprintf('%02d:%02d', $m, $s);
     }
 
     // レンダー

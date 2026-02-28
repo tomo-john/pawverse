@@ -155,8 +155,16 @@
     <div class="bg-white rounded-2xl p-6 shadow-sm border">
         <h2 class="font-bold text-gray-700 mb-4">お世話</h2>
 
-        <div class="flex gap-3 text-sm text-gray-600">
-            <flux:button wire:click="action('walk')" variant="primary" color="sky" size="sm" :disabled="$disabledActions['walk'] ?? false">散歩</flux:button>
+        <div wire:poll.1s="loadCooldowns" class="flex gap-3 text-sm text-gray-600">
+            <div class="flex items-center gap-2">
+                <flux:button wire:click="action('walk')" variant="primary" color="sky" size="sm" :disabled="$this->isDisabled('walk')">散歩</flux:button>
+                @if ($this->isDisabled('walk'))
+                    <span class="text-xs text-gray-400">
+                        <i class="fa-solid fa-clock"></i>
+                        {{ $this->cooldownFormatted('walk') }}
+                    </span>
+                @endif
+            </div>
             <flux:button wire:click="action('snack')" variant="primary" color="green" size="sm">おやつ</flux:button>
             <flux:button wire:click="action('meal')" variant="primary" color="pink" size="sm">ごはん</flux:button>
         </div>
