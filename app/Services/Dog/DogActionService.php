@@ -11,7 +11,7 @@ namespace App\Services\Dog;
 use App\Models\Dog;
 use App\Actions\Dog\DogAction;
 use App\Services\Dog\DogLevelUpService;
-use App\Services\Dog\DogCooldownServece;
+use App\Services\Dog\DogCooldownService;
 use App\Models\DogActionLog;
 use Illuminate\Support\Facades\DB;
 
@@ -26,7 +26,7 @@ class DogActionService
     public function execute(Dog $dog, string $action): void
     {
         // クールダウンチェック
-        if (! $this->cooldownService->canExexute($dog, $action)) {
+        if (! $this->cooldownService->canExecute($dog, $action)) {
             $remaining = $this->cooldownService->getRemainingSeconds($dog, $action);
             throw new \Exception("Cooldown active: {$remaining} seconds remaining");
         }

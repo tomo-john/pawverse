@@ -14,15 +14,20 @@ class DogCooldownService
 {
     public function getRemainingSeconds(Dog $dog, string $action): int
     {
-        $definition = DogAction::get($action);
+        if (! $definition = DogAction::get($action)) {
+            return 0;
+        };
 
-        $lastLog = $dog->actionLogs()->where('action', $action)->first();
+        $lastLog = $dog->actionLogs()
+                       ->where('action', $action)
+                       ->latest('created_at')
+                       ->first();
 
         if (! $lastLog) {
             return 0;
         }
 
-        $cooldownMinutes = $definition['cooldown'];
+        $cooldownMinutes = (int) $definition['cooldown'];
 
         $nextAvailableAt = $lastLog->created_at->addMinutes($cooldownMinutes);
 
@@ -31,7 +36,7 @@ class DogCooldownService
         return max(0, $remaining);
     }
 
-    public function canExexute(Dog $dog, string $action): bool
+    public function canExecute(Dog $dog, string $action): bool
     {
         return $this->getRemainingSeconds($dog, $action) === 0;
     }
