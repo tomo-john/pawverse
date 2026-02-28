@@ -156,7 +156,7 @@
         <h2 class="font-bold text-gray-700 mb-4">お世話</h2>
 
         <div class="flex gap-3 text-sm text-gray-600">
-            <flux:button wire:click="action('walk')" variant="primary" color="sky" size="sm" :disabled="($cooldowns['walk'] ?? 0) > 0">散歩</flux:button>
+            <flux:button wire:click="action('walk')" variant="primary" color="sky" size="sm" :disabled="$disabledActions['walk'] ?? false">散歩</flux:button>
             <flux:button wire:click="action('snack')" variant="primary" color="green" size="sm">おやつ</flux:button>
             <flux:button wire:click="action('meal')" variant="primary" color="pink" size="sm">ごはん</flux:button>
         </div>
