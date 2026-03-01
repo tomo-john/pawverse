@@ -64,3 +64,16 @@ select:focus[data-flux-control] {
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */
+
+/* 自作CSS */
+@keyframes doggy {
+  0% { transform: translateX(0) rotate(0deg); }
+  25% { transform: translateX(25px) rotate(-4deg); }
+  50% { transform: translateX(50px) rotate(0deg); }
+  75% { transform: translateX(25px) rotate(4deg); }
+  100% { transform: translateX(0) rotate(0deg); }
+}
+
+.dog-walk {
+  animation: doggy 2s infinite ease-in-out;
+}
