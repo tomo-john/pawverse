@@ -158,7 +158,9 @@
 
         {{-- リアクションDog --}}
         <div class="my-2">
-            <i class="fa-solid fa-dog text-3xl drop-shadow-sm" style="color: {{ $dog->color }}"></i>
+            <i class="fa-solid fa-dog text-3xl drop-shadow-sm
+                      {{ $this->isDisabled('walk') ? 'animate-bounce' : ''}}"
+               style="color: {{ $dog->color }}"></i>
         </div>
 
         {{-- アクションボタンエリア --}}
