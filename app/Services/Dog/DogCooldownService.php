@@ -1,20 +1,15 @@
 <?php
 
-/**
- * DogCooldownServece.php
- * クールダウンロジック
- */
-
 namespace App\Services\Dog;
 
 use App\Models\Dog;
-use App\Actions\Dog\DogAction;
+use App\Domain\Dog\DogActionDefinition;
 
 class DogCooldownService
 {
     public function getRemainingSeconds(Dog $dog, string $action): int
     {
-        if (! $definition = DogAction::get($action)) {
+        if (! $definition = DogActionDefinition::get($action)) {
             return 0;
         };
 

@@ -1,13 +1,8 @@
 <?php
 
-/**
- * DogAction.php
- * Action定義クラス
- */
+namespace App\Domain\Dog;
 
-namespace App\Actions\Dog;
-
-class DogAction
+class DogActionDefinition
 {
     public const WALK = 'walk';
     public const SNACK = 'snack';

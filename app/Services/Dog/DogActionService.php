@@ -9,7 +9,7 @@
 namespace App\Services\Dog;
 
 use App\Models\Dog;
-use App\Actions\Dog\DogAction;
+use App\Domain\Dog\DogActionDefinition;
 use App\Services\Dog\DogLevelUpService;
 use App\Services\Dog\DogCooldownService;
 use App\Services\Dog\DogStatusService;
@@ -37,7 +37,7 @@ class DogActionService
         DB::transaction(function () use ($dog, $action) {
 
             // アクションの定義を取得
-            $definition = DogAction::get($action);
+            $definition = DogActionDefinition::get($action);
 
             // DB変更前の値を取得
             $before = $dog->status->getOriginal();

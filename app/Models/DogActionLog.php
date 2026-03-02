@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Actions\Dog\DogAction;
+use App\Domain\Dog\DogActionDefinition;
 
 class DogActionLog extends Model
 {
@@ -19,7 +19,7 @@ class DogActionLog extends Model
 
     public function getDefinitionAttribute(): array
     {
-        return DogAction::get($this->action);
+        return DogActionDefinition::get($this->action);
     }
 
     public function dog()

@@ -5,7 +5,7 @@ namespace App\Livewire\Dog;
 use Livewire\Component;
 use App\Models\Dog;
 use App\Models\RealDog;
-use App\Actions\Dog\DogAction;
+use App\Domain\Dog\DogActionDefinition;
 use App\Services\Dog\DogActionService;
 use App\Services\Dog\DogCooldownService;
 use Livewire\WithFileUploads;
@@ -181,7 +181,7 @@ class Show extends Component
     // クールダウンタイム取得
     public function loadCooldowns()
     {
-        foreach (DogAction::all() as $key => $def) {
+        foreach (DogActionDefinition::all() as $key => $def) {
             $remaining = $this->cooldownService->getRemainingSeconds($this->dog, $key);
             $this->cooldowns[$key] = $remaining;
         }
