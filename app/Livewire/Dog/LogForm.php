@@ -20,12 +20,12 @@ class LogForm extends Component
     {
         $this->dog = $dog;
         $this->logged_at = now()->format('Y-m-d\TH:i');
-        $this->types = RealDogLog::LABELS;
+        $this->types = RealDogLog::labels();
     }
 
     public function rules(): array
     {
-        $realDogLogTypes = implode(',', RealDogLog::TYPES);
+        $realDogLogTypes = implode(',', RealDogLog::types());
 
         return [
             'type'      => ['required', "in:$realDogLogTypes"],
@@ -52,6 +52,11 @@ class LogForm extends Component
     {
         $this->reset(['type', 'value', 'unit', 'memo']);
         $this->logged_at = now()->format('Y-m-d\TH:i');
+    }
+
+    public function updatedType($value)
+    {
+        $this->unit = RealDogLog::unitOf($value);
     }
 
     public function save()

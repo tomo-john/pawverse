@@ -19,31 +19,50 @@ class RealDogLog extends Model
         'logged_at' => 'datetime',
     ];
 
-    // Type定義
-    public const TYPE_WALK = 'walk';
-    public const TYPE_MEAL = 'meal';
-    public const TYPE_GROOM = 'groom';
-    public const TYPE_HOSPITAL = 'hospital';
-
-    public const TYPES = [
-        self::TYPE_WALK,
-        self::TYPE_MEAL,
-        self::TYPE_GROOM,
-        self::TYPE_HOSPITAL,
+    public const DEFINITIONS = [
+        'walk' => [
+            'label' => '散歩',
+            'unit' => 'minutes',
+        ],
+        'meal' => [
+            'label' => 'ごはん',
+            'unit' => 'grams'
+        ],
+        'groom' => [
+            'label' => 'トリミング',
+            'unit' => null,
+        ],
+        'hospital' => [
+            'label' => '病院',
+            'unit' => null,
+        ],
     ];
 
-    // Typeラベル用
-    public const LABELS = [
-        self::TYPE_WALK => '散歩',
-        self::TYPE_MEAL => 'ごはん',
-        self::TYPE_GROOM => 'トリミング',
-        self::TYPE_HOSPITAL => '病院',
-    ];
+    // 全タイプ一覧
+    public static function types(): array
+    {
+        return array_keys(self::DEFINITIONS);
+    }
+
+    // レベル一覧(select用)
+    public static function labels(): array
+    {
+        return collect(self::DEFINITIONS)
+            ->mapWithKeys(fn ($def, $key) => [$key => $def['label']])
+            ->toArray();
+    }
+
+    // unit取得
+    public static function unitOf(string $type): ?string
+    {
+        return self::DEFINITIONS[$type]['unit'] ?? null;
+    }
+
 
     // ラベル表示用アクセサ
     public function getTypeLabelAttribute(): string
     {
-        return self::LABELS[$this->type] ?? $this->type;
+        return self::DEFINITIONS[$this->type]['label'] ?? $this->type;
     }
 
     // Dogモデルに属する

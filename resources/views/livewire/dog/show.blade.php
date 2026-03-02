@@ -227,6 +227,9 @@
         </div>
     </div>
 
+    {{-- リアルログ入力フォーム　--}}
+    <livewire:dog.log-form :dog="$dog" />
+
     {{-- ログ --}}
     <div class="bg-white rounded-2xl p-6 shadow-sm border">
         <h2 class="font-bold text-gray-700 mb-4">アクション履歴</h2>
