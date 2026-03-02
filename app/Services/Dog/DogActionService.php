@@ -12,6 +12,7 @@ use App\Models\Dog;
 use App\Actions\Dog\DogAction;
 use App\Services\Dog\DogLevelUpService;
 use App\Services\Dog\DogCooldownService;
+use App\Services\Dog\DogStatusService;
 use App\Models\DogActionLog;
 use Illuminate\Support\Facades\DB;
 
@@ -20,12 +21,13 @@ class DogActionService
     // コンストラクタで受け取る
     public function __construct(
         private DogLevelUpService $levelUpService,
-        private DogCooldownService $cooldownService
+        private DogCooldownService $cooldownService,
+        private DogStatusService $statusService
     ) {}
 
     public function execute(Dog $dog, string $action): void
     {
-        // クールダウンチェック
+        // クールダウンチェック (Service)
         if (! $this->cooldownService->canExecute($dog, $action)) {
             $remaining = $this->cooldownService->getRemainingSeconds($dog, $action);
             throw new \RuntimeException("まだ実行できません🐶(残り: {$remaining} 秒)");
@@ -34,26 +36,23 @@ class DogActionService
         // トランザクション
         DB::transaction(function () use ($dog, $action) {
 
-            // DogAction.phpから指定したアクションの定義を取得
+            // アクションの定義を取得
             $definition = DogAction::get($action);
-            $status = $dog->status;
 
             // DB変更前の値を取得
-            $before = $status->getOriginal();
+            $before = $dog->status->getOriginal();
 
-            // ステータス更新
-            foreach ($definition['effects'] as $key => $value) {
-                $status->$key = $this->clamp($status->$key + $value);
-            }
+            // ステータス更新 (Service)
+            $this->statusService->applyEffects($dog, $definition['effects']);
 
-            // DIされたServiceを使う(レベルアップ処理)
+            // レベルアップ処理 (Service)
             $this->levelUpService->handle($dog);
 
             // 保存処理
-            $status->save();
+            $dog->status->save();
 
             // DB更新後の値を取得
-            $after = $status->fresh()->toArray();
+            $after = $dog->status->fresh()->toArray();
 
             // ログ書き込み
             DogActionLog::create([
@@ -66,11 +65,5 @@ class DogActionService
                 ]
             ]);
         });
-    }
-
-    // 下限値と上限値を設定
-    private function clamp($value): int
-    {
-        return max(0, min(100, $value));
     }
 }
