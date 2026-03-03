@@ -1,10 +1,6 @@
 <?php
 
-/**
- * レベルアップ経験値テーブル定義
- */
-
-namespace App\Support\Dog;
+namespace App\Domain\Dog;
 
 class DogLevel
 {

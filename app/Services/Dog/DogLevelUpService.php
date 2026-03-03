@@ -1,13 +1,9 @@
 <?php
 
-/**
- * レベルアップ処理
- */
-
 namespace App\Services\Dog;
 
 use App\Models\Dog;
-use App\Support\Dog\DogLevel;
+use App\Domain\Dog\DogLevel;
 
 class DogLevelUpService
 {
