@@ -159,33 +159,31 @@
         {{-- リアクションDog --}}
         <div class="my-2">
             <i class="fa-solid fa-dog text-3xl drop-shadow-sm
-                      {{ $this->isDisabled('walk') ? 'dog-walk' : ''}}"
+                      {{ $this->isDisabled('pet') ? 'dog-walk' : ''}}"
                style="color: {{ $dog->color }}"></i>
         </div>
 
         {{-- アクションボタンエリア --}}
         <div wire:poll.1s="loadCooldowns" class="flex gap-3 text-sm text-gray-600">
-            {{-- 散歩 --}}
             <div class="flex flex-col gap-1 w-32">
                 <flux:button
-                    wire:click="action('walk')"
+                    wire:click="action('pet')"
                     wire:loading.attr="disabled"
                     wire:loading.class="opacity-50 scale-95"
                     variant="primary"
                     color="sky" size="sm"
-                    :disabled="$this->isDisabled('walk')"
+                    :disabled="$this->isDisabled('pet')"
                 >
-                    散歩
+                    なでる
                 </flux:button>
-                @if ($this->isDisabled('walk'))
+                @if ($this->isDisabled('pet'))
                     <span class="text-xs text-gray-400 text-center">
                         <i class="fa-solid fa-clock"></i>
-                        {{ $this->cooldownFormatted('walk') }}
+                        {{ $this->cooldownFormatted('pet') }}
                     </span>
                 @endif
             </div>
 
-            {{-- おやつ --}}
             <div class="flex flex-col gap-1 w-32">
                 <flux:button
                     wire:click="action('snack')"
@@ -205,22 +203,21 @@
                 @endif
             </div>
 
-            {{-- ごはん --}}
             <div class="flex flex-col gap-1 w-32">
                 <flux:button
-                    wire:click="action('meal')"
+                    wire:click="action('scold')"
                     wire:loading.attr="disabled"
                     wire:loading.class="opacity-50 scale-95"
                     variant="primary"
-                    color="pink" size="sm"
-                    :disabled="$this->isDisabled('meal')"
+                    color="red" size="sm"
+                    :disabled="$this->isDisabled('scold')"
                 >
-                    ごはん
+                    しかる
                 </flux:button>
-                @if ($this->isDisabled('meal'))
+                @if ($this->isDisabled('scold'))
                     <span class="text-xs text-gray-400 text-center">
                         <i class="fa-solid fa-clock"></i>
-                        {{ $this->cooldownFormatted('meal') }}
+                        {{ $this->cooldownFormatted('scold') }}
                     </span>
                 @endif
             </div>

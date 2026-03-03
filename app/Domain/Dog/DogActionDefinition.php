@@ -1,27 +1,31 @@
-<?php
+<?PHP
 
 namespace App\Domain\Dog;
 
 class DogActionDefinition
 {
-    public const WALK = 'walk';
+    /**
+     * Actionを削除するとDogActionLog取得時に古いアクションログあるとエラー
+     */
+
+    public const PET = 'pet';
     public const SNACK = 'snack';
-    public const MEAL = 'meal';
+    public const SCOLD = 'scold';
 
     public static function all(): array
     {
         return [
-            self::WALK => [
-                'label' => '散歩',
+            self::PET => [
+                'label' => 'なでる',
                 'icon' => 'fa-solid fa-paw',
                 'color' => 'text-sky-600',
                 'bg' => 'bg-sky-50 border-sky-200',
-                'cooldown' => 10,
+                'cooldown' => 1,
                 'effects' => [
-                    'happy' => +20,
-                    'stamina' => -10,
-                    'hunger' => +10,
-                    'exp' => +10,
+                    'happy' => +5,
+                    'stamina' => 0,
+                    'hunger' => 0,
+                    'exp' => +1,
                 ],
             ],
 
@@ -30,26 +34,26 @@ class DogActionDefinition
                 'icon' => 'fa-solid fa-bone',
                 'color' => 'text-green-600',
                 'bg' => 'bg-green-50 border-green-200',
-                'cooldown' => 5,
+                'cooldown' => 10,
                 'effects' => [
                     'happy' => +10,
                     'stamina' => +5,
                     'hunger' => -5,
-                    'exp' => +1,
+                    'exp' => +2,
                 ],
             ],
 
-            self::MEAL => [
-                'label' => 'ごはん',
-                'icon' => 'fa-solid fa-bowl-food',
-                'color' => 'text-pink-600',
-                'bg' => 'bg-pink-50 border-pink-200',
+            self::SCOLD => [
+                'label' => 'しかる',
+                'icon' => 'fa-solid fa-shield-dog',
+                'color' => 'text-red-600',
+                'bg' => 'bg-red-50 border-red-200',
                 'cooldown' => 30,
                 'effects' => [
-                    'happy' => +10,
-                    'stamina' => +10,
-                    'hunger' => -20,
-                    'exp' => +5,
+                    'happy' => -10,
+                    'stamina' => 0,
+                    'hunger' => 0,
+                    'exp' => +30,
                 ],
             ],
         ];
@@ -57,6 +61,6 @@ class DogActionDefinition
 
     public static function get(string $action): array
     {
-        return self::all()[$action] ?? throw new \Exception("Invalid action");
+        return self::all()[$action] ?? throw new \Exception("Action: $action は見つからないわん！🐶");
     }
 }
