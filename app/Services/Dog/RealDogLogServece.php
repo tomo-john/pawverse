@@ -27,8 +27,8 @@ class RealDogLogService
         // 定義取得
         $definition = RealDogLogDefinition::get($action);
 
-        // 前提チェック
-        $this->validate($dog, $definition, $value);
+        // バリデーション
+        $this->validate($dog, $action, $definition, $value);
 
         // effects計算
         $effects = $this->calculateEffects($definition, $value);
@@ -65,16 +65,23 @@ class RealDogLogService
         // RealDog登録済みチェック
 
         // requires_valueチェック
-        if ($definition['requires_value'] && $value === null) {
-            throw new \InvalidArgumentException("Action: $action には値が必要です🐶");
+        if ($definition['requires_value']) {
+
+            if ($value === null) {
+                throw new \InvalidArgumentException("Action: $action には値が必要です🐶");
+            }
+
+            if ($value <= 0) {
+                throw new \InvalidArgumentException("Action: $action は0より大きい値を入力してね🐶");
+            }
+
+            if (isset($definition['max_value']) && $value > $definition['max_value']) {
+                throw new \InvalidArgumentException("Action: $action の値が大きすぎます🐶");
+            }
         }
 
         if (! $definition['requires_value'] && $value !== null) {
             throw new \InvalidArgumentException("Action: $action には値が不要です🐶");
-        }
-
-        if (isset($definition['max_value']) && $value > $definition['max_value']) {
-            throw new \InvalidArgumentException("Action: $action に対してvalueの値が大きすぎます🐶");
         }
 
         // ログ入力の制限チェック
