@@ -17,6 +17,7 @@ class RealDogLogDefinition
                 'unit' => 'minutes',
                 'type' => 'per_unit',
                 'requires_value' => true,
+                'max_value' => 360,
                 'effects_per_unit' => [ // 1分あたり
                     'happy' => 1,
                     'stamina' => -1,
@@ -30,6 +31,7 @@ class RealDogLogDefinition
                 'unit' => 'grams',
                 'type' => 'per_unit',
                 'requires_value' => true,
+                'max_value' => 1000,
                 'effects_per_unit' => [ // 1gramあたり
                     'happy' => 0.1,
                     'stamina' => +0.5,
