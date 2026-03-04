@@ -1,6 +1,10 @@
 <div class="bg-white rounded-2xl p-6 shadow-sm border">
     <h2 class="font-bold text-gray-700 mb-4">リアルログ入力(作成中)</h2>
 
+    @if (session('error'))
+        <p class="text-red-600">{{ session('error') }}</p>
+    @endif
+
     <div class="bg-gray-400 rounded-2xl p-6 border space-y-6">
         {{-- type: ログの種類 --}}
         <flux:select label="ログの種類" wire:model.live="type">

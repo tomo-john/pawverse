@@ -5,6 +5,8 @@ namespace App\Livewire\Dog;
 use Livewire\Component;
 use App\Models\Dog;
 use App\Models\RealDogLog;
+use App\Services\Dog\RealDogLogService;
+use Carbon\Carbon;
 
 class LogForm extends Component
 {
@@ -30,21 +32,8 @@ class LogForm extends Component
         return [
             'type'      => ['required', "in:$realDogLogTypes"],
             'value'     => ['nullable', 'integer', 'min:0'],
-            'unit'      => ['nullable', 'string'],
             'memo'      => ['nullable', 'string', 'max:255'],
             'logged_at' => ['required', 'date'],
-        ];
-    }
-
-    public function realDogLogPayload(): array
-    {
-        return [
-            'dog_id'    => $this->dog->id,
-            'type'      => $this->type,
-            'value'     => $this->value,
-            'unit'      => $this->unit,
-            'memo'      => $this->memo,
-            'logged_at' => $this->logged_at,
         ];
     }
 
@@ -59,15 +48,25 @@ class LogForm extends Component
         $this->unit = RealDogLog::unitOf($value);
     }
 
-    public function save()
+    public function save(RealDogLogService $service)
     {
         $this->validate();
 
-        $data = $this->realDogLogPayload();
+        try {
+            $service->execute(
+                $this->dog,
+                $this->type,
+                $this->value,
+                $this->memo,
+                Carbon::parse($this->logged_at)
+            );
 
-        RealDogLog::create($data);
+            $this->resetForm();
 
-        $this->resetForm();
+        } catch (\Throwable $e) {
+            session()->flash('error', $e->getMessage());
+        }
+
     }
 
     public function render()
