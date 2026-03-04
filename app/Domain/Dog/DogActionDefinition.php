@@ -61,6 +61,6 @@ class DogActionDefinition
 
     public static function get(string $action): array
     {
-        return self::all()[$action] ?? throw new \Exception("Action: $action は見つからないわん！🐶");
+        return self::all()[$action] ?? throw new \InvalidArgumentException("Action: $action は見つからないわん！🐶");
     }
 }
