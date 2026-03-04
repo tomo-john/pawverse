@@ -3,6 +3,7 @@
 namespace App\Services\Dog;
 
 use App\Models\Dog;
+use App\Models\RealDogLog;
 use App\Domain\Dog\RealDogLogDefinition;
 use App\Services\Dog\DogLevelUpService;
 use App\Services\Dog\DogStatusService;
@@ -28,7 +29,7 @@ class RealDogLogService
         $definition = RealDogLogDefinition::get($action);
 
         // バリデーション
-        $this->validate($dog, $action, $definition, $value);
+        $this->validate($dog, $action, $value, $definition);
 
         // effects計算
         $effects = $this->calculateEffects($definition, $value);
