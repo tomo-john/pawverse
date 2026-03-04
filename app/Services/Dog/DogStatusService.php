@@ -18,8 +18,6 @@ class DogStatusService
 
             $status->$key = $this->clamp($status->$key + $value);
         }
-
-        $status->save();
     }
 
     // clamp
