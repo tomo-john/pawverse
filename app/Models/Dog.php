@@ -81,6 +81,12 @@ class Dog extends Model
         return $this->hasOne(RealDog::class);
     }
 
+    // RealDogLogリレーション(1対多)
+    public function realDogLogs()
+    {
+        return $this->hasMany(RealDogLog::class)->latest();
+    }
+
     // DogStatusリレーション(1対1)
     public function status()
     {
