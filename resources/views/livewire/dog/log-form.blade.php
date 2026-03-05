@@ -9,7 +9,7 @@
         <div class="text-green-600 mb-4">{{ session('message') }}</div>
     @endif
 
-    <div class="bg-gray-400 rounded-2xl p-6 border space-y-6">
+    <div class="bg-black rounded-2xl p-6 border space-y-6">
         {{-- type: ログの種類 --}}
         <flux:select label="何をした？🐶" wire:model.live="type">
             <option value="" disabled>選択してください</option>
@@ -20,7 +20,12 @@
 
         @if ($type && $requiresValue)
             {{-- value: 容量 --}}
-            <flux:input :label="'どのくらい？🐶' . ($unit ? ' (' . $unit . ')' : '')" type="number" wire:model="value" />
+            <flux:input :label="'どのくらい？🐶' . ($unit ? ' (' . $unit . ')' : '')"
+                        type="number"
+                        wire:model="value"
+                        min="1"
+                        placeholder="最大値: {{ $maxValue }}"
+            />
         @endif
 
         {{-- memo: メモ --}}

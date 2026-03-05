@@ -16,6 +16,7 @@ class LogForm extends Component
     public ?int    $value = null;
     public ?string $unit = null;
     public bool    $requiresValue = false;
+    public ?int    $maxValue = null;
     public ?string $memo = null;
     public string  $logged_at = '';
     public array   $types = [];
@@ -33,7 +34,7 @@ class LogForm extends Component
 
         return [
             'type'      => ['required', "in:$realDogLogTypes"],
-            'value'     => ['nullable', 'integer', 'min:1'],
+            'value'     => ['nullable', 'integer', 'min:1', $this->maxValue ? "max:$this->maxValue" : null],
             'memo'      => ['nullable', 'string', 'max:255'],
             'logged_at' => ['required', 'date'],
         ];
@@ -49,6 +50,7 @@ class LogForm extends Component
     {
         $this->unit = RealDogLogDefinition::unitOf($value);
         $this->requiresValue = RealDogLogDefinition::requiresValue($value);
+        $this->maxValue = RealDogLogDefinition::maxValue($value);
     }
 
     public function save(RealDogLogService $service)

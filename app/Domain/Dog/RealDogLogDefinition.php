@@ -93,6 +93,11 @@ class RealDogLogDefinition
         return self::get($type)['requires_value'] ?? false;
     }
 
+    public static function maxValue(string $type): ?int
+    {
+        return self::get($type)['max_value'] ?? null;
+    }
+
     public static function labelOf(string $type): string
     {
         return self::get($type)['label'] ?? $type;

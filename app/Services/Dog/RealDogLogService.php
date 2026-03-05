@@ -90,7 +90,6 @@ class RealDogLogService
 
         // ログ入力の制限チェック
 
-        // 異常値の入力チェック
     }
 
     // ステータス計算(effects)
