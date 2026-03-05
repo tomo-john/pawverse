@@ -10,13 +10,14 @@ use Carbon\Carbon;
 
 class LogForm extends Component
 {
-    public Dog $dog;
-    public string $type ='';
-    public ?int $value = null;
+    public Dog     $dog;
+    public string  $type ='';
+    public ?int    $value = null;
     public ?string $unit = null;
+    public bool    $isRequiresValue = false;
     public ?string $memo = null;
-    public string $logged_at = '';
-    public array $types = [];
+    public string  $logged_at = '';
+    public array   $types = [];
 
     public function mount(Dog $dog)
     {
@@ -31,7 +32,7 @@ class LogForm extends Component
 
         return [
             'type'      => ['required', "in:$realDogLogTypes"],
-            'value'     => ['nullable', 'integer', 'min:0'],
+            'value'     => ['nullable', 'integer', 'min:1'],
             'memo'      => ['nullable', 'string', 'max:255'],
             'logged_at' => ['required', 'date'],
         ];
@@ -46,6 +47,7 @@ class LogForm extends Component
     public function updatedType($value)
     {
         $this->unit = RealDogLog::unitOf($value);
+        $this->isRequiresValue = RealDogLog::isRequiresValue($value);
     }
 
     public function save(RealDogLogService $service)

@@ -23,10 +23,12 @@ class RealDogLog extends Model
         'walk' => [
             'label' => '散歩',
             'unit' => 'minutes',
+            'requires_value' => true,
         ],
         'meal' => [
             'label' => 'ごはん',
-            'unit' => 'grams'
+            'unit' => 'grams',
+            'requires_value' => true,
         ],
         'groom' => [
             'label' => 'トリミング',
@@ -44,7 +46,7 @@ class RealDogLog extends Model
         return array_keys(self::DEFINITIONS);
     }
 
-    // レベル一覧(select用)
+    // ラベル一覧(select用)
     public static function labels(): array
     {
         return collect(self::DEFINITIONS)
@@ -56,6 +58,12 @@ class RealDogLog extends Model
     public static function unitOf(string $type): ?string
     {
         return self::DEFINITIONS[$type]['unit'] ?? null;
+    }
+
+    // value必須か?
+    public static function isRequiresValue(string $type): bool
+    {
+        return self::DEFINITIONS[$type]['requires_value'] ?? false;
     }
 
 
