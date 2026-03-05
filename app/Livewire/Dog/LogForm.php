@@ -5,6 +5,7 @@ namespace App\Livewire\Dog;
 use Livewire\Component;
 use App\Models\Dog;
 use App\Models\RealDogLog;
+use App\Domain\Dog\RealDogLogDefinition;
 use App\Services\Dog\RealDogLogService;
 use Carbon\Carbon;
 
@@ -14,7 +15,7 @@ class LogForm extends Component
     public string  $type ='';
     public ?int    $value = null;
     public ?string $unit = null;
-    public bool    $isRequiresValue = false;
+    public bool    $requiresValue = false;
     public ?string $memo = null;
     public string  $logged_at = '';
     public array   $types = [];
@@ -23,12 +24,12 @@ class LogForm extends Component
     {
         $this->dog = $dog;
         $this->logged_at = now()->format('Y-m-d\TH:i');
-        $this->types = RealDogLog::labels();
+        $this->types = RealDogLogDefinition::labels();
     }
 
     public function rules(): array
     {
-        $realDogLogTypes = implode(',', RealDogLog::types());
+        $realDogLogTypes = implode(',', RealDogLogDefinition::types());
 
         return [
             'type'      => ['required', "in:$realDogLogTypes"],
@@ -46,8 +47,8 @@ class LogForm extends Component
 
     public function updatedType($value)
     {
-        $this->unit = RealDogLog::unitOf($value);
-        $this->isRequiresValue = RealDogLog::isRequiresValue($value);
+        $this->unit = RealDogLogDefinition::unitOf($value);
+        $this->requiresValue = RealDogLogDefinition::requiresValue($value);
     }
 
     public function save(RealDogLogService $service)

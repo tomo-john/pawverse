@@ -14,9 +14,9 @@
             @endforeach
         </flux:select>
 
-        @if ($type && $isRequiresValue)
+        @if ($type && $requiresValue)
             {{-- value: 容量 --}}
-            <flux:input :label="'どのくらい？🐶' . ($unit? '(' . $unit . ')' : '')" type="number" wire:model="value" />
+            <flux:input :label="'どのくらい？🐶' . ($unit ? ' (' . $unit . ')' : '')" type="number" wire:model="value" />
         @endif
 
         {{-- memo: メモ --}}

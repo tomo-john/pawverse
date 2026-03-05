@@ -70,4 +70,31 @@ class RealDogLogDefinition
     {
         return self::all()[$action] ?? throw new \InvalidArgumentException("Action: $action は見つからないわん！🐶");
     }
+
+    public static function types(): array
+    {
+        return array_keys(self::all());
+    }
+
+    public static function labels(): array
+    {
+        return collect(self::all())
+            ->mapWithKeys(fn ($def, $key) => [$key => $def['label']])
+            ->toArray();
+    }
+
+    public static function unitOf(string $type): ?string
+    {
+        return self::get($type)['unit'] ?? null;
+    }
+
+    public static function requiresValue(string $type): bool
+    {
+        return self::get($type)['requires_value'] ?? false;
+    }
+
+    public static function labelOf(string $type): string
+    {
+        return self::get($type)['label'] ?? $type;
+    }
 }
