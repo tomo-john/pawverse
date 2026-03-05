@@ -225,7 +225,9 @@
     </div>
 
     {{-- リアルログ入力フォーム　--}}
-    <livewire:dog.log-form :dog="$dog" />
+    @if ($dog->realDog)
+        <livewire:dog.log-form :dog="$dog" />
+    @endif
 
     {{-- ログ --}}
     <div class="bg-white rounded-2xl p-6 shadow-sm border">

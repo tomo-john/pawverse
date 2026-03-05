@@ -64,6 +64,9 @@ class RealDogLogService
     private function validate($dog, $action, $value, $definition): void
     {
         // RealDog登録済みチェック
+        if (! $dog->realDog) {
+            throw new \DomainException('RealDogが存在しません🐶');
+        }
 
         // requires_valueチェック
         if ($definition['requires_value']) {
