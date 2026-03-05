@@ -2,7 +2,11 @@
     <h2 class="font-bold text-gray-700 mb-4">今日の記録(作成中)</h2>
 
     @if (session('error'))
-        <p class="text-red-600">{{ session('error') }}</p>
+        <div class="text-red-600 mb-4">{{ session('error') }}</div>
+    @endif
+
+    @if (session('message'))
+        <div class="text-green-600 mb-4">{{ session('message') }}</div>
     @endif
 
     <div class="bg-gray-400 rounded-2xl p-6 border space-y-6">

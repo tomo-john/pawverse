@@ -66,6 +66,8 @@ class LogForm extends Component
 
             $this->resetForm();
 
+            session()->flash('message', '記録を保存しました🐶');
+
         } catch (\Throwable $e) {
             session()->flash('error', $e->getMessage());
         }
