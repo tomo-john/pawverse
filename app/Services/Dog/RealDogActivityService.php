@@ -46,16 +46,14 @@ class RealDogActivityService
             // ステータス保存
             $dog->status->save();
 
-            // ログ保存処理
-            RealDogActivity::create([
-                'dog_id' => $dog->id,
+            // 保存
+            $dog->realDogActivities()->create([
                 'type' => $action,
                 'value' => $value,
                 'unit' => $definition['unit'] ?? null,
                 'memo' => $memo,
                 'logged_at' => $loggedAt,
             ]);
-
         });
 
     }

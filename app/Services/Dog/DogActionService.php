@@ -1,19 +1,13 @@
 <?php
 
-/**
- * DogActionServece.php
- * Dog Status変更処理ロジック
- * レベルアップ処理呼び出し
- */
-
 namespace App\Services\Dog;
 
 use App\Models\Dog;
+use App\Models\DogAction;
 use App\Domain\Dog\DogActionDefinition;
 use App\Services\Dog\DogLevelUpService;
 use App\Services\Dog\DogCooldownService;
 use App\Services\Dog\DogStatusService;
-use App\Models\DogActionLog;
 use Illuminate\Support\Facades\DB;
 
 class DogActionService
@@ -39,9 +33,6 @@ class DogActionService
             // アクションの定義を取得
             $definition = DogActionDefinition::get($action);
 
-            // DB変更前の値を取得
-            $before = $dog->status->getOriginal();
-
             // ステータス更新 (Service)
             $this->statusService->applyEffects($dog, $definition['effects']);
 
@@ -51,18 +42,9 @@ class DogActionService
             // 保存処理
             $dog->status->save();
 
-            // DB更新後の値を取得
-            $after = $dog->status->fresh()->toArray();
-
-            // ログ書き込み
-            DogActionLog::create([
-                'dog_id' => $dog->id,
+            // 保存
+            $dog->actions()->create([
                 'action' => $action,
-                'payload' => [
-                    'before' => $before,
-                    'after' => $after,
-                    'effects' => $definition['effects'],
-                ]
             ]);
         });
     }

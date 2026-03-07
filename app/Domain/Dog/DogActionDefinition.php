@@ -4,10 +4,6 @@ namespace App\Domain\Dog;
 
 class DogActionDefinition
 {
-    /**
-     * Actionを削除するとDogActionLog取得時に古いアクションログあるとエラー
-     */
-
     public const PET = 'pet';
     public const SNACK = 'snack';
     public const SCOLD = 'scold';
