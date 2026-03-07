@@ -84,7 +84,7 @@ class Dog extends Model
     // RealDogActivityリレーション(1対多)
     public function realDogActivities()
     {
-        return $this->hasMany(RealDogActivities::class)->latest();
+        return $this->hasMany(RealDogActivity::class)->latest();
     }
 
     // DogStatusリレーション(1対1)
@@ -93,9 +93,9 @@ class Dog extends Model
         return $this->hasOne(DogStatus::class);
     }
 
-    // DogActionLosリレーション(1対多)
-    public function actionLogs()
+    // DogActionリレーション(1対多)
+    public function actions()
     {
-        return $this->hasMany(DogActionLog::class)->latest();
+        return $this->hasMany(DogAction::class)->latest();
     }
 }

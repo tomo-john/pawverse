@@ -13,7 +13,7 @@ class DogCooldownService
             return 0;
         };
 
-        $lastLog = $dog->actionLogs()
+        $lastLog = $dog->actions()
                        ->where('action', $action)
                        ->latest('created_at')
                        ->first();
