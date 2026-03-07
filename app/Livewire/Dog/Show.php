@@ -207,11 +207,6 @@ class Show extends Component
     // レンダー
     public function render()
     {
-        return view('livewire.dog.show', [
-            'Logs' => $this->dog
-                ->actionLogs()
-                ->latest()
-                ->simplePaginate(10)
-        ]);
+        return view('livewire.dog.show');
     }
 }

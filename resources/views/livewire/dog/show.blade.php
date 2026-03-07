@@ -229,57 +229,6 @@
         <livewire:dog.activity-form :dog="$dog" />
     @endif
 
-    {{-- ログ --}}
-    <div class="bg-white rounded-2xl p-6 shadow-sm border">
-        <h2 class="font-bold text-gray-700 mb-4">アクション履歴</h2>
-
-        @if ($Logs->isNotEmpty())
-            <div class="h-80 overflow-y-auto space-y-3 pr-6 text-sm text-gray-600">
-                @foreach($Logs as $log)
-
-                    <div class="border rounded-xl p-4 {{ $log->definition['bg'] }}">
-
-                        <div class="flex items-center justify-between text-xs text-gray-400">
-                            <div class="flex items-center gap-2 {{ $log->definition['color'] }}">
-                                <i class="{{ $log->definition['icon'] }}"></i>
-                                <span>{{ $log->definition['label'] }}</span>
-                            </div>
-
-                            <span>{{ $log->created_at->diffForHumans() }}</span>
-                        </div>
-
-                        <div class="text-sm text-gray-700 mt-2">
-                            Lv {{ $log->payload['before']['level'] }}
-                            <i class="fa-solid fa-circle-right mx-1 text-gray-700"></i>
-                            Lv {{ $log->payload['after']['level'] }}
-                        </div>
-                        <div class="mt-2 flex flex-wrap gap-2 text-xs">
-                            @foreach($log->payload['effects'] as $key => $value)
-                                <span class="px-2 py-1 rounded-full bg-white/60">
-                                    {{ ucfirst($key) }}
-                                    {{ $value > 0 ? '+' : '' }}{{ $value }}
-                                </span>
-                            @endforeach
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
-            <div class="mt-4">
-                {{ $Logs->links(data: ['scrollTo' => false]) }}
-            </div>
-        @else
-            <div class="text-sm text-gray-600">
-                <p>
-                    まだアクションログがありません
-                    <i class="fa-solid fa-dog mx-1"></i>
-                </p>
-            </div>
-        @endif
-
-    </div>
-
-
     {{-- モーダル --}}
     <flux:modal wire:model="showModal">
         <div class="space-y-4">
