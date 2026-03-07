@@ -224,9 +224,9 @@
         </div>
     </div>
 
-    {{-- リアルログ入力フォーム　--}}
+    {{-- RealDogActivity: 入力フォーム　--}}
     @if ($dog->realDog)
-        <livewire:dog.log-form :dog="$dog" />
+        <livewire:dog.activity-form :dog="$dog" />
     @endif
 
     {{-- ログ --}}
