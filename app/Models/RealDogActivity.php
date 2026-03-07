@@ -6,5 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class RealDogActivity extends Model
 {
-    //
+    protected $fillable = [
+        'dog_id',
+        'type',
+        'value',
+        'unit',
+        'memo',
+        'logged_at',
+    ];
+
+    protected $casts = [
+        'logged_at' => 'datetime',
+    ];
+
+    public function dog()
+    {
+        return $this->belongsTo(Dog::class);
+    }
 }
