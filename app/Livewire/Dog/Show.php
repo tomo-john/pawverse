@@ -7,6 +7,7 @@ use App\Models\Dog;
 use App\Models\RealDog;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Storage;
 
 class Show extends Component
@@ -159,5 +160,12 @@ class Show extends Component
     public function render()
     {
         return view('livewire.dog.show');
+    }
+
+    // イベント
+    #[On('dog-status-updated')]
+    public function refreshDog()
+    {
+        $this->dog->refresh();
     }
 }

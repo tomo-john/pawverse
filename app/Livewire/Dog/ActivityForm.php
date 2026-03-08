@@ -68,6 +68,8 @@ class ActivityForm extends Component
 
             $this->resetForm();
 
+            $this->dispatch('dog-status-updated');
+
             session()->flash('message', '記録を保存しました🐶');
 
         } catch (\Throwable $e) {

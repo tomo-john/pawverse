@@ -36,6 +36,8 @@ class CareActions extends Component
 
         $this->dog->refresh();
 
+        $this->dispatch('dog-status-updated');
+
         $this->loadCooldowns();
     }
 
