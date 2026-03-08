@@ -14,7 +14,8 @@ class DogActionDefinition
             self::PET => [
                 'label' => 'なでる',
                 'icon' => 'fa-solid fa-paw',
-                'color' => 'text-sky-600',
+                'text-color' => 'text-sky-600',
+                'button-color' => 'sky',
                 'bg' => 'bg-sky-50 border-sky-200',
                 'cooldown' => 1,
                 'effects' => [
@@ -28,7 +29,8 @@ class DogActionDefinition
             self::SNACK => [
                 'label' => 'おやつ',
                 'icon' => 'fa-solid fa-bone',
-                'color' => 'text-green-600',
+                'text-color' => 'text-green-600',
+                'button-color' => 'green',
                 'bg' => 'bg-green-50 border-green-200',
                 'cooldown' => 10,
                 'effects' => [
@@ -42,7 +44,8 @@ class DogActionDefinition
             self::SCOLD => [
                 'label' => 'しかる',
                 'icon' => 'fa-solid fa-shield-dog',
-                'color' => 'text-red-600',
+                'text-color' => 'text-red-600',
+                'button-color' => 'red',
                 'bg' => 'bg-red-50 border-red-200',
                 'cooldown' => 30,
                 'effects' => [
@@ -66,7 +69,8 @@ class DogActionDefinition
             ->map(fn ($action) => [
                 'label' => $action['label'],
                 'icon'  => $action['icon'],
-                'color' => $action['color'],
+                'text-color' => $action['text-color'],
+                'button-color' => $action['button-color'],
                 'bg'    => $action['bg'],
             ])
             ->toArray();

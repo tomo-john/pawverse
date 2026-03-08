@@ -3,75 +3,36 @@
 
     {{-- リアクションDog --}}
     <div class="my-2">
-        <i class="fa-solid fa-dog text-3xl drop-shadow-sm"
+        <i class="fa-solid fa-dog text-3xl drop-shadow-sm
+                  {{ $this->isDisabled('pet') ? 'dog-walk' : '' }}"
            style="color: {{ $dog->color }}"></i>
     </div>
 
     {{-- アクションボタンエリア --}}
     <div wire:poll.1s="loadCooldowns" class="flex gap-3 text-sm text-gray-600">
-        @foreach ($actions as $action)
-            {{ $action['label'] }}
+        @foreach ($actions as $key => $action)
+            <div class="flex flex-col gap-1 w-32">
+                {{-- アクションボタン --}}
+                <flux:button
+                    wire:click="action('{{ $key }}')"
+                    wire:loading.attr="disabled"
+                    wire:loading.class="opacity-50 scale-95"
+                    variant="primary"
+                    color="{{ $action['button-color']}}" size="sm"
+                    :disabled="$this->isDisabled($key)"
+                >
+                <i class="{{ $action['icon'] }}"></i>
+                    {{ $action['label'] }}
+                </flux:button>
+
+                {{-- クールダウン中残り時間 --}}
+                @if ($this->isDisabled($key))
+                    <span class="text-xs text-center {{ $action['text-color'] }}">
+                        <i class="fa-solid fa-clock"></i>
+                        {{ $this->cooldownFormatted($key) }}
+                    </span>
+                @endif
+            </div>
         @endforeach
-    </div>
-
-
-    {{-- アクションボタンエリア --}}
-    <div wire:poll.1s="loadCooldowns" class="flex gap-3 text-sm text-gray-600">
-        <div class="flex flex-col gap-1 w-32">
-            <flux:button
-                wire:click="action('pet')"
-                wire:loading.attr="disabled"
-                wire:loading.class="opacity-50 scale-95"
-                variant="primary"
-                color="sky" size="sm"
-                :disabled="$this->isDisabled('pet')"
-            >
-                なでる
-            </flux:button>
-            @if ($this->isDisabled('pet'))
-                <span class="text-xs text-gray-400 text-center">
-                    <i class="fa-solid fa-clock"></i>
-                    {{ $this->cooldownFormatted('pet') }}
-                </span>
-            @endif
-        </div>
-
-        <div class="flex flex-col gap-1 w-32">
-            <flux:button
-                wire:click="action('snack')"
-                wire:loading.attr="disabled"
-                wire:loading.class="opacity-50 scale-95"
-                variant="primary"
-                color="green" size="sm"
-                :disabled="$this->isDisabled('snack')"
-            >
-                おやつ
-            </flux:button>
-            @if ($this->isDisabled('snack'))
-                <span class="text-xs text-gray-400 text-center">
-                    <i class="fa-solid fa-clock"></i>
-                    {{ $this->cooldownFormatted('snack') }}
-                </span>
-            @endif
-        </div>
-
-        <div class="flex flex-col gap-1 w-32">
-            <flux:button
-                wire:click="action('scold')"
-                wire:loading.attr="disabled"
-                wire:loading.class="opacity-50 scale-95"
-                variant="primary"
-                color="red" size="sm"
-                :disabled="$this->isDisabled('scold')"
-            >
-                しかる
-            </flux:button>
-            @if ($this->isDisabled('scold'))
-                <span class="text-xs text-gray-400 text-center">
-                    <i class="fa-solid fa-clock"></i>
-                    {{ $this->cooldownFormatted('scold') }}
-                </span>
-            @endif
-        </div>
     </div>
 </div>
