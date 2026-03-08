@@ -8,6 +8,7 @@ use App\Models\RealDogActivity;
 use App\Domain\Dog\RealDogActivityDefinition;
 use App\Services\Dog\RealDogActivityService;
 use Carbon\Carbon;
+use Livewire\Attributes\On;
 
 class ActivityForm extends Component
 {
@@ -20,10 +21,12 @@ class ActivityForm extends Component
     public ?string $memo = null;
     public string  $logged_at = '';
     public array   $types = [];
+    public bool    $hasRealDog = false;
 
     public function mount(Dog $dog)
     {
         $this->dog = $dog;
+        $this->hasRealDog = $dog->realDog()->exists();
         $this->logged_at = now()->format('Y-m-d\TH:i');
         $this->types = RealDogActivityDefinition::labels();
     }
@@ -68,7 +71,7 @@ class ActivityForm extends Component
 
             $this->resetForm();
 
-            $this->dispatch('dog-status-updated');
+            $this->dispatch('dog-updated');
 
             session()->flash('message', '記録を保存しました🐶');
 
@@ -78,8 +81,15 @@ class ActivityForm extends Component
 
     }
 
+    #[On('dog-updated')]
+    public function refreshDog()
+    {
+        $this->hasRealDog = true;
+    }
+
     public function render()
     {
         return view('livewire.dog.activity-form');
     }
+
 }

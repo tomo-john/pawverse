@@ -13,10 +13,10 @@ class StatusPanel extends Component
     public function mount(Dog $dog)
     {
         $this->dog = $dog;
+        $this->dog->load('status');
     }
 
-    // ステータス変更イベント感知
-    #[On('dog-status-updated')]
+    #[On('dog-updated')]
     public function refreshDog()
     {
         $this->dog->refresh();
