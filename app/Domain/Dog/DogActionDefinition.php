@@ -59,4 +59,16 @@ class DogActionDefinition
     {
         return self::all()[$action] ?? throw new \InvalidArgumentException("Action: $action は見つからないわん！🐶");
     }
+
+    public static function ui(): array
+    {
+        return collect(self::all())
+            ->map(fn ($action) => [
+                'label' => $action['label'],
+                'icon'  => $action['icon'],
+                'color' => $action['color'],
+                'bg'    => $action['bg'],
+            ])
+            ->toArray();
+    }
 }

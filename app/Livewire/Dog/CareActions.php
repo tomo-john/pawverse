@@ -12,7 +12,7 @@ class CareActions extends Component
 {
 
     public Dog $dog;
-
+    public array $actions = [];
     public array $cooldowns = [];
 
     // bootでDI
@@ -27,6 +27,7 @@ class CareActions extends Component
     public function mount(Dog $dog)
     {
         $this->dog = $dog;
+        $this->actions = DogActionDefinition::ui();
     }
 
     // Action操作

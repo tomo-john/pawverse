@@ -9,6 +9,14 @@
 
     {{-- アクションボタンエリア --}}
     <div wire:poll.1s="loadCooldowns" class="flex gap-3 text-sm text-gray-600">
+        @foreach ($actions as $action)
+            {{ $action['label'] }}
+        @endforeach
+    </div>
+
+
+    {{-- アクションボタンエリア --}}
+    <div wire:poll.1s="loadCooldowns" class="flex gap-3 text-sm text-gray-600">
         <div class="flex flex-col gap-1 w-32">
             <flux:button
                 wire:click="action('pet')"
