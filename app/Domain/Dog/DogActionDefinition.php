@@ -63,6 +63,11 @@ class DogActionDefinition
         return self::all()[$action] ?? throw new \InvalidArgumentException("Action: $action は見つからないわん！🐶");
     }
 
+    public static function keys(): array
+    {
+        return array_keys(self::all());
+    }
+
     public static function ui(): array
     {
         return collect(self::all())
@@ -74,5 +79,10 @@ class DogActionDefinition
                 'bg'    => $action['bg'],
             ])
             ->toArray();
+    }
+
+    public static function cooldown(string $action): int
+    {
+        return self::get($action)['cooldown'];
     }
 }

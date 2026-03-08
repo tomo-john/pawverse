@@ -28,6 +28,7 @@ class CareActions extends Component
     {
         $this->dog = $dog;
         $this->actions = DogActionDefinition::ui();
+        $this->loadCooldowns();
     }
 
     // Action操作
@@ -45,7 +46,7 @@ class CareActions extends Component
     // クールダウンタイム取得
     public function loadCooldowns()
     {
-        foreach (DogActionDefinition::all() as $key => $def) {
+        foreach (DogActionDefinition::keys() as $key) {
             $remaining = $this->cooldownService->getRemainingSeconds($this->dog, $key);
             $this->cooldowns[$key] = $remaining;
         }
