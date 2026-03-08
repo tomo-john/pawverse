@@ -16,7 +16,12 @@ class DogStatusService
                 continue;
             }
 
-            $status->$key = $this->clamp($status->$key + $value);
+            // exp, levelはclampしない
+            if (in_array($key, ['exp', 'level'])) {
+                $status->$key += $value;
+            } else {
+                $status->$key = $this->clamp($status->$key + $value);
+            }
         }
     }
 
