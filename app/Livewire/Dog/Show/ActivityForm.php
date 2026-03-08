@@ -84,7 +84,9 @@ class ActivityForm extends Component
     #[On('dog-updated')]
     public function refreshDog()
     {
-        $this->hasRealDog = true;
+        if ($this->dog->realDog()->exists()) {
+            $this->hasRealDog = true;
+        }
     }
 
     public function render()
