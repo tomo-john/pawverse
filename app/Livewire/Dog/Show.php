@@ -161,11 +161,4 @@ class Show extends Component
     {
         return view('livewire.dog.show');
     }
-
-    // イベント
-    #[On('dog-status-updated')]
-    public function refreshDog()
-    {
-        $this->dog->refresh();
-    }
 }
