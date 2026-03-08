@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Dog;
+namespace App\Livewire\Dog\Show;
 
 use Livewire\Component;
 use App\Models\Dog;
@@ -89,7 +89,7 @@ class ActivityForm extends Component
 
     public function render()
     {
-        return view('livewire.dog.activity-form');
+        return view('livewire.dog.show.activity-form');
     }
 
 }

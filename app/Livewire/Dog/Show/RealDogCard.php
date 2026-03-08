@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Livewire\Dog;
+namespace App\Livewire\Dog\Show;
 
 use Livewire\Component;
 use App\Models\Dog;
 use App\Models\RealDog;
 use Livewire\WithFileUploads;
-use Livewire\WithPagination;
 use Illuminate\Support\Facades\Storage;
 
 class RealDogCard extends Component
@@ -146,6 +145,6 @@ class RealDogCard extends Component
 
     public function render()
     {
-        return view('livewire.dog.real-dog-card');
+        return view('livewire.dog.show.real-dog-card');
     }
 }

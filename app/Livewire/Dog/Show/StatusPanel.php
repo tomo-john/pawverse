@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Dog;
+namespace App\Livewire\Dog\Show;
 
 use Livewire\Component;
 use App\Models\Dog;
@@ -24,6 +24,6 @@ class StatusPanel extends Component
 
     public function render()
     {
-        return view('livewire.dog.status-panel');
+        return view('livewire.dog.show.status-panel');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Dog;
+namespace App\Livewire\Dog\Show;
 
 use Livewire\Component;
 use App\Models\Dog;
@@ -71,6 +71,6 @@ class CareActions extends Component
 
     public function render()
     {
-        return view('livewire.dog.care-actions');
+        return view('livewire.dog.show.care-actions');
     }
 }

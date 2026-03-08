@@ -32,16 +32,16 @@
     </div>
 
     {{-- statau-panel: ステータス表示エリア　--}}
-    <livewire:dog.status-panel :dog="$dog" />
+    <livewire:dog.show.status-panel :dog="$dog" />
 
     {{-- real-dog-card: リアルわんこ情報エリア　--}}
-    <livewire:dog.real-dog-card :dog="$dog" />
+    <livewire:dog.show.real-dog-card :dog="$dog" />
 
     {{-- care-actions: お世話エリア(DogAction)　--}}
-    <livewire:dog.care-actions :dog="$dog" />
+    <livewire:dog.show.care-actions :dog="$dog" />
 
     {{-- activity-form: 現実行動入力フォーム(RealDogActivity)　--}}
-    <livewire:dog.activity-form :dog="$dog" />
+    <livewire:dog.show.activity-form :dog="$dog" />
 
 </div>
 
