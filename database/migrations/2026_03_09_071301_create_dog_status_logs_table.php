@@ -14,15 +14,15 @@ return new class extends Migration
         Schema::create('dog_status_logs', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('dog_id')->constrained()->constrained();
+            $table->foreignId('dog_id')->constrained()->cascadeOnDelete();
             $table->morphs('source');
             $table->string('status_type');
             $table->integer('delta');
 
             $table->timestamps();
 
-            // 検索・集計高速化
-            $table->index(['dog_id', 'status_type']);
+            // タイムライン用
+            $table->index(['dog_id', 'created_at']);
         });
     }
 
