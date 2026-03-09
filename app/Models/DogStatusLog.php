@@ -11,6 +11,7 @@ class DogStatusLog extends Model
         'dog_id',
         'source_type',
         'source_id',
+        'reason',
         'status_type',
         'delta',
     ];

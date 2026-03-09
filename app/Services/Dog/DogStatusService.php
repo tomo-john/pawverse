@@ -3,11 +3,17 @@
 namespace App\Services\Dog;
 
 use App\Models\Dog;
+use Illuminate\Database\Eloquent\Model;
 
 class DogStatusService
 {
     // ステータス反映処理
-    public function applyEffects(Dog $dog, array $effects): void
+    public function applyEffects(
+        Dog $dog,
+        array $effects,
+        Model $source,
+        ?string $reason = null
+    ): void
     {
         $status = $dog->status;
 
@@ -16,12 +22,20 @@ class DogStatusService
                 continue;
             }
 
-            // exp, levelはclampしない
+            // ステータス変更(exp, levelはclampしない)
             if (in_array($key, ['exp', 'level'])) {
                 $status->$key += $value;
             } else {
                 $status->$key = $this->clamp($status->$key + $value);
             }
+
+            // ログ保存
+            $source->statusLogs()->create([
+                'dog_id' => $dog->id,
+                'status_type' => $key,
+                'delta' => $value,
+                'reason' => $reason,
+            ]);
         }
     }
 

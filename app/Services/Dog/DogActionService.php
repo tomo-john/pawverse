@@ -30,22 +30,27 @@ class DogActionService
         // トランザクション
         DB::transaction(function () use ($dog, $action) {
 
+            // source
+            $dogAction = $dog->actions()->create([
+                'action' => $action,
+            ]);
+
             // アクションの定義を取得
             $definition = DogActionDefinition::get($action);
 
             // ステータス更新 (Service)
-            $this->statusService->applyEffects($dog, $definition['effects']);
+            $this->statusService->applyEffects(
+                dog: $dog,
+                effects: $definition['effects'],
+                source: $dogAction,
+                reason: $action
+            );
 
             // レベルアップ処理 (Service)
             $this->levelUpService->handle($dog);
 
-            // 保存処理
+            // ステータス保存
             $dog->status->save();
-
-            // 保存
-            $dog->actions()->create([
-                'action' => $action,
-            ]);
         });
     }
 }
