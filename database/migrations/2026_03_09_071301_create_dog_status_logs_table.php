@@ -16,7 +16,6 @@ return new class extends Migration
 
             $table->foreignId('dog_id')->constrained()->constrained();
             $table->morphs('source');
-            $table->string('reason')->nullable();
             $table->string('status_type');
             $table->integer('delta');
 

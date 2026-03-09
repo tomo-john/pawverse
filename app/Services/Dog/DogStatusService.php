@@ -12,7 +12,6 @@ class DogStatusService
         Dog $dog,
         array $effects,
         Model $source,
-        ?string $reason = null
     ): void
     {
         $status = $dog->status;
@@ -39,7 +38,6 @@ class DogStatusService
                 'dog_id' => $dog->id,
                 'status_type' => $key,
                 'delta' => $value,
-                'reason' => $reason,
             ]);
         }
     }

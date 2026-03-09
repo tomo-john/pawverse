@@ -43,7 +43,6 @@ class DogActionService
                 dog: $dog,
                 effects: $definition['effects'],
                 source: $dogAction,
-                reason: $action
             );
 
             // レベルアップ処理 (Service)
