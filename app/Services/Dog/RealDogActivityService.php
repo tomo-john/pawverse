@@ -37,23 +37,27 @@ class RealDogActivityService
         // トランザクション
         DB::transaction(function () use ($dog, $action, $value, $memo, $loggedAt, $definition,$effects) {
 
-            // ステータス更新 (Service) ** 計算済みのeffectsを渡す **
-            $this->statusService->applyEffects($dog, $effects);
-
-            // レベルアップ処理 (Service)
-            $this->levelUpService->handle($dog);
-
-            // ステータス保存
-            $dog->status->save();
-
-            // 保存
-            $dog->realDogActivities()->create([
+            // source
+            $realDogActivity = $dog->realDogActivities()->create([
                 'type' => $action,
                 'value' => $value,
                 'unit' => $definition['unit'] ?? null,
                 'memo' => $memo,
                 'logged_at' => $loggedAt,
             ]);
+
+            // ステータス更新 (Service) ** 計算済みのeffectsを渡す **
+            $this->statusService->applyEffects(
+                dog: $dog,
+                effects: $effects,
+                source: $realDogActivity,
+            );
+
+            // レベルアップ処理 (Service)
+            $this->levelUpService->handle($dog);
+
+            // ステータス保存
+            $dog->status->save();
         });
 
     }
