@@ -43,5 +43,8 @@
     {{-- activity-form: 現実行動入力フォーム(RealDogActivity)　--}}
     <livewire:dog.show.activity-form :dog="$dog" />
 
+    {{-- timeline: タイムライン　--}}
+    <livewire:dog.show.timeline :dog="$dog" />
+
 </div>
 
