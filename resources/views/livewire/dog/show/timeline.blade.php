@@ -6,6 +6,14 @@
     </div>
 
     <div class="text-black">
-        {{ $timeline }}
+        @foreach ($timeline as $line)
+            <p>Time: {{ $line['time'] }}</p>
+            <p>Source(action): {{ $line['source']['action'] }}</p>
+
+            @foreach( $line['effects'] as $effect)
+                <p>Effect: {{ $effect['status'] }} / {{ $effect['delta'] }}</p>
+            @endforeach
+            <hr/>
+        @endforeach
     </div>
 </div>
