@@ -18,6 +18,11 @@ class DogStatusService
         $status = $dog->status;
 
         foreach ($effects as $key => $value) {
+
+            if ($value === 0) {
+                continue;
+            }
+
             if (! isset($status->$key)) {
                 continue;
             }
