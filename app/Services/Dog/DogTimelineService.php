@@ -3,6 +3,8 @@
 namespace App\Services\Dog;
 
 use App\Models\DogStatusLog;
+use App\Models\DogAction;
+use App\Domain\Dog\DogActionDefinition;
 
 class DogTimelineService
 {
@@ -25,14 +27,28 @@ class DogTimelineService
             ->map(function ($group) {
 
                 $first = $group->first();
+                $source = $first->source;
+
+                if ($source instanceof DogAction) {
+
+                    $def = DogActionDefinition::get($source->action);
+
+                    $label = $def['label'];
+                    $icon  = $def['icon'];
+                }
+
+                $effects = $group->map(function ($log) {
+
+                    $sign = $log->delta > 0 ? '+' : '';
+
+                    return "{$log->status_type} {$sign}{$log->delta}";
+                });
 
                 return [
                     'time' => $first->created_at,
-                    'source' => $first->source,
-                    'effects' => $group->map(fn ($log) => [
-                        'status' => $log->status_type,
-                        'delta' => $log->delta,
-                    ])->values(),
+                    'label' => $label,
+                    'icon' => $icon,
+                    'effects' => $effects->values()
                 ];
             })
             ->values();
