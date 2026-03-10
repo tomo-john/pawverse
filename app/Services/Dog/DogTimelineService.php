@@ -4,7 +4,9 @@ namespace App\Services\Dog;
 
 use App\Models\DogStatusLog;
 use App\Models\DogAction;
+use App\Models\RealDogActivity;
 use App\Domain\Dog\DogActionDefinition;
+use App\Domain\Dog\RealDogActivityDefinition;
 
 class DogTimelineService
 {
@@ -29,9 +31,19 @@ class DogTimelineService
                 $first = $group->first();
                 $source = $first->source;
 
+                // Source: DogAction
                 if ($source instanceof DogAction) {
 
                     $def = DogActionDefinition::get($source->action);
+
+                    $label = $def['label'];
+                    $icon  = $def['icon'];
+                }
+
+                // Source: RealDogActivity
+                if ($source instanceof RealDogActivity) {
+
+                    $def = RealDogActivityDefinition::get($source->type);
 
                     $label = $def['label'];
                     $icon  = $def['icon'];

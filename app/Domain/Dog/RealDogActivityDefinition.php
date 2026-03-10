@@ -13,7 +13,8 @@ class RealDogActivityDefinition
     {
         return [
             self::WALK => [
-                'label' => '散歩',
+                'label' => 'さんぽ',
+                'icon' => 'fa-solid fa-dog',
                 'unit' => 'minutes',
                 'type' => 'per_unit',
                 'requires_value' => true,

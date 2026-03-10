@@ -6,7 +6,7 @@
         <div class="text-sm text-black">
             {{ $event['time'] }}
             {{ $event['label'] }}
-            {{ $event['icon'] }}
+            <i class="{{ $event['icon'] }}"></i>
 
             @foreach ($event['effects'] as $effect)
                 {{ $effect }}
