@@ -29,6 +29,7 @@ class RealDogActivityDefinition
 
             self::MEAL => [
                 'label' => 'ごはん',
+                'icon' => 'fa-solid fa-bowl-food',
                 'unit' => 'grams',
                 'type' => 'per_unit',
                 'requires_value' => true,
@@ -43,6 +44,7 @@ class RealDogActivityDefinition
 
             self::GROOM => [ // 固定値
                 'label' => 'トリミング',
+                'icon' => 'fa-solid fa-shower',
                 'type' => 'fixed',
                 'requires_value' => false,
                 'effects' => [
@@ -55,6 +57,7 @@ class RealDogActivityDefinition
 
             self::HOSPITAL => [ // 固定値
                 'label' => '病院',
+                'icon' => 'fa-regular fa-hospital',
                 'type' => 'fixed',
                 'requires_value' => false,
                 'effects' => [
