@@ -47,6 +47,12 @@ class DogTimelineService
 
                     $label = $def['label'];
                     $icon  = $def['icon'];
+
+                }
+
+                // value付きなら追加
+                if ($source->value && $source->unit) {
+                    $label .= "({$source->value}{$source->unit})";
                 }
 
                 $effects = $group->map(function ($log) {
