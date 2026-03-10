@@ -38,21 +38,21 @@ class DogTimelineService
 
                     $label = $def['label'];
                     $icon  = $def['icon'];
-                }
 
                 // Source: RealDogActivity
-                if ($source instanceof RealDogActivity) {
-
+                } elseif ($source instanceof RealDogActivity) {
                     $def = RealDogActivityDefinition::get($source->type);
 
                     $label = $def['label'];
                     $icon  = $def['icon'];
 
-                }
+                    // value付きならlabelに追加
+                    if ($source->value) {
 
-                // value付きなら追加
-                if ($source->value && $source->unit) {
-                    $label .= "({$source->value}{$source->unit})";
+                        $unit = $def['unit'] ?? '';
+
+                        $label .= "({$source->value}{$unit})";
+                    }
                 }
 
                 $effects = $group->map(function ($log) {
