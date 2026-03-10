@@ -5,15 +5,50 @@
         </h2>
     </div>
 
-    <div class="text-black">
-        @foreach ($timeline as $line)
-            <p>Time: {{ $line['time'] }}</p>
-            <p>Source(action): {{ $line['source']['action'] }}</p>
+    <div class="relative border-l border-gray-200 ml-3">
 
-            @foreach( $line['effects'] as $effect)
-                <p>Effect: {{ $effect['status'] }} / {{ $effect['delta'] }}</p>
-            @endforeach
-            <hr/>
+        @foreach ($timeline as $event)
+
+            <div class="mb-6 ml-6">
+
+                {{-- timeline dot --}}
+                <span class="absolute -left-3 flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full ring-4 ring-white">
+                    🐾
+                </span>
+
+                {{-- header --}}
+                <div class="flex items-center gap-3">
+
+                    <p class="text-sm text-gray-500">
+                        {{ $event['time']->diffForHumans() }}
+                    </p>
+
+                    <p class="font-semibold text-gray-800">
+                        {{ $event['source']['action'] ?? '-' }}
+                    </p>
+
+                </div>
+
+                {{-- effects --}}
+                <div class="mt-2 ml-2 text-sm text-gray-600 space-y-1">
+
+                    @foreach ($event['effects'] as $effect)
+
+                        <div>
+                            {{ $effect['status'] }}
+                            <span class="font-medium">
+                                {{ $effect['delta'] > 0 ? '+' : '' }}{{ $effect['delta'] }}
+                            </span>
+                        </div>
+
+                    @endforeach
+
+                </div>
+
+            </div>
+
         @endforeach
+
     </div>
+
 </div>
