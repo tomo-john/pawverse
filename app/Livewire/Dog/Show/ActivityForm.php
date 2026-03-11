@@ -26,7 +26,6 @@ class ActivityForm extends Component
     public function mount(Dog $dog)
     {
         $this->dog = $dog;
-        $this->hasRealDog = $dog->realDog()->exists();
         $this->logged_at = now()->format('Y-m-d\TH:i');
         $this->types = RealDogActivityDefinition::labels();
     }
