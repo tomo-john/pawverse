@@ -9,6 +9,7 @@ use App\Domain\Dog\RealDogActivityDefinition;
 use App\Services\Dog\RealDogActivityService;
 use Carbon\Carbon;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Computed;
 
 class ActivityForm extends Component
 {
@@ -21,7 +22,6 @@ class ActivityForm extends Component
     public ?string $memo = null;
     public string  $logged_at = '';
     public array   $types = [];
-    public bool    $hasRealDog = false;
 
     public function mount(Dog $dog)
     {
@@ -81,12 +81,17 @@ class ActivityForm extends Component
 
     }
 
+    #[Computed]
+    public function hasRealDog()
+    {
+        return $this->dog->realDog()->exists();
+    }
+
+
     #[On('dog-updated')]
     public function refreshDog()
     {
-        if ($this->dog->realDog()->exists()) {
-            $this->hasRealDog = true;
-        }
+        $this->dog->refresh();
     }
 
     public function render()

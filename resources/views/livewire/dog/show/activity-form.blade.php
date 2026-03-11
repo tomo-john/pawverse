@@ -1,7 +1,7 @@
 <div class="bg-white rounded-2xl p-6 shadow-sm border">
     <h2 class="font-bold text-gray-700 mb-4">今日の記録(作成中)</h2>
 
-    @if (! $hasRealDog)
+    @if (! $this->hasRealDog)
         <div class="text-sm text-gray-400">
             リアルわんこ情報を登録すると活動を記録できます🐶
         </div>
