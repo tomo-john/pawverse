@@ -11,7 +11,8 @@ use Livewire\Attributes\On;
 class Timeline extends Component
 {
     public Dog $dog;
-    public ?Collection $timeline = null;
+    public Collection $timeline;
+
     protected DogTimelineService $service;
 
     public function boot(DogTimelineService $service)
@@ -22,11 +23,16 @@ class Timeline extends Component
     public function mount(Dog $dog)
     {
         $this->dog = $dog;
-        $this->timeline = $this->service->timeline($dog->id);
+        $this->loadTimeline();
     }
 
     #[On('dog-updated')]
     public function refreshTimeline()
+    {
+        $this->loadTimeline();
+    }
+
+    private function loadTimeline()
     {
         $this->timeline = $this->service->timeline($this->dog->id);
     }
