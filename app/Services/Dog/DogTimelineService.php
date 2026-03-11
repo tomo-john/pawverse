@@ -7,6 +7,7 @@ use App\Models\DogAction;
 use App\Models\RealDogActivity;
 use App\Domain\Dog\DogActionDefinition;
 use App\Domain\Dog\RealDogActivityDefinition;
+use App\Domain\Dog\DogStatusDefinition;
 
 class DogTimelineService
 {
@@ -55,11 +56,18 @@ class DogTimelineService
                     }
                 }
 
+                // Status変動
                 $effects = $group->map(function ($log) {
+
+                    $def = DogStatusDefinition::get($log->status_type);
 
                     $sign = $log->delta > 0 ? '+' : '';
 
-                    return "{$log->status_type} {$sign}{$log->delta}";
+                    return [
+                        'icon' => $def['icon'],
+                        'color' => $def['color'],
+                        'value' => "{$sign}{$log->delta}"
+                    ];
                 });
 
                 return [
