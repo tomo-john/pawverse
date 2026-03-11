@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Dog;
 use App\Services\Dog\DogTimelineService;
 use Illuminate\Support\Collection;
+use Livewire\Attributes\On;
 
 class Timeline extends Component
 {
@@ -22,6 +23,12 @@ class Timeline extends Component
     {
         $this->dog = $dog;
         $this->timeline = $this->service->timeline($dog->id);
+    }
+
+    #[On('dog-updated')]
+    public function refreshTimeline()
+    {
+        $this->timeline = $this->service->timeline($this->dog->id);
     }
 
     public function render()
