@@ -28,13 +28,13 @@ class DogSeeder extends Seeder
 
         // 全てサイズのDogを生成
         $user   = User::find(2);
-        $levels = array_keys(Dog::SIZE_CLASSES);
+        $sizes = array_keys(Dog::SIZE_CLASSES);
 
-        foreach ($levels as $level) {
+        foreach ($sizes as $size) {
             Dog::factory()->create([
                 'user_id' => $user->id,
-                'name' => 'じょんLv.' . $level,
-                'size_level' => $level,
+                'name' => 'じょん(Size ' . $size . ')',
+                'size_level' => $size,
                 'met_at' => null,
                 'is_public' => true,
             ]);
