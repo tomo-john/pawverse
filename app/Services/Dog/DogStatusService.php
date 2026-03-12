@@ -3,6 +3,7 @@
 namespace App\Services\Dog;
 
 use App\Models\Dog;
+use App\Domain\Dog\DogStatusDefinition;
 use Illuminate\Database\Eloquent\Model;
 
 class DogStatusService
@@ -26,12 +27,14 @@ class DogStatusService
                 continue;
             }
 
-            // ステータス変更(exp, levelはclampしない)
-            if (in_array($key, ['exp', 'level'])) {
-                $status->$key += $value;
-            } else {
-                $status->$key = $this->clamp($status->$key + $value);
+            // ステータス値計算・反映
+            $newValue = $status->$key + $value;
+
+            if (DogStatusDefinition::shouldClamp($key)) {
+                $newValue = $this->clamp($newValue, $key);
             }
+
+            $status->$key = $newValue;
 
             // ログ保存
             $source->statusLogs()->create([
@@ -43,8 +46,11 @@ class DogStatusService
     }
 
     // clamp
-    public function clamp(int $value): int
+    public function clamp(int $value, string $key): int
     {
-        return max(0, min(100, $value));
+        return max(
+            DogStatusDefinition::min($key),
+            min(DogStatusDefinition::max($key), $value)
+        );
     }
 }
