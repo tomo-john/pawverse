@@ -15,12 +15,10 @@ class Dog extends Model
         'name',
         'color',
         'size_level',
-        'met_at',
         'is_public',
     ];
 
     protected $casts = [
-        'met_at' => 'immutable_date',
         'is_public' => 'boolean',
     ];
 

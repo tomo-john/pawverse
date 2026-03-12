@@ -52,9 +52,6 @@
                 </div>
             </div>
 
-            <!-- met_at-->
-            <flux:input label="When did you first meet ?" type="date" wire:model="met_at"/>
-
             <!-- is_public -->
             <flux:checkbox label="公開する🐶？" wire:model="is_public" />
 
@@ -128,11 +125,6 @@
                 <!-- Name -->
                 <div class="text-sm font-medium text-gray-800">
                     {{ $dog->name }}
-                </div>
-
-                <!-- met_at -->
-                <div class="text-[11px] text-gray-400">
-                    met at: {{ $dog->met_at ? $dog->met_at->format('Y-m-d') : 'unknown' }}
                 </div>
 
                 <!-- アクション -->
