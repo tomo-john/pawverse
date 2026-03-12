@@ -18,8 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('color')->default('#000000');
             $table->unsignedTinyInteger('size_level')->default(4);
-            $table->date('met_at')->nullable();
-            $table->boolean('is_good_boy')->default(true);
+            $table->boolean('is_public')->default(false);
 
             $table->timestamps();
         });

@@ -22,7 +22,6 @@ class DogSeeder extends Seeder
             'name' => '伝説のボスじょん',
             'color' => '#D4AF37',
             'size_level' => 9,
-            'met_at' => now(),
             'is_public' => true,
         ]);
 
@@ -35,7 +34,6 @@ class DogSeeder extends Seeder
                 'user_id' => $user->id,
                 'name' => 'じょん(Size ' . $size . ')',
                 'size_level' => $size,
-                'met_at' => null,
                 'is_public' => true,
             ]);
         }

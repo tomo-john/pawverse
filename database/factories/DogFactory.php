@@ -24,7 +24,6 @@ class DogFactory extends Factory
           'name' => "seederじょん{$level}_" . fake()->randomNumber(2),
           'color' => fake()->safeColorName(),
           'size_level' => $level,
-          'met_at' => fake()->optional(0.8)->dateTimeBetween('-5 years', 'now'),
           'is_public' => fake()->boolean(70),
         ];
     }
