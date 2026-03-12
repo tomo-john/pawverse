@@ -20,6 +20,10 @@ class DogStatusDefinition
                 'min'   => 0,
                 'max'   => 100,
                 'clamp' => true,
+                'bars'  => [
+                    'label' => 'Happy',
+                    'color' => 'bg-pink-400',
+                ],
             ],
 
             self::STAMINA => [
@@ -28,6 +32,10 @@ class DogStatusDefinition
                 'min'   => 0,
                 'max'   => 100,
                 'clamp' => true,
+                'bars'  => [
+                    'label' => 'Stamina',
+                    'color' => 'bg-green-400',
+                ],
             ],
 
             self::HUNGER => [
@@ -36,6 +44,10 @@ class DogStatusDefinition
                 'min'   => 0,
                 'max'   => 100,
                 'clamp' => true,
+                'bars'  => [
+                    'label' => 'Hunger',
+                    'color' => 'bg-yellow-400',
+                ],
             ],
 
             self::EXP => [
@@ -68,6 +80,11 @@ class DogStatusDefinition
     public static function shouldClamp(string $status): bool
     {
         return self::all()[$status]['clamp'] ?? false;
+    }
+
+    public static function getBars(): array
+    {
+        return array_filter(self::all(), fn ($def) => isset($def['bars']));
     }
 
 }
