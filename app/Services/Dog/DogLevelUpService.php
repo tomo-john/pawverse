@@ -3,7 +3,7 @@
 namespace App\Services\Dog;
 
 use App\Models\Dog;
-use App\Domain\Dog\DogLevel;
+use App\Domain\Dog\DogLevelDefinition;
 
 class DogLevelUpService
 {
@@ -12,14 +12,14 @@ class DogLevelUpService
         $status = $dog->status;
 
         // レベルアップ可能か判定
-        if (! DogLevel::canLevelUp($status->level, $status->exp)) {
+        if (! DogLevelDefinition::canLevelUp($status->level, $status->exp)) {
             return;
         }
 
         // レベルアップ処理(whileで1レベルずつ判定)
-        while (DogLevel::canLevelUp($status->level, $status->exp)) {
+        while (DogLevelDefinition::canLevelUp($status->level, $status->exp)) {
             // EXP消費
-            $status->exp = DogLevel::remainingExp($status->level, $status->exp);
+            $status->exp = DogLevelDefinition::remainingExp($status->level, $status->exp);
 
             // レベルアップ(+1)
             $status->level++;

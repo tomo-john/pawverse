@@ -2,7 +2,7 @@
 
 namespace App\Domain\Dog;
 
-class DogLevel
+class DogLevelDefinition
 {
     /**
      * 次のレベルまでに必要なEXPを返す
