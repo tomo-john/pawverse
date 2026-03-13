@@ -37,11 +37,12 @@ class DogStatusService
             $status->$key = $newValue;
 
             // ログ保存
-            $source->statusLogs()->create([
-                'dog_id' => $dog->id,
-                'status_type' => $key,
-                'delta' => $value,
-            ]);
+            $this->log(
+                dog: $dog,
+                source: $source,
+                type: $key,
+                delta: $value
+            );
         }
     }
 
@@ -53,4 +54,20 @@ class DogStatusService
             min(DogStatusDefinition::max($key), $value)
         );
     }
+
+    // ログ保存用メソッド
+    public function log(
+        Dog $dog,
+        Model $source,
+        string $type,
+        int $delta
+    ): void {
+
+        $source->statusLogs()->create([
+            'dog_id' => $dog->id,
+            'status_type' => $type,
+            'delta' => $delta
+        ]);
+    }
+
 }

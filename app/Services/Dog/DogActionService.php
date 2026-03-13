@@ -48,12 +48,14 @@ class DogActionService
             // レベルアップ処理 (Service)
             $levelDiff = $this->levelUpService->handle($dog);
 
+            // レベルアップしていればログ保存
             if ($levelDiff > 0) {
-                $dogAction->statusLogs()->create([
-                    'dog_id' => $dog->id,
-                    'status_type' => 'level',
-                    'delta' => $levelDiff,
-                ]);
+                $this->statusService->log(
+                    dog: $dog,
+                    source: $dogAction,
+                    type: 'level',
+                    delta: $levelDiff
+                );
             }
 
             // ステータス保存
