@@ -15,40 +15,17 @@
         <div class="text-xs">次のレベルまでxx</div>
     </div>
 
-    {{-- Happy --}}
-    <div class="space-y-2">
-        <div class="flex justify-between text-xs text-gray-600">
-            <span>Happy</span>
-            <span>{{ $dog->status->happy }} / 100</span>
-        </div>
+    {{-- Status Bars --}}
+    @foreach ($bars as $key => $def)
+        <div class="space-y-2">
+            <div class="flex justify-between text-xs text-gray-600">
+                <span>{{ $def['bars']['label'] }}</span>
+                <span>{{ $dog->status->$key }} / {{ $def['max'] }}</span>
+            </div>
 
-        <div class="w-full bg-gray-200 rounded-full h-2">
-            <div class="bg-pink-400 h-2 rounded-full transition-all duration-500" style="width: {{ $dog->status->happy }}%"></div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="{{ $def['bars']['color']}} h-2 rounded-full transition-all duration-500" style="width: {{ $dog->status->$key / $def['max'] * 100 }}%"></div>
+            </div>
         </div>
-    </div>
-
-    {{-- Stamina --}}
-    <div class="space-y-2">
-        <div class="flex justify-between text-xs text-gray-600">
-            <span>Stamina</span>
-            <span>{{ $dog->status->stamina }} / 100</span>
-        </div>
-
-        <div class="w-full bg-gray-200 rounded-full h-2">
-            <div class="bg-green-400 h-2 rounded-full transition-all duration-500" style="width: {{ $dog->status->stamina }}%"></div>
-        </div>
-    </div>
-
-    {{-- Hunger --}}
-    <div class="space-y-2">
-        <div class="flex justify-between text-xs text-gray-600">
-            <span>Hunger</span>
-            <span>{{ $dog->status->hunger }} / 100</span>
-        </div>
-
-        <div class="w-full bg-gray-200 rounded-full h-2">
-            <div class="bg-yellow-400 h-2 rounded-full transition-all duration-500" style="width: {{ $dog->status->hunger }}%"></div>
-        </div>
-    </div>
-
+    @endforeach
 </div>

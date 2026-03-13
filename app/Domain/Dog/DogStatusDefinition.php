@@ -18,7 +18,7 @@ class DogStatusDefinition
                 'icon'  => '😊',
                 'color' => 'text-pink-500',
                 'min'   => 0,
-                'max'   => 100,
+                'max'   => 500,
                 'clamp' => true,
                 'bars'  => [
                     'label' => 'Happy',
@@ -30,7 +30,7 @@ class DogStatusDefinition
                 'icon'  => '💪',
                 'color' => 'text-blue-500',
                 'min'   => 0,
-                'max'   => 100,
+                'max'   => 300,
                 'clamp' => true,
                 'bars'  => [
                     'label' => 'Stamina',

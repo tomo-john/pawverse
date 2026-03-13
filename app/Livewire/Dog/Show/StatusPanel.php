@@ -4,15 +4,18 @@ namespace App\Livewire\Dog\Show;
 
 use Livewire\Component;
 use App\Models\Dog;
+use App\Domain\Dog\DogStatusDefinition;
 use Livewire\Attributes\On;
 
 class StatusPanel extends Component
 {
     public Dog $dog;
+    public array $bars;
 
     public function mount(Dog $dog)
     {
         $this->dog = $dog;
+        $this->bars = DogStatusDefinition::getBars();
         $this->dog->load('status');
     }
 
