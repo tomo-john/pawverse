@@ -20,11 +20,11 @@
         <div class="space-y-2">
             <div class="flex justify-between text-xs text-gray-600">
                 <span>{{ $def['bars']['label'] }}</span>
-                <span>{{ $dog->status->$key }} / {{ $def['max'] }}</span>
+                <span>{{ $def['value'] }} / {{ $def['max'] }}</span>
             </div>
 
             <div class="w-full bg-gray-200 rounded-full h-2">
-                <div class="{{ $def['bars']['color']}} h-2 rounded-full transition-all duration-500" style="width: {{ $dog->status->$key / $def['max'] * 100 }}%"></div>
+                <div class="{{ $def['bars']['color']}} h-2 rounded-full transition-all duration-500" style="width: {{ $def['percent'] }}%"></div>
             </div>
         </div>
     @endforeach

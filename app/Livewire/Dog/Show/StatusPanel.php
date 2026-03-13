@@ -15,8 +15,26 @@ class StatusPanel extends Component
     public function mount(Dog $dog)
     {
         $this->dog = $dog;
-        $this->bars = DogStatusDefinition::getBars();
+        $this->bars = $this->getBarProperty();
         $this->dog->load('status');
+    }
+
+    public function getBarProperty()
+    {
+        $bars = [];
+
+        foreach (DogStatusDefinition::getBars() as $key => $def) {
+
+            $value = $this->dog->status->$key;
+
+            $bars[$key] = [
+                ...$def,
+                'value' => $value,
+                'percent' => $value / $def['max'] * 100,
+            ];
+        }
+
+        return $bars;
     }
 
     #[On('dog-updated')]
