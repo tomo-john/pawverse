@@ -32,4 +32,13 @@ class DogLevelDefinition
     {
         return $exp - self::expToNext($level);
     }
+
+    /**
+     * 次のレベルアップまでに必要な経験値
+     */
+    public static function expRemaining(int $level, int $exp): int
+    {
+        return self::expToNext($level) - $exp;
+    }
+
 }

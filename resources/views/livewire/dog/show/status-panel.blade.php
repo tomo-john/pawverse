@@ -12,11 +12,11 @@
     {{-- EXP --}}
     <div class="flex items-center gap-4 text-md text-gray-600">
         <div>EXP : {{ $dog->status->exp }}</div>
-        <div class="text-xs">次のレベルまでxx</div>
+        <div class="text-xs">次のレベルまで: {{ $this->expRemaining }}</div>
     </div>
 
     {{-- Status Bars --}}
-    @foreach ($bars as $key => $def)
+    @foreach ($this->bars as $key => $def)
         <div class="space-y-2">
             <div class="flex justify-between text-xs text-gray-600">
                 <span>{{ $def['bars']['label'] }}</span>
