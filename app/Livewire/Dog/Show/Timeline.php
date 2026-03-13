@@ -11,6 +11,7 @@ use Livewire\Attributes\On;
 class Timeline extends Component
 {
     public Dog $dog;
+    public int $limit = 10;
     public Collection $timeline;
 
     protected DogTimelineService $service;
@@ -26,6 +27,12 @@ class Timeline extends Component
         $this->loadTimeline();
     }
 
+    public function loadMore()
+    {
+        $this->limit += 10;
+        $this->loadTimeline();
+    }
+
     #[On('dog-updated')]
     public function refreshTimeline()
     {
@@ -34,7 +41,10 @@ class Timeline extends Component
 
     private function loadTimeline()
     {
-        $this->timeline = $this->service->timeline($this->dog->id);
+        $this->timeline = $this->service->timeline(
+            $this->dog->id,
+            $this->limit
+        );
     }
 
     public function render()

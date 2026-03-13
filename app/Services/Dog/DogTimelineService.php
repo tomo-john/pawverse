@@ -11,7 +11,7 @@ use App\Domain\Dog\DogStatusDefinition;
 
 class DogTimelineService
 {
-    public function getLogs(int $dogId, $limit = 50)
+    public function getLogs(int $dogId, int $limit = 100)
     {
         return DogStatusLog::query()
             ->where('dog_id', $dogId)
@@ -21,9 +21,9 @@ class DogTimelineService
             ->get();
     }
 
-    public function timeline(int $dogId)
+    public function timeline(int $dogId, int $limit = 10)
     {
-        $logs = $this->getLogs($dogId);
+        $logs = $this->getLogs($dogId, $limit);
 
         return $logs
             ->groupBy(fn ($log) => $log->source_type . '-' . $log->source_id)
