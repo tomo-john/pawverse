@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use App\Domain\Dog\DogStatusDefinition;
 
 class Dog extends Model
 {
@@ -69,7 +70,9 @@ class Dog extends Model
 
         // Dog作成時にDogStatusも作成
         static::created(function ($dog) {
-            $dog->status()->create();
+            $dog->status()->create(
+                DogStatusDefinition::initialValues()
+            );
         });
     }
 

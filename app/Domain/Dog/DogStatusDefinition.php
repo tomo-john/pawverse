@@ -15,30 +15,33 @@ class DogStatusDefinition
     {
         return [
             self::HAPPY => [
-                'icon'  => '😊',
-                'color' => 'text-pink-500',
-                'min'   => 0,
-                'max'   => 500,
-                'clamp' => true,
-                'bars'  => [
+                'initial' => 500,
+                'icon'    => '😊',
+                'color'   => 'text-pink-500',
+                'min'     => 0,
+                'max'     => 500,
+                'clamp'   => true,
+                'bars'    => [
                     'label' => 'Happy',
                     'color' => 'bg-pink-400',
                 ],
             ],
 
             self::STAMINA => [
-                'icon'  => '💪',
-                'color' => 'text-blue-500',
-                'min'   => 0,
-                'max'   => 300,
-                'clamp' => true,
-                'bars'  => [
+                'initial' => 300,
+                'icon'    => '💪',
+                'color'   => 'text-blue-500',
+                'min'     => 0,
+                'max'     => 300,
+                'clamp'   => true,
+                'bars'    => [
                     'label' => 'Stamina',
                     'color' => 'bg-green-400',
                 ],
             ],
 
             self::HUNGER => [
+                'initial' => 0,
                 'icon'  => '🍖',
                 'color' => 'text-orange-500',
                 'min'   => 0,
@@ -51,12 +54,14 @@ class DogStatusDefinition
             ],
 
             self::EXP => [
+                'initial' => 0,
                 'icon' => '⭐',
                 'color' => 'text-yellow-500',
                 'clamp' => false,
             ],
 
             self::LEVEL => [
+                'initial' => 1,
                 'clamp' => false,
             ],
         ];
@@ -85,6 +90,13 @@ class DogStatusDefinition
     public static function getBars(): array
     {
         return array_filter(self::all(), fn ($def) => isset($def['bars']));
+    }
+
+    public static function initialValues(): array
+    {
+        return collect(self::all())
+            ->map( fn ($def) => $def['initial'] ?? 0)
+            ->toArray();
     }
 
 }
