@@ -7,13 +7,16 @@ use App\Domain\Dog\DogLevelDefinition;
 
 class DogLevelUpService
 {
-    public function handle(Dog $dog): void
+    // レベルの差分を返す
+    public function handle(Dog $dog): int
     {
         $status = $dog->status;
 
+        $before = $status->level;
+
         // レベルアップ可能か判定
         if (! DogLevelDefinition::canLevelUp($status->level, $status->exp)) {
-            return;
+            return 0;
         }
 
         // レベルアップ処理(whileで1レベルずつ判定)
@@ -24,5 +27,7 @@ class DogLevelUpService
             // レベルアップ(+1)
             $status->level++;
         }
+
+        return $status->level - $before;
     }
 }

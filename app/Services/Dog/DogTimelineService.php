@@ -52,7 +52,7 @@ class DogTimelineService
 
                         $unit = $def['unit'] ?? '';
 
-                        $label .= "({$source->value}{$unit})";
+                        $label .= " ({$source->value}{$unit})";
                     }
                 }
 

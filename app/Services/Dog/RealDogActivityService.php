@@ -54,7 +54,15 @@ class RealDogActivityService
             );
 
             // レベルアップ処理 (Service)
-            $this->levelUpService->handle($dog);
+            $levelDiff = $this->levelUpService->handle($dog);
+
+            if ($levelDiff > 0) {
+                $realDogActivity->statusLogs()->create([
+                    'dog_id' => $dog->id,
+                    'status_type' => 'level',
+                    'delta' => $levelDiff,
+                ]);
+            }
 
             // ステータス保存
             $dog->status->save();

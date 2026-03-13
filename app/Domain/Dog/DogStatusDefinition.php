@@ -62,6 +62,8 @@ class DogStatusDefinition
 
             self::LEVEL => [
                 'initial' => 1,
+                'icon' => 'Lv',
+                'color' => 'text-red-500',
                 'clamp' => false,
             ],
         ];
