@@ -24,14 +24,19 @@
                         @endforeach
                     </div>
                 </div>
-
             </div>
         </div>
-
     @empty
         <div class="text-sm text-gray-400">
             タイムラインはまだありません🐶
         </div>
     @endforelse
 
+    @if ($timeline->count() >= $limit)
+        <div class="text-center mt-4">
+            <flux:button wire:click="loadMore">
+                もっと見る🐶
+            </flux:button>
+        </div>
+    @endif
 </div>
