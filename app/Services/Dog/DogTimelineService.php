@@ -23,10 +23,11 @@ class DogTimelineService
 
     public function timeline(int $dogId, int $limit = 10)
     {
-        $logs = $this->getLogs($dogId, $limit);
+        $logs = $this->getLogs($dogId, $limit * 5);
 
         return $logs
-            ->groupBy(fn ($log) => $log->source_type . '-' . $log->source_id)
+            ->groupBy(fn ($log) => "{$log->source_type}-{$log->source_id}")
+            ->take($limit)
             ->map(function ($group) {
 
                 $first = $group->first();
@@ -57,7 +58,9 @@ class DogTimelineService
                 }
 
                 // Status変動
-                $effects = $group->map(function ($log) {
+                $effects = $group
+                    ->sortBy('status_type')
+                    ->map(function ($log) {
 
                     $def = DogStatusDefinition::get($log->status_type);
 
