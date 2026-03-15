@@ -26,6 +26,7 @@
                 {{-- 吹き出しのセリフ --}}
                 <i class="fa-solid fa-paw text-pink-400"></i>
                 <span>ボクの名前は <span class="text-pink-600">{{ $dog->name }}</span> だわん！</span>
+                <livewire:dog.dog-message :dog="$dog" />
             </div>
         </div>
 

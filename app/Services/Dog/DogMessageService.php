@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Service\Dog;
+namespace App\Services\Dog;
 
+use App\Models\Dog;
 use App\Domain\Dog\DogMessageDefinition;
 
 class DogMessageService
