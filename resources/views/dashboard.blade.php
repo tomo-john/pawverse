@@ -36,12 +36,6 @@
                     <i class="fa-solid fa-dog text-5xl"></i>
                 </div>
                 <div class="absolute top-20 left-4 flex flex-col gap-4">
-                    <div class="text-sm font-bold">
-                        {{ auth()->user()->name }}
-                    </div>
-                    <div class="text-sm font-bold">
-                        {{ auth()->user()->dogs->first()->name }}
-                    </div>
                 </div>
             </div>
         </div>
