@@ -11,12 +11,12 @@ class DogMessageService
     {
         $status = $dog->status;
 
-        if ($status->hunger > 80) {
-            return $this->random('hunger_high');
-        }
-
         if ($status->happy < 100) {
             return $this->random('happy_low');
+        }
+
+        if ($status->hunger > 80) {
+            return $this->random('hunger_high');
         }
 
         if ($status->stamina < 50) {

@@ -5,6 +5,7 @@ namespace App\Livewire\Dog;
 use Livewire\Component;
 use App\Models\Dog;
 use App\Services\Dog\DogMessageService;
+use Livewire\Attributes\On;
 
 class DogMessage extends Component
 {
@@ -21,7 +22,19 @@ class DogMessage extends Component
     public function mount(Dog $dog)
     {
         $this->dog = $dog;
-        $this->message = $this->service->message($dog);
+        $this->loadMessage();
+    }
+
+    public function loadMessage()
+    {
+        $this->message = $this->service->message($this->dog);
+    }
+
+    #[On('dog-updated')]
+    public function refreshDog()
+    {
+        $this->dog->refresh();
+        $this->loadMessage();
     }
 
     public function render()
