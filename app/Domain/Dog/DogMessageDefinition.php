@@ -41,6 +41,16 @@ class DogMessageDefinition
         ];
     }
 
+    public static function rules(): array
+    {
+        return [
+            ['happy', 'danger', 'happy_low'],
+            ['hunger', 'danger', 'hunger_high'],
+            ['stamina', 'danger', 'stamina_low'],
+            ['happy', 'full', 'happy_high'],
+        ];
+    }
+
     public static function get(string $type): array
     {
         return self::all()[$type] ?? [];

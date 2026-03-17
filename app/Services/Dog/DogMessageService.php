@@ -10,26 +10,13 @@ class DogMessageService
 {
     public function message(Dog $dog): string
     {
-        $status = $dog->status;
+        foreach (DogMessageDefinition::rules() as [$status, $state, $type]) {
 
-        $happyState  = DogStatusDefinition::state('happy', $status->happy);
-        $hungerState = DogStatusDefinition::state('hunger', $status->hunger);
-        $staminaState = DogStatusDefinition::state('stamina', $status->stamina);
+            $value = $dog->status->$status;
 
-        if ($happyState === 'danger') {
-            return $this->random('happy_low');
-        }
-
-        if ($hungerState === 'danger') {
-            return $this->random('hunger_high');
-        }
-
-        if ($staminaState === 'danger') {
-            return $this->random('stamina_low');
-        }
-
-        if ($happyState === 'full') {
-            return $this->random('happy_high');
+            if (DogStatusDefinition::state($status, $value) === $state) {
+                return $this->random($type);
+            }
         }
 
         return $this->random('default');
