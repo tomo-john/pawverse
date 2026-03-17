@@ -22,7 +22,7 @@ class RealDogActivityDefinition
                 'effects_per_unit' => [ // 1分あたり
                     'happy' => 1,
                     'stamina' => -1,
-                    'hunger' => 1,
+                    'hunger' => -1,
                     'exp' => +1,
                 ],
             ],
@@ -37,7 +37,7 @@ class RealDogActivityDefinition
                 'effects_per_unit' => [ // 1gramあたり
                     'happy' => 0.1,
                     'stamina' => +0.5,
-                    'hunger' => -0.5,
+                    'hunger' => +0.5,
                     'exp' => +0.1,
                 ],
             ],

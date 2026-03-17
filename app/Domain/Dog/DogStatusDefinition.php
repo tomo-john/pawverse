@@ -51,7 +51,7 @@ class DogStatusDefinition
             ],
 
             self::HUNGER => [
-                'initial' => 0,
+                'initial' => 100,
                 'icon'  => '🍖',
                 'color' => 'text-orange-500',
                 'min'   => 0,
@@ -62,9 +62,9 @@ class DogStatusDefinition
                     'color' => 'bg-yellow-400',
                 ],
                 'states'  => [
-                    'danger' => [71, 100],
+                    'danger' => [0, 30],
                     'normal' => [31, 70],
-                    'full'   => [0, 30],
+                    'full'   => [71, 100],
                 ],
             ],
 

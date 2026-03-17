@@ -36,7 +36,7 @@ class DogActionDefinition
                 'effects' => [
                     'happy' => +10,
                     'stamina' => +5,
-                    'hunger' => -5,
+                    'hunger' => +5,
                     'exp' => +2,
                 ],
             ],
