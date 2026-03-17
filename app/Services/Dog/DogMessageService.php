@@ -4,6 +4,7 @@ namespace App\Services\Dog;
 
 use App\Models\Dog;
 use App\Domain\Dog\DogMessageDefinition;
+use App\Domain\Dog\DogStatusDefinition;
 
 class DogMessageService
 {
@@ -11,19 +12,23 @@ class DogMessageService
     {
         $status = $dog->status;
 
-        if ($status->happy < 100) {
+        $happyState  = DogStatusDefinition::state('happy', $status->happy);
+        $hungerState = DogStatusDefinition::state('hunger', $status->hunger);
+        $staminaState = DogStatusDefinition::state('stamina', $status->stamina);
+
+        if ($happyState === 'danger') {
             return $this->random('happy_low');
         }
 
-        if ($status->hunger > 80) {
+        if ($hungerState === 'danger') {
             return $this->random('hunger_high');
         }
 
-        if ($status->stamina < 50) {
+        if ($staminaState === 'danger') {
             return $this->random('stamina_low');
         }
 
-        if ($status->happy > 400) {
+        if ($happyState === 'full') {
             return $this->random('happy_high');
         }
 

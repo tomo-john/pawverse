@@ -25,6 +25,11 @@ class DogStatusDefinition
                     'label' => 'Happy',
                     'color' => 'bg-pink-400',
                 ],
+                'states'  => [
+                    'danger' => [0, 100],
+                    'normal' => [101, 400],
+                    'full'   => [401, 500],
+                ],
             ],
 
             self::STAMINA => [
@@ -38,6 +43,11 @@ class DogStatusDefinition
                     'label' => 'Stamina',
                     'color' => 'bg-green-400',
                 ],
+                'states'  => [
+                    'danger' => [0, 100],
+                    'normal' => [101, 200],
+                    'full'   => [201, 300],
+                ],
             ],
 
             self::HUNGER => [
@@ -50,6 +60,11 @@ class DogStatusDefinition
                 'bars'  => [
                     'label' => 'Hunger',
                     'color' => 'bg-yellow-400',
+                ],
+                'states'  => [
+                    'danger' => [71, 100],
+                    'normal' => [31, 70],
+                    'full'   => [0, 30],
                 ],
             ],
 
@@ -99,6 +114,19 @@ class DogStatusDefinition
         return collect(self::all())
             ->map( fn ($def) => $def['initial'] ?? 0)
             ->toArray();
+    }
+
+    public static function state(string $status, int $value): ?string
+    {
+        $states = self::all()[$status]['states'] ?? [];
+
+        foreach ($states as $name => [$min, $max]) {
+            if ($value >= $min && $value <= $max) {
+                return $name;
+            }
+        }
+
+        return null;
     }
 
 }
