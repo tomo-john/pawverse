@@ -1,43 +1,53 @@
 <x-layouts::app :title="__('Dashboard')">
-    <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
-        <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <div class="absolute top-4 left-4">
-                    <i class="fa-solid fa-dog"></i>
-                </div>
-                <div class="absolute top-4 right-4">
-                    <i class="fa-solid fa-dog"></i>
-                </div>
-                <div class="absolute bottom-4 left-4">
-                    <i class="fa-solid fa-dog"></i>
-                </div>
-                <div class="absolute bottom-4 right-4">
-                    <i class="fa-solid fa-dog"></i>
-                </div>
+    <div class="flex h-full w-full flex-col gap-6">
+
+        {{-- status cards --}}
+        <div class="grid gap-4 md:grid-cols-3">
+
+            <div class="rounded-xl border p-4">
+                <div class="text-sm text-gray-500">Hunger</div>
+                <div class="text-3xl font-bold">65</div>
             </div>
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                    <i class="fa-solid fa-dog text-5xl"></i>
-                </div>
+
+            <div class="rounded-xl border p-4">
+                <div class="text-sm text-gray-500">Mood</div>
+                <div class="text-3xl font-bold">Happy 🐶</div>
             </div>
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <div class="absolute -top-2 -left-2">
-                    <i class="fa-solid fa-dog text-9xl"></i>
-                </div>
-                <div class="relative p-4 font-bold text-sky-800">
-                    じょんの部屋
-                </div>
+
+            <div class="rounded-xl border p-4">
+                <div class="text-sm text-gray-500">Energy</div>
+                <div class="text-3xl font-bold">82</div>
+            </div>
+
+        </div>
+
+        {{-- dog room --}}
+        <div class="flex-1 rounded-xl border p-6">
+            <div class="text-lg font-bold mb-4">
+                じょんの部屋
+            </div>
+
+            <div class="flex items-center justify-center h-64">
+                <i class="fa-solid fa-dog text-7xl"></i>
             </div>
         </div>
-        <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <div class="absolute top-4 left-4 flex gap-4">
-                    <i class="fa-solid fa-dog text-5xl"></i>
-                    <i class="fa-solid fa-dog text-5xl"></i>
-                </div>
-                <div class="absolute top-20 left-4 flex flex-col gap-4">
+
+        {{-- logs --}}
+        <div class="grid gap-4 md:grid-cols-2">
+
+            <div class="rounded-xl border p-4">
+                <div class="font-bold mb-2">
+                    Recent Messages
                 </div>
             </div>
+
+            <div class="rounded-xl border p-4">
+                <div class="font-bold mb-2">
+                    Activity Log
+                </div>
+            </div>
+
         </div>
+
     </div>
 </x-layouts::app>
