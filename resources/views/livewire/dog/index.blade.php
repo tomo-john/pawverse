@@ -85,6 +85,9 @@
             <div class="flex flex-1 justify-center items-center">
                 <i class="fa-solid fa-dog {{ $this->sizeClass }} drop-shadow-sm transition-all duration-500"
                    style="color: {{ $color }}"></i>
+                @if(strlen($name) > 10)
+                    <div class="text-[10px] text-orange-400">ちょっと名前長いわん...</div>
+                @endif
             </div>
 
         </div>

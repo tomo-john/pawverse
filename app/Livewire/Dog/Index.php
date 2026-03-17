@@ -3,6 +3,7 @@
 namespace App\Livewire\Dog;
 
 use Livewire\Component;
+use Livewire\Attributes\Computed;
 use App\Models\Dog as DogModel;
 
 class Index extends Component
@@ -23,7 +24,8 @@ class Index extends Component
 
     }
 
-    public function getSizeClassProperty(): string
+    #[Computed]
+    public function sizeClass(): string
     {
         return DogModel::SIZE_CLASSES[$this->size_level] ?? 'text-5xl';
     }
