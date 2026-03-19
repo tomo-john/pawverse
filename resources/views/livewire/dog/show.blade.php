@@ -4,8 +4,10 @@
     <div class="w-32 relative">
         <div class="sticky top-10 flex flex-col justify-center">
             {{-- Dog --}}
-            <div class="relative w-24 h-24">
-                <i class="fa-solid fa-dog {{ $dog->size_class }} drop-shadow-sm shadow-lg hover:scale-110 transition" style="color: {{ $dog->color }}"></i>
+            <div class="relative w-24 h-24" wire:poll.500ms="checkAnimation">
+                <i class="fa-solid fa-dog {{ $dog->size_class }} hover:scale-110 transition
+                          {{ $activeAnimation === 'walk' ? 'dog-walk' : '' }}"
+                   style="color: {{ $dog->color }}"></i>
             </div>
         </div>
     </div>
@@ -14,6 +16,7 @@
     <div class="flex-1 space-y-6">
 
         <div class="max-w-4xl mx-auto space-y-6">
+        <flux:button wire:click="startAnimation('walk', 5)">test</flux:button>
 
             {{-- 名前とis_public --}}
             <div class="flex items-baseline justify-center gap-3 bg-white py-2 rounded-2xl border border-pink-50">
