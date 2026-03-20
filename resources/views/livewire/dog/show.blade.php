@@ -5,7 +5,7 @@
             {{-- Dog --}}
             <div class="relative sticky top-10 w-24 h-24 flex justify-center" wire:poll.1s="checkAnimation">
                 <i class="fa-solid fa-dog {{ $dog->size_class }} hover:scale-110 transition
-                          {{ $activeAnimation === 'walk' ? 'dog-walk' : '' }}"
+                          {{ $this->animationClass }}"
                    style="color: {{ $dog->color }}"></i>
             </div>
     </div>

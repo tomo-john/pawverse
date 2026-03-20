@@ -3,6 +3,8 @@
 namespace App\Livewire\Dog;
 
 use Livewire\Component;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use App\Models\Dog;
 use App\Domain\Dog\DogAnimationDefinition;
 
@@ -33,6 +35,16 @@ class Show extends Component
             $this->activeAnimation = null;
             $this->animationUntil = null;
         }
+    }
+
+    #[Computed]
+    public function animationClass(): string
+    {
+        if (!$this->activeAnimation) {
+            return '';
+        }
+
+        return DogAnimationDefinition::get($this->activeAnimation)['class'] ?? '';
     }
 
     public function render()
