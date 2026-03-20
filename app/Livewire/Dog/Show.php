@@ -20,27 +20,30 @@ class Show extends Component
         $this->dog = $dog;
     }
 
-    public function startAnimation(string $type, int $seconds = null)
+    public function startAnimation(string $reaction)
     {
-        $def = DogAnimationDefinition::get($type);
-        $duration = $seconds ?? ($def['duration'] ?? 2);
+        $def = DogAnimationDefinition::get($reaction);
 
-        $this->activeAnimation = $type;
-        $this->animationUntil = now()->addSeconds($duration);
+        $this->activeAnimation = $reaction;
+        $this->animationUntil = now()->addSeconds($def['duration']);
     }
 
     public function checkAnimation()
     {
-        if ($this->animationUntil && now()->greaterThan($this->animationUntil)) {
+        if (! $this->animationUntil) {
+            return;
+        }
+
+        if (now()->greaterThan($this->animationUntil)) {
             $this->activeAnimation = null;
             $this->animationUntil = null;
         }
     }
 
     #[On('dog-reacted')]
-    public function onDogReacted(string $type)
+    public function onDogReacted(string $reaction)
     {
-        $this->startAnimation($type);
+        $this->startAnimation($reaction);
     }
 
     #[Computed]

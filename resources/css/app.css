@@ -74,6 +74,6 @@ select:focus[data-flux-control] {
   100% { transform: translateX(0) rotate(0deg); }
 }
 
-.dog-walk {
+.dog-happy {
   animation: doggy 2s infinite ease-in-out;
 }

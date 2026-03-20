@@ -72,6 +72,9 @@ class ActivityForm extends Component
 
             $this->dispatch('dog-updated');
 
+            $reaction = DogReactionDefinition::map($this->type);
+            $this->dispatch('dog-reacted', reaction: $reaction);
+
             session()->flash('message', '記録を保存しました🐶');
 
         } catch (\Throwable $e) {
