@@ -37,6 +37,12 @@ class Show extends Component
         }
     }
 
+    #[On('dog-reacted')]
+    public function onDogReacted(string $type)
+    {
+        $this->startAnimation($type);
+    }
+
     #[Computed]
     public function animationClass(): string
     {

@@ -41,6 +41,7 @@ class CareActions extends Component
         $this->loadCooldowns();
 
         $this->dispatch('dog-updated');
+        $this->dispatch('dog-reacted', 'walk');
     }
 
     // クールダウンタイム取得
