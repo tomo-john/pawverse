@@ -14,8 +14,6 @@
     <div class="flex-1 space-y-6">
 
         <div class="max-w-4xl mx-auto space-y-6">
-        <flux:button wire:click="startAnimation('walk')">test</flux:button>
-
             {{-- 名前とis_public --}}
             <div class="flex items-baseline justify-center gap-3 bg-white py-2 rounded-2xl border border-pink-50">
                 <div class="text-3xl">

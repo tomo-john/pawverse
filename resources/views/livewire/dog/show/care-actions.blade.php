@@ -1,13 +1,6 @@
 <div class="bg-white rounded-2xl p-6 shadow-sm border">
     <h2 class="font-bold text-gray-700 mb-4">お世話</h2>
 
-    {{-- リアクションDog --}}
-    <div class="my-2">
-        <i class="fa-solid fa-dog text-3xl drop-shadow-sm
-                  {{ $this->isDisabled('pet') ? 'dog-walk' : '' }}"
-           style="color: {{ $dog->color }}"></i>
-    </div>
-
     {{-- アクションボタンエリア --}}
     <div wire:poll.1s="loadCooldowns" class="flex gap-3 text-sm text-gray-600">
         @foreach ($actions as $key => $action)
