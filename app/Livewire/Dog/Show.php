@@ -4,6 +4,7 @@ namespace App\Livewire\Dog;
 
 use Livewire\Component;
 use App\Models\Dog;
+use App\Domain\Dog\DogAnimationDefinition;
 
 class Show extends Component
 {
@@ -17,10 +18,13 @@ class Show extends Component
         $this->dog = $dog;
     }
 
-    public function startAnimation(string $type, int $seconds = 2)
+    public function startAnimation(string $type, int $seconds = null)
     {
+        $def = DogAnimationDefinition::get($type);
+        $duration = $seconds ?? ($def['duration'] ?? 2);
+
         $this->activeAnimation = $type;
-        $this->animationUntil = now()->addSeconds($seconds);
+        $this->animationUntil = now()->addSeconds($duration);
     }
 
     public function checkAnimation()
