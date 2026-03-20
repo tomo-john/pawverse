@@ -1,15 +1,13 @@
 <div class="max-w-6xl mx-auto flex gap-6">
 
     {{-- 左側: 犬専用レーン --}}
-    <div class="w-32 relative">
-        <div class="sticky top-10 flex flex-col justify-center">
+    <div class="w-32 flex justify-center">
             {{-- Dog --}}
-            <div class="relative w-24 h-24" wire:poll.500ms="checkAnimation">
+            <div class="relative sticky top-10 w-24 h-24 flex justify-center" wire:poll.1s="checkAnimation">
                 <i class="fa-solid fa-dog {{ $dog->size_class }} hover:scale-110 transition
                           {{ $activeAnimation === 'walk' ? 'dog-walk' : '' }}"
                    style="color: {{ $dog->color }}"></i>
             </div>
-        </div>
     </div>
 
     {{-- 右側: Showコンテンツ --}}
