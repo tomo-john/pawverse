@@ -116,6 +116,7 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.dog.index');
+        return view('livewire.dog.index')
+            ->layout('components.layouts.app');
     }
 }
