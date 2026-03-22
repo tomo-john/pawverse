@@ -52,6 +52,6 @@ class Index extends Component
             ->paginate(9);
 
         return view('livewire.public-dog.index', compact('dogs'))
-            ->layout('layouts::guest');
+            ->layout('components.layouts.guest');
     }
 }
