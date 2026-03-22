@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Dog;
 use App\Models\RealDogActivity;
 use App\Domain\Dog\RealDogActivityDefinition;
+use App\Domain\Dog\DogReactionDefinition;
 use App\Services\Dog\RealDogActivityService;
 use Carbon\Carbon;
 use Livewire\Attributes\On;
@@ -68,11 +69,12 @@ class ActivityForm extends Component
                 Carbon::parse($this->logged_at)
             );
 
+            $type = $this->type;
             $this->resetForm();
 
             $this->dispatch('dog-updated');
 
-            $reaction = DogReactionDefinition::map($this->type);
+            $reaction = DogReactionDefinition::map($type);
             $this->dispatch('dog-reacted', reaction: $reaction);
 
             session()->flash('message', '記録を保存しました🐶');

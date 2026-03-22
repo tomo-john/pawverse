@@ -74,3 +74,63 @@ select:focus[data-flux-control] {
 .dog-default {
   animation: dog-bounce 1.2s infinite ease-in-out;
 }
+
+@keyframes dog-happy {
+  0% { transform: translateY(0) scale(1); }
+  30% { transform: translateY(-10px) scale(1.05); }
+  60% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-5px) scale(1.03); }
+}
+
+.dog-happy {
+  animation: dog-happy 1.2s infinite ease-in-out;
+}
+
+@keyframes dog-eat {
+  0%, 100% { transform: rotate(8deg) scale(1); }
+  50% { transform: scale(0.95); }
+}
+
+.dog-eat {
+  animation: dog-eat 0.4s infinite ease-in-out;
+}
+
+@keyframes dog-walk {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(20px); }
+  100% { transform: translateX(0); }
+}
+
+.dog-walk {
+  animation: dog-walk 1s infinite ease-in-out;
+}
+
+@keyframes dog-sad {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(6px); opacity: 0.7; }
+}
+
+.dog-sad {
+  animation: dog-sad 1.2s infinite ease-in-out;
+}
+
+@keyframes dog-clean {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(6deg); }
+}
+
+.dog-clean {
+  animation: dog-clean 0.8s infinite ease-in-out;
+}
+
+@keyframes dog-sick {
+  0% { transform: translateX(0) rotate(0deg); }
+  25% { transform: translateX(-3px) rotate(-3deg); }
+  50% { transform: translateX(3px) rotate(3deg); }
+  75% { transform: translateX(-3px) rotate(-2deg); }
+  100% { transform: translateX(0) rotate(0deg); }
+}
+
+.dog-sick {
+  animation: dog-sick 0.7s infinite ease-in-out;
+}

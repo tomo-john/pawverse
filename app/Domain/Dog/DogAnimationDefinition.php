@@ -16,11 +16,11 @@ class DogAnimationDefinition
         return [
             self::HAPPY => [
                 'class' => 'dog-happy',
-                'duration' => 10,
+                'duration' => 4.8,
             ],
             self::EAT => [
                 'class' => 'dog-eat',
-                'duration' => 5,
+                'duration' => 2,
             ],
             self::WALK => [
                 'class' => 'dog-walk',
