@@ -20,7 +20,7 @@
             </div>
 
             <!-- name -->
-            <flux:input label="Name" wire:model.live.debounce.500ms="name"/>
+            <flux:input label="Name" wire:model.live="name"/>
 
             <!-- color -->
             <div class="space-y-1">
@@ -85,7 +85,7 @@
             <div class="flex flex-1 justify-center items-center">
                 <i class="fa-solid fa-dog {{ $this->sizeClass }} drop-shadow-sm transition-all duration-500"
                    style="color: {{ $color }}"></i>
-                @if(strlen($name) > 10)
+                @if(strlen($name) > 20)
                     <div class="text-[10px] text-orange-400">ちょっと名前長いわん...</div>
                 @endif
             </div>
@@ -104,12 +104,13 @@
 
     <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         @forelse($this->dogs as $dog)
-            <div wire:key="dog-{{ $dog->id }}"
+            <div wire:key="dog-{{ $dog->id }}-{{ $loop->index }}"
                  class="relative rounded-2xl bg-white ring-1 ring-gray-200 p-4
                         flex flex-col items-center gap-3
                         hover:shadow-2xl hover:-translate-y-1
                         transition-all duration-300">
 
+                <!-- show -->
                 <a href="{{ route('dog.show', $dog) }}" class="absolute inset-0 z-0"></a>
 
                 <!-- Dog Icon -->
@@ -131,7 +132,7 @@
                 </div>
 
                 <!-- アクション -->
-                <div class="flex gap-4 z-10">
+                <div class="flex gap-4 z-10 relative">
                     @can('update', $dog)
                         <button wire:click="edit({{ $dog->id }})">
                             <i class="fa-regular fa-pen-to-square text-blue-300 hover:text-blue-400 cursor-pointer"></i>
