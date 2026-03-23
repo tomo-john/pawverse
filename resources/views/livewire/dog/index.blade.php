@@ -57,13 +57,13 @@
 
             <!-- Submit Button-->
             <div class="flex gap-4">
-            <flux:button wire:click="save">
-                {{ $this->editingId ? '更新' : '保存' }}
-            </flux:button>
+                <flux:button wire:click="save">
+                    {{ $this->editingId ? '更新' : '保存' }}
+                </flux:button>
 
-            <flux:button wire:click="resetForm" variant="ghost">
-                キャンセル
-            </flux:button>
+                <flux:button wire:click="resetForm" variant="ghost">
+                    キャンセル
+                </flux:button>
             </div>
         </div>
 
@@ -85,7 +85,7 @@
             <div class="flex flex-1 justify-center items-center">
                 <i class="fa-solid fa-dog {{ $this->sizeClass }} drop-shadow-sm transition-all duration-500"
                    style="color: {{ $color }}"></i>
-                @if(strlen($name) > 20)
+                @if(strlen($name) > 15)
                     <div class="text-[10px] text-orange-400">ちょっと名前長いわん...</div>
                 @endif
             </div>
@@ -104,7 +104,7 @@
 
     <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         @forelse($this->dogs as $dog)
-            <div wire:key="dog-{{ $dog->id }}-{{ $loop->index }}"
+            <div wire:key="dog-{{ $dog->id }}"
                  class="relative rounded-2xl bg-white ring-1 ring-gray-200 p-4
                         flex flex-col items-center gap-3
                         hover:shadow-2xl hover:-translate-y-1

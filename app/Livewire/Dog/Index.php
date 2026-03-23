@@ -65,24 +65,30 @@ class Index extends Component
 
     public function save(): void
     {
-        $this->validate();
+        try {
+            $this->validate();
 
-        if ($this->editingId) {
-            $dog = DogModel::findOrFail($this->editingId);
-            $this->authorize('update', $dog);
-            $dog->update($this->dogPayload());
-            $this->dogs = $this->dogs->map(
-                fn($d) => $d->id === $dog->id ? $dog : $d
+            if ($this->editingId) {
+                $dog = DogModel::findOrFail($this->editingId);
+                $this->authorize('update', $dog);
+                $dog->update($this->dogPayload());
+                $this->dogs = $this->dogs->map(
+                    fn($d) => $d->id === $dog->id ? $dog : $d
+                );
+            } else {
+                $dog = DogModel::create($this->dogPayload());
+                $this->dogs = $this->dogs->prepend($dog);
+            }
+
+            $this->dispatch('notify',
+                message: $this->editingId ? '更新しました' : '登録しました',
+                variant: 'success'
             );
-        } else {
-            $dog = DogModel::create($this->dogPayload());
-            $this->dogs = $this->dogs->prepend($dog);
-        }
 
-        $this->dispatch('notify',
-            message: $this->editingId ? '更新しました' : '登録しました',
-            variant: 'success'
-        );
+        } catch (\Throwable $e) {
+            logger($e);
+            dd($e->getMessage());
+        }
 
         $this->resetForm();
     }
