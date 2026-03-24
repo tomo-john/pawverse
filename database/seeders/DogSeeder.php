@@ -14,34 +14,49 @@ class DogSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = User::all();
+        // Admin John Dog
+        $user1 = User::find(1);
 
-        // 固定のDog
         Dog::factory()->create([
-            'user_id' => $users->first()->id,
+            'user_id' => $user1->id,
             'name' => '伝説のボスじょん',
             'color' => '#D4AF37',
             'size_level' => 9,
             'is_public' => true,
         ]);
 
-        // 全てサイズのDogを生成
-        $user   = User::find(2);
-        $sizes = array_keys(Dog::SIZE_CLASSES);
+        // User John Dogs
+        $user2   = User::find(2);
+        $sizes   = array_keys(Dog::SIZE_CLASSES);
+        $minSize = min($sizes);
+        $maxSize = max($sizes);
 
-        foreach ($sizes as $size) {
-            Dog::factory()->create([
+        Dog::factory()->create([
+            'user_id' => $user2->id,
+            'name' => '最小のじょん',
+            'size_level' => $minSize,
+            'is_public' => true,
+        ]);
+
+        Dog::factory()->create([
+            'user_id' => $user2->id,
+            'name' => '最大のじょん',
+            'size_level' => $maxSize,
+            'is_public' => true,
+        ]);
+
+        Dog::factory()->count(4)->create([
+            'user_id' => $user2->id,
+        ]);
+
+
+        // その他ユーザー
+        $otherUsers = User::whereNotIn('id', [1, 2])->get();
+
+        foreach ($otherUsers as $user) {
+            Dog::factory()->count(6)->create([
                 'user_id' => $user->id,
-                'name' => 'じょん(Size ' . $size . ')',
-                'size_level' => $size,
-                'is_public' => true,
             ]);
-        }
-
-        // ランダムDog(1ユーザーで2~6匹)
-        foreach ($users as $user) {
-            Dog::factory()->count(rand(2, 6))
-                          ->create(['user_id' => $user->id,]);
         }
     }
 }

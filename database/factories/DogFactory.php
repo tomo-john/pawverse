@@ -21,7 +21,7 @@ class DogFactory extends Factory
         $level = fake()->numberBetween(1, count(Dog::SIZE_CLASSES));
 
         return [
-          'name' => "seederじょん{$level}_" . fake()->randomNumber(2),
+          'name' => "seeder(size:{$level})",
           'color' => fake()->hexColor(),
           'size_level' => $level,
           'is_public' => fake()->boolean(70),
