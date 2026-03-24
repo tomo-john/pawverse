@@ -17,11 +17,15 @@ class Index extends Component
 
     public function mount()
     {
+        $this->reloadDogs();
+    }
+
+    public function reloadDogs(): void
+    {
         $this->dogs = auth()->user()
             ->dogs()
             ->latest()
             ->get();
-
     }
 
     #[Computed]
@@ -52,7 +56,7 @@ class Index extends Component
             'name'        => $this->name,
             'color'       => $this->color,
             'size_level'  => $this->size_level,
-            'is_public'   => $this->is_public ?? false,
+            'is_public'   => $this->is_public,
         ];
     }
 
@@ -60,12 +64,12 @@ class Index extends Component
     {
         $this->reset([
             'name',
+            'editingId',
         ]);
 
         $this->color = '#000000';
         $this->size_level = 5;
         $this->is_public = false;
-        $this->editingId = null;
     }
 
     public function save(): void
@@ -77,13 +81,11 @@ class Index extends Component
                 $dog = DogModel::findOrFail($this->editingId);
                 $this->authorize('update', $dog);
                 $dog->update($this->dogPayload());
-                $this->dogs = $this->dogs->map(
-                    fn($d) => $d->id === $dog->id ? $dog : $d
-                );
             } else {
                 $dog = DogModel::create($this->dogPayload());
-                $this->dogs = $this->dogs->prepend($dog);
             }
+
+            $this->reloadDogs();
 
             $this->dispatch('notify',
                 message: $this->editingId ? '更新しました' : '登録しました',
@@ -100,7 +102,6 @@ class Index extends Component
                 variant: 'danger'
             );
         }
-
     }
 
     public function edit(int $id): void
@@ -120,9 +121,7 @@ class Index extends Component
         $dog = DogModel::findOrFail($id);
         $this->authorize('delete', $dog);
         $dog->delete();
-        $this->dogs = $this->dogs->reject(
-            fn($d) => $d->id === $id
-        );
+        $this->reloadDogs();
 
         $this->dispatch('notify',
             message: 'お別れしました...',
