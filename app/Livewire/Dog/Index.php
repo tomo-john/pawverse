@@ -87,7 +87,11 @@ class Index extends Component
 
         } catch (\Throwable $e) {
             logger($e);
-            dd($e->getMessage());
+
+            $this->dispatch('notify',
+                message: 'エラーが発生しました🐶💦',
+                variant: 'danger'
+            );
         }
 
         $this->resetForm();
