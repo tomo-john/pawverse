@@ -22,7 +22,7 @@ class DogFactory extends Factory
 
         return [
           'name' => "seederじょん{$level}_" . fake()->randomNumber(2),
-          'color' => fake()->safeColorName(),
+          'color' => fake()->hexColor(),
           'size_level' => $level,
           'is_public' => fake()->boolean(70),
         ];
