@@ -30,6 +30,11 @@ class Index extends Component
         return DogModel::SIZE_CLASSES[$this->size_level] ?? 'text-5xl';
     }
 
+    public function updatedName(): void
+    {
+        $this->validateOnly('name');
+    }
+
     protected function rules(): array
     {
         return [
@@ -65,9 +70,9 @@ class Index extends Component
 
     public function save(): void
     {
-        try {
-            $this->validate();
+        $this->validate();
 
+        try {
             if ($this->editingId) {
                 $dog = DogModel::findOrFail($this->editingId);
                 $this->authorize('update', $dog);
@@ -85,6 +90,8 @@ class Index extends Component
                 variant: 'success'
             );
 
+            $this->resetForm();
+
         } catch (\Throwable $e) {
             logger($e);
 
@@ -94,7 +101,6 @@ class Index extends Component
             );
         }
 
-        $this->resetForm();
     }
 
     public function edit(int $id): void
