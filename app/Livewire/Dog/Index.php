@@ -5,6 +5,7 @@ namespace App\Livewire\Dog;
 use Livewire\Component;
 use Livewire\Attributes\Computed;
 use App\Models\Dog as DogModel;
+use Illuminate\Support\Collection;
 
 class Index extends Component
 {
@@ -13,19 +14,13 @@ class Index extends Component
     public $size_level = 5;
     public $is_public = false;
     public $editingId = null;
-    public $dogs;
 
-    public function mount()
+    #[Computed]
+    public function dogs(): Collection
     {
-        $this->reloadDogs();
-    }
+        $user = auth()->user();
 
-    public function reloadDogs(): void
-    {
-        $this->dogs = auth()->user()
-            ->dogs()
-            ->latest()
-            ->get();
+        return $user->dogs()->latest()->get();
     }
 
     #[Computed]
@@ -85,8 +80,6 @@ class Index extends Component
                 $dog = DogModel::create($this->dogPayload());
             }
 
-            $this->reloadDogs();
-
             $this->dispatch('notify',
                 message: $this->editingId ? '更新しました' : '登録しました',
                 variant: 'success'
@@ -121,7 +114,6 @@ class Index extends Component
         $dog = DogModel::findOrFail($id);
         $this->authorize('delete', $dog);
         $dog->delete();
-        $this->reloadDogs();
 
         $this->dispatch('notify',
             message: 'お別れしました...',
