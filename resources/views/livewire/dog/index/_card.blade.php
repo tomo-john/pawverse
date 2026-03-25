@@ -5,14 +5,26 @@
         'ring-blue-400 shadow-xl scale-[1.02]' => $editingId === $dog->id,
      ])
 
-    <!-- show -->
+    <!-- Show Link -->
     <a href="{{ route('dog.show', $dog) }}" class="absolute inset-0 z-0"></a>
 
     <!-- Dog Icon -->
     <div class="flex items-center justify-center h-36">
         <i class="fa-solid fa-dog {{ $dog->size_class }}"
            style="color: {{ $dog->color }}"></i>
+
+        <!-- 編集中のセリフ -->
+        @if ($dog->id === $editingId)
+            <div class="relative ml-2">
+                <span class="bg-blue-100 text-blue-600 text-xs px-3 py-1 rounded-full shadow">
+                    編集中だわん!
+                </span>
+
+                <div class="absolute -left-1 top-1/2 -translate-y-1/2 w-2 h-2 bg-blue-100 rotate-45"></div>
+            </div>
+        @endif
     </div>
+
 
     <!-- Public Badge -->
     <div class="absolute top-2 right-2 z-10">
