@@ -1,12 +1,19 @@
 <div class="max-w-6xl mx-auto flex gap-6">
 
     {{-- 左側: 犬専用レーン --}}
-    <div class="w-32 flex justify-center">
+    <div class="w-32 flex justify-center"
+         x-data="{y: 0}"
+         @mousemove.window="y = $event.clientY"
+    >
             {{-- Dog --}}
-            <div class="relative sticky top-10 w-24 h-24 flex justify-center" wire:poll.1s="checkAnimation">
+            <div class="relative w-24 h-24 flex justify-center items-center"
+                 wire:poll.1s="checkAnimation"
+                 :style="`position: fixed; top: ${y}px; transform: translateY(-50%); transition: top 0.1s ease-out`"
+            >
                 <i class="fa-solid fa-dog {{ $dog->size_class }} hover:scale-110 transition
                           {{ $this->animationClass }}"
-                   style="color: {{ $dog->color }}"></i>
+                   style="color: {{ $dog->color }}"
+                ></i>
             </div>
     </div>
 
