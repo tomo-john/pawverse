@@ -14,11 +14,17 @@
              x-data
              x-on:scroll-to-form.window="
                 setTimeout(() => {
-                    document.getElementById('dog-form')?.scrollIntoView({
+                    const form = document.getElementById('dog-form');
+                    const input = document.getElementById('dog-name');
+
+                    form?.scrollIntoView({
                         behavior: 'smooth',
                         block: 'center'
-                    })
-                }, 50)
+                    });
+
+                    input?.focus();
+
+                }, 100)
              "
         >
             @include('livewire.dog.index._form')

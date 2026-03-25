@@ -10,7 +10,7 @@
     </div>
 
     <!-- name -->
-    <flux:input label="Name" wire:model.live="name"/>
+    <flux:input id="dog-name" label="Name" wire:model.live="name"/>
 
     <!-- color -->
     <div class="space-y-1">
