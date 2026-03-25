@@ -10,11 +10,14 @@
 
     <!-- Dog Icon -->
     <div class="flex items-center justify-center h-36">
-        <i @class([
-            'fa-solid fa-dog', $dog->size_class,
-            'animate-bounce' => $dog->id === $editingId,
-           ])
-           style="color: {{ $dog->color }}"></i>
+        <i
+            @class([
+                "fa-solid fa-dog {$dog->size_class}",
+                'animate-bounce' => $dog->id === $editingId,
+            ])
+            style="color: {{ $dog->color }}"
+        >
+        </i>
 
         <!-- 編集中のセリフ -->
         @if ($dog->id === $editingId)
