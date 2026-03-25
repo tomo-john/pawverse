@@ -7,13 +7,17 @@
 
     <x-dog.toast />
 
-    <div class="max-w-5xl mx-auto space-y-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
 
         {{-- Form --}}
-        @include('livewire.dog.index._form')
+        <div class="lg:col-span-2">
+            @include('livewire.dog.index._form')
+        </div>
 
         {{-- Preview --}}
-        @include('livewire.dog.index._preview')
+        <div class="lg:col-span-1">
+            @include('livewire.dog.index._preview')
+        </div>
 
     </div>
 
