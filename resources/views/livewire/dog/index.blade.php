@@ -24,6 +24,6 @@
     <flux:separator variant="subtle" class="my-6" />
 
     <!-- Index -->
-    @include('livewire.dog.index._dog-card')
+    @include('livewire.dog.index._list')
 
 </div>
