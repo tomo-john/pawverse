@@ -1,8 +1,9 @@
 <div wire:key="dog-{{ $dog->id }}"
-     class="relative rounded-2xl bg-white ring-1 ring-gray-200 p-4
-            flex flex-col items-center gap-3
-            hover:shadow-2xl hover:-translate-y-1
-            transition-all duration-300">
+     @class([
+        'relative rounded-2xl bg-white ring-2 p-4 flex flex-col items-center gap-3 transition-all duration-300',
+        'ring-gray-200 hover:shadow-2xl hover:-translate-y-1' => $editingId !== $dog->id,
+        'ring-blue-400 shadow-xl scale-[1.02]' => $editingId === $dog->id,
+     ])
 
     <!-- show -->
     <a href="{{ route('dog.show', $dog) }}" class="absolute inset-0 z-0"></a>

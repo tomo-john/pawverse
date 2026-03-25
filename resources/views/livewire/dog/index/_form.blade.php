@@ -1,4 +1,10 @@
-<div id="dog-form" class="max-w-xl mx-auto border rounded-xl space-y-4 p-4">
+<div id="dog-form"
+     @class([
+        'max-w-xl mx-auto border rounded-xl space-y-4 p-4',
+        'border-gray-200' => !$editingId,
+        'border-blue-400 ring-2 ring-blue-100' => $editingId,
+     ])
+>
 
     <div class="text-sm font-medium text-gray-500">
         登録フォーム
