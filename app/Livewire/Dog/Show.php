@@ -58,7 +58,8 @@ class Show extends Component
 
     public function render()
     {
-        return view('livewire.dog.show');
+        return view('livewire.dog.show')
+            ->layout('components.layouts.app');
     }
 
 }
