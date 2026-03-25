@@ -1,4 +1,4 @@
-<div class="max-w-xl mx-auto border rounded-xl space-y-4 p-4">
+<div id="dog-form" class="max-w-xl mx-auto border rounded-xl space-y-4 p-4">
 
     <div class="text-sm font-medium text-gray-500">
         登録フォーム

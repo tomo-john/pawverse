@@ -107,6 +107,8 @@ class Index extends Component
         $this->color = $dog->color;
         $this->size_level = $dog->size_level;
         $this->is_public = $dog->is_public;
+
+        $this->dispatch('scroll-to-form');
     }
 
     public function delete(int $id): void

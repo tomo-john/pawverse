@@ -10,7 +10,17 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
 
         {{-- Form --}}
-        <div class="lg:col-span-2">
+        <div class="lg:col-span-2"
+             x-data
+             x-on:scroll-to-form.window="
+                setTimeout(() => {
+                    document.getElementById('dog-form')?.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    })
+                }, 50)
+             "
+        >
             @include('livewire.dog.index._form')
         </div>
 
