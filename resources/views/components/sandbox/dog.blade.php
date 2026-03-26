@@ -1,16 +1,10 @@
-<div class="m-4"
-     x-data="{
-         message: '呼び出された犬',
-         show: false
-    }"
+<div class="p-6 m-6 bg-white rounded-xl shadow border border-gray-100"
+     x-data="{}"
 >
-    <span x-text="message"></span>
 
-    <i class="fa-solid fa-dog text-pink-500 cursor-pointer"
-       x-on:click="message = 'わんわん！🐾', show = !show">
-    </i>
-    <span x-show="show" x-transition.duration.500ms class="bg-green-500 m-2 p-2 rounded shadow-sm">
-        なででくれてありがとう
-        <i class="fa-solid fa-dog"></i>
-    </span>
+    <div class="flex justify-center items-center gap-2">
+        <i class="fa-solid fa-dog text-5xl text-pink-500"></i>
+        <span class="text-sm text-pink-600">SandBoxへようこそ</span>
+    </div>
+
 </div>
