@@ -4,6 +4,7 @@
         <x-sandbox.dog />
         <x-sandbox.test1 />
         <x-sandbox.test2 />
+        <x-sandbox.test3 />
     </div>
 
 </x-layouts.guest>
