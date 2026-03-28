@@ -8,4 +8,6 @@
         <x-sandbox.test4 />
     </div>
 
+    <a href="{{ route('sandbox.page', 'alpine') }}">Alpine</a>
+
 </x-layouts.guest>

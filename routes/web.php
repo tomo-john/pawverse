@@ -25,8 +25,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('public/dogs', PublicDogIndex::class)->name('public.dog.index');
 
 // Sandbox
-Route::get('sandbox', function () {
-    return view('sandbox.index');
-})->name('sandbox.index');
+Route::get('sandbox/{page}', function ($page) {
+    abort_if(!View::exists("sandbox.{$page}"), 404);
+    return view("sandbox.{$page}");
+})->name('sandbox.page');
 
 require __DIR__.'/settings.php';
