@@ -4,7 +4,7 @@
 
     <div class="flex justify-center items-center gap-2">
         <i class="fa-solid fa-dog text-5xl text-pink-500"></i>
-        <span class="text-sm text-pink-600">SandBoxへようこそ</span>
+        <span class="text-sm text-pink-600">Alpine検証用</span>
     </div>
 
 </div>
