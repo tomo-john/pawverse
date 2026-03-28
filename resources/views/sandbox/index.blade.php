@@ -1,13 +1,11 @@
 <x-layouts.guest>
 
-    <div class="max-w-5xl mx-auto">
-        <x-sandbox.dog />
-        <x-sandbox.test1 />
-        <x-sandbox.test2 />
-        <x-sandbox.test3 />
-        <x-sandbox.test4 />
+    <div class="flex gap-3">
+        <a href="{{ route('sandbox.page', 'alpine') }}"
+           class="inline-block px-6 py-3 bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-lg shadow-md transition duration-300"
+        >
+            Alpine
+        </a>
     </div>
-
-    <a href="{{ route('sandbox.page', 'alpine') }}">Alpine</a>
 
 </x-layouts.guest>
