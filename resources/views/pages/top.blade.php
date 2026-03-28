@@ -66,12 +66,7 @@
             <flux:heading size="sm" level="3">検証用ページ</flux:heading>
             <div class="flex justify-center items-center mt-2 gap-4">
                 <a href="{{ route('sandbox.index') }}">
-                    <flux:button>
-                        <i class="fa-solid fa-dog"></i>
-                    </flux:button>
-                </a>
-                <a href="{{ route('sandbox.index') }}">
-                    <flux:button>
+                    <flux:button variant="primary" color="pink">
                         <i class="fa-solid fa-dog"></i>
                     </flux:button>
                 </a>
