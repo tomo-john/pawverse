@@ -2,11 +2,19 @@
 
     {{-- 左側: 犬専用レーン --}}
     <div class="w-32 flex justify-center"
-         x-data="{ y: 0, isMoving: false }"
+         x-data="{ y: 0, isMoving: false, scrollTimer: null, mouseTimer: null }"
+
          @mousemove.window="
-            isMoving = Math.abs(y - $event.clientY) > 2;
+            isMoving = true,
+            clearTimeout(mouseTimer);
+            mouseTimer = setTimeout(() => isMoving = false, 100);
             y = $event.clientY
-        "
+         "
+         @scroll.window="
+            isMoving = true,
+            clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(() => isMoving = false, 200);
+         "
     >
             {{-- Dog --}}
             <div class="relative w-24 h-24 flex justify-center items-center"
