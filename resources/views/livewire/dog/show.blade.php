@@ -2,15 +2,34 @@
 
     {{-- 左側: 犬専用レーン --}}
     <div class="w-32 flex justify-center"
-         x-data="{ y: 0, isMoving: false, scrollTimer: null, mouseTimer: null }"
+         x-data="{
+            y: 0,
+            isMoving: false,
+            isReacting: false,
+            scrollTimer: null,
+            mouseTimer: null
+         }"
+
+         @dog-reacted.window="
+            isReacting = true;
+            isMoving = false;
+
+            setTimeout(() => {
+                isReacting = false;
+            }, 1000)
+         "
 
          @mousemove.window="
+            if (isReacting) return;
+
             isMoving = true,
             clearTimeout(mouseTimer);
             mouseTimer = setTimeout(() => isMoving = false, 100);
             y = $event.clientY
          "
          @scroll.window="
+            if (isReacting) return;
+
             isMoving = true,
             clearTimeout(scrollTimer);
             scrollTimer = setTimeout(() => isMoving = false, 200);
