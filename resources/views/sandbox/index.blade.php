@@ -20,22 +20,7 @@
         </div>
 
         {{-- Run Dog  --}}
-        <div class="m-6 bg-gray-600 rounded-xl shadow border border-gray-700 relative overflow-hidden flex justify-center items-center"
-             x-data="{
-                posX: 50,
-                posY: 50,
-                speed: 1.5,
-
-             }"
-             x-init="
-             "
-             style="height: 400px;"
-        >
-            <div class="absolute text-center transition-transform duration-100 ease-linear">
-                <i class="fa-solid fa-dog text-5xl text-pink dog-walk"
-                ></i>
-            </div>
-        </div>
+        <x-sandbox.dog.walk />
 
     </div>
 
