@@ -8,7 +8,7 @@
             <i class="fa-solid fa-dog transition-all duration-500"
                @mouseenter="active = true"
                @mouseleave="active = false"
-               :class="active ? 'scale-125 rotate-12' : ''"
+               :class="active ? 'scale-125 rotate-348' : ''"
             ></i>
             <span x-show="active" class="text-pink-500 text-sm">わん！</span>
         </div>
