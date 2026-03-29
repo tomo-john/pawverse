@@ -8,7 +8,7 @@
             {{-- Dog --}}
             <div class="relative w-24 h-24 flex justify-center items-center"
                  wire:poll.1s="checkAnimation"
-                 :style="`position: fixed; top: ${y}px; transform: translateY(-50%); transition: top 0.1s ease-out`"
+                 :style="`position: fixed; top: ${y}px; transform: translateY(-50%); transition: top 0.5s cubic-bezier(0.22, 1, 0.36, 1)`"
             >
                 <i class="fa-solid fa-dog {{ $dog->size_class }} hover:scale-110 transition
                           {{ $this->animationClass }}"
