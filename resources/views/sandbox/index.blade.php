@@ -19,9 +19,6 @@
             </a>
         </div>
 
-        {{-- Run Dog  --}}
-        <x-sandbox.dog.walk />
-
     </div>
 
 </x-layouts.guest>
