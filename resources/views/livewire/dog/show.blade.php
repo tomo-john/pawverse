@@ -3,7 +3,7 @@
     {{-- 左側: 犬専用レーン --}}
     <div class="w-32 flex justify-center"
          x-data="{
-            y: 0,
+            y: 100,
             targetY: 0,
             isMoving: false,
             isReacting: false,
@@ -32,7 +32,11 @@
             isMoving = true,
             clearTimeout(mouseTimer);
             mouseTimer = setTimeout(() => isMoving = false, 100);
-            y = targetY;
+
+            const minY = 100;
+            const maxY = window.innerHeight - 300;
+
+            y = Math.min(Math.max(targetY, minY), maxY);
          "
          @scroll.window="
             if (isReacting) return;
@@ -47,7 +51,7 @@
                  wire:poll.1s="checkAnimation"
                  :style="`position: fixed; top: ${y}px; transform: translateY(-50%); transition: top 2.5s cubic-bezier(0.22, 1, 0.36, 1)`"
             >
-                <i class="fa-solid fa-dog {{ $dog->size_class }} hover:scale-110 transition {{ $this->animationClass }}"
+                <i class="fa-solid fa-dog {{ $dog->size_class }} hover:scale-120 hover:rotate-12 transition {{ $this->animationClass }}"
                    :class="{ 'dog-follow' : isMoving }"
                    style="color: {{ $dog->color }}"
                 ></i>
