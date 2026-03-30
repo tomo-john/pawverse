@@ -2,16 +2,53 @@
 
     {{-- 左側: 犬専用レーン --}}
     <div class="w-32 flex justify-center"
-         x-data="{y: 0}"
-         @mousemove.window="y = $event.clientY"
+         x-data="{
+            y: 0,
+            targetY: 0,
+            isMoving: false,
+            isReacting: false,
+            scrollTimer: null,
+            mouseTimer: null
+         }"
+
+         @dog-reacted.window="
+            isReacting = true;
+            isMoving = false;
+
+            setTimeout(() => {
+                isReacting = false;
+
+                setTimeout(() => {
+                    y = targetY;
+                }, 50);
+
+            }, $event.detail.duration * 1000)
+         "
+         @mousemove.window="
+            targetY = $event.clientY;
+
+            if (isReacting) return;
+
+            isMoving = true,
+            clearTimeout(mouseTimer);
+            mouseTimer = setTimeout(() => isMoving = false, 100);
+            y = targetY;
+         "
+         @scroll.window="
+            if (isReacting) return;
+
+            isMoving = true,
+            clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(() => isMoving = false, 200);
+         "
     >
             {{-- Dog --}}
             <div class="relative w-24 h-24 flex justify-center items-center"
                  wire:poll.1s="checkAnimation"
-                 :style="`position: fixed; top: ${y}px; transform: translateY(-50%); transition: top 0.1s ease-out`"
+                 :style="`position: fixed; top: ${y}px; transform: translateY(-50%); transition: top 2.5s cubic-bezier(0.22, 1, 0.36, 1)`"
             >
-                <i class="fa-solid fa-dog {{ $dog->size_class }} hover:scale-110 transition
-                          {{ $this->animationClass }}"
+                <i class="fa-solid fa-dog {{ $dog->size_class }} hover:scale-110 transition {{ $this->animationClass }}"
+                   :class="{ 'animate-spin' : isMoving }"
                    style="color: {{ $dog->color }}"
                 ></i>
             </div>
