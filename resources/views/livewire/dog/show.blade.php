@@ -8,7 +8,14 @@
             isMoving: false,
             isReacting: false,
             scrollTimer: null,
-            mouseTimer: null
+            mouseTimer: null,
+
+            clampY(value) {
+                const dogSize = 96;
+                const minY = dogSize / 2;
+                const maxY = window.innerHeight - dogSize / 2;
+                return Math.min(Math.max(value, minY), maxY);
+            }
          }"
 
          @dog-reacted.window="
@@ -19,7 +26,7 @@
                 isReacting = false;
 
                 setTimeout(() => {
-                    y = targetY;
+                    y = clampY(targetY);
                 }, 50);
 
             }, $event.detail.duration * 1000)
@@ -29,19 +36,16 @@
 
             if (isReacting) return;
 
-            isMoving = true,
+            isMoving = true;
             clearTimeout(mouseTimer);
             mouseTimer = setTimeout(() => isMoving = false, 100);
 
-            const minY = 100;
-            const maxY = window.innerHeight - 300;
-
-            y = Math.min(Math.max(targetY, minY), maxY);
+            y = clampY(targetY);
          "
          @scroll.window="
             if (isReacting) return;
 
-            isMoving = true,
+            isMoving = true;
             clearTimeout(scrollTimer);
             scrollTimer = setTimeout(() => isMoving = false, 200);
          "
