@@ -11,12 +11,13 @@
          }"
 
          @dog-reacted.window="
+            console.log('リアクション中', $event.detail);
             isReacting = true;
             isMoving = false;
 
             setTimeout(() => {
                 isReacting = false;
-            }, 1000)
+            }, $event.detail.duration * 1000)
          "
 
          @mousemove.window="

@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Dog;
 use App\Domain\Dog\DogActionDefinition;
 use App\Domain\Dog\DogReactionDefinition;
+use App\Domain\Dog\DogAnimationDefinition;
 use App\Services\Dog\DogActionService;
 use App\Services\Dog\DogCooldownService;
 
@@ -44,7 +45,12 @@ class CareActions extends Component
         $this->dispatch('dog-updated');
 
         $reaction = DogReactionDefinition::map($type);
-        $this->dispatch('dog-reacted', reaction: $reaction);
+        $def = DogAnimationDefinition::get($reaction);
+
+        $this->dispatch('dog-reacted',
+            reaction: $reaction,
+            duration: $def['duration']
+        );
     }
 
     // クールダウンタイム取得
