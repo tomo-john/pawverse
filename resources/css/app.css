@@ -134,3 +134,16 @@ select:focus[data-flux-control] {
 .dog-sick {
   animation: dog-sick 0.7s infinite ease-in-out;
 }
+
+/* ついてる来るとき */
+@keyframes dog-follow {
+    0%   { transform: translateY(0) translateX(0); }
+    25%  { transform: translateY(-4px) translateX(-4px); }
+    50%  { transform: translateY(0) translateX(0); }
+    75%  { transform: translateY(-4px) translateX(1px); }
+    100%{ transform: translateY(0) translateX(0); }
+}
+
+.dog-follow {
+    animation: dog-follow 0.5s linear infinite;
+}

@@ -48,7 +48,7 @@
                  :style="`position: fixed; top: ${y}px; transform: translateY(-50%); transition: top 2.5s cubic-bezier(0.22, 1, 0.36, 1)`"
             >
                 <i class="fa-solid fa-dog {{ $dog->size_class }} hover:scale-110 transition {{ $this->animationClass }}"
-                   :class="{ 'animate-spin' : isMoving }"
+                   :class="{ 'dog-follow' : isMoving }"
                    style="color: {{ $dog->color }}"
                 ></i>
             </div>
