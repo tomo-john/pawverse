@@ -9,6 +9,7 @@
             isReacting: false,
             scrollTimer: null,
             mouseTimer: null,
+            showMessage: false,
 
             clampY(value) {
                 const dogSize = 96;
@@ -49,18 +50,35 @@
             clearTimeout(scrollTimer);
             scrollTimer = setTimeout(() => isMoving = false, 200);
          "
+
+         @message-show.window="
+            showMessage = true;
+            setTimeout(() => showMessage = false, 3000);
+         "
     >
-            {{-- Dog --}}
-            <div class="relative w-24 h-24 flex justify-center items-center"
-                 wire:poll.1s="checkAnimation"
-                 :style="`position: fixed; top: ${y}px; transform: translateY(-50%); transition: top 2.5s cubic-bezier(0.22, 1, 0.36, 1)`"
-            >
-                <i class="fa-solid fa-dog {{ $dog->size_class }} hover:scale-120 hover:rotate-12 transition {{ $this->animationClass }}"
-                   :class="{ 'dog-follow' : isMoving }"
-                   style="color: {{ $dog->color }}"
-                ></i>
+        {{-- Dog --}}
+        <div class="relative w-24 h-24 flex justify-center items-center"
+             wire:poll.1s="checkAnimation"
+             :style="`position: fixed; top: ${y}px; transform: translateY(-50%); transition: top 2.8s cubic-bezier(0.22, 1, 0.36, 1)`"
+        >
+            {{-- Reaction Dog --}}
+            <i class="fa-solid fa-dog {{ $dog->size_class }} hover:scale-120 hover:rotate-12 transition {{ $this->animationClass }}"
+               :class="{ 'dog-follow' : isMoving }"
+               style="color: {{ $dog->color }}"
+            ></i>
+
+            {{-- メッセージ表示 --}}
+            <div class="absolute -top-4 flex justify-center w-40 pinter-event-none">
+                <template x-if="showMessage">
+                    <div class="dog-message bg-white/90 text-xs text-gray-600 px-3 py-1 rounded-full shadow whitespace-nowrap">
+                        {{ $message }}
+                    </div>
+                </template>
             </div>
+
+        </div>
     </div>
+
 
     {{-- 右側: Showコンテンツ --}}
     <div class="flex-1 space-y-6">

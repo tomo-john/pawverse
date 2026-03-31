@@ -7,17 +7,20 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use App\Models\Dog;
 use App\Domain\Dog\DogAnimationDefinition;
+use App\Services\Dog\DogMessageService;
 
 class Show extends Component
 {
     public Dog $dog;
     public ?string $activeAnimation = null;
     public ?string $animationUntil = null;
+    public ?string $message = null;
 
-    public function mount(Dog $dog)
+    public function mount(Dog $dog, DogMessageService $service)
     {
         $this->authorize('view', $dog);
         $this->dog = $dog;
+        $this->showMessage($service);
     }
 
     public function startAnimation(string $reaction)
@@ -38,6 +41,13 @@ class Show extends Component
             $this->activeAnimation = null;
             $this->animationUntil = null;
         }
+    }
+
+    public function showMessage(DogMessageService $service)
+    {
+        $this->message = $service->message($this->dog);
+
+        $this->dispatch('message-show');
     }
 
     #[On('dog-reacted')]
