@@ -9,6 +9,7 @@ use App\Domain\Dog\RealDogActivityDefinition;
 use App\Domain\Dog\DogReactionDefinition;
 use App\Domain\Dog\DogAnimationDefinition;
 use App\Services\Dog\RealDogActivityService;
+use App\Services\Dog\DogMessageService;
 use Carbon\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Computed;
@@ -24,6 +25,13 @@ class ActivityForm extends Component
     public ?string $memo = null;
     public string  $logged_at = '';
     public array   $types = [];
+
+    protected DogMessageService $messageService;
+
+    public function boot(DogMessageService $messageService)
+    {
+        $this->messageService = $messageService;
+    }
 
     public function mount(Dog $dog)
     {
@@ -83,7 +91,12 @@ class ActivityForm extends Component
                 duration: $def['duration']
             );
 
-            session()->flash('message', '記録を保存しました🐶');
+            $message = $this->messageService->message($this->dog, $type);
+
+            $this->dispatch('message-show', message: $message);
+
+            // フラッシュメッセージは変更する
+            // session()->flash('message', '記録を保存しました🐶');
 
         } catch (\Throwable $e) {
             session()->flash('error', $e->getMessage());
