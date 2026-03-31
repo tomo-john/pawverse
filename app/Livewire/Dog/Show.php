@@ -14,7 +14,6 @@ class Show extends Component
     public Dog $dog;
     public ?string $activeAnimation = null;
     public ?string $animationUntil = null;
-    public ?string $message = null;
 
     public function mount(Dog $dog, DogMessageService $service)
     {
@@ -45,9 +44,9 @@ class Show extends Component
 
     public function showMessage(DogMessageService $service)
     {
-        $this->message = $service->message($this->dog);
+        $message = $service->message($this->dog);
 
-        $this->dispatch('message-show');
+        $this->dispatch('message-show', message: $message);
     }
 
     #[On('dog-reacted')]

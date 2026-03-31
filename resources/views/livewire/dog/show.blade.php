@@ -11,6 +11,7 @@
             scrollTimer: null,
             mouseTimer: null,
             showMessage: false,
+            message: '',
 
             clampY(value) {
                 const dogSize = 96;
@@ -53,8 +54,14 @@
          "
 
          @message-show.window="
-            showMessage = true;
-            setTimeout(() => showMessage = false, 3000);
+            message = $event.detail.message;
+
+            showMessage = false;
+
+            setTimeout(() => {
+                showMessage = true;
+                setTimeout(() => showMessage = false, 3000);
+            }, 10);
          "
     >
         {{-- Dog --}}
@@ -75,10 +82,10 @@
             ></i>
 
             {{-- メッセージ表示 --}}
-            <div class="absolute -top-4 flex justify-center w-40 pinter-event-none">
+            <div class="absolute -top-4 flex justify-center w-40 pinter-events-none">
                 <template x-if="showMessage">
                     <div class="dog-message bg-white/90 text-xs text-gray-600 px-3 py-1 rounded-full shadow whitespace-nowrap">
-                        {{ $message }}
+                        <span x-text="message"></span>
                     </div>
                 </template>
             </div>
