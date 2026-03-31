@@ -7,6 +7,7 @@
             targetY: 0,
             isMoving: false,
             isReacting: false,
+            isHovering: false,
             scrollTimer: null,
             mouseTimer: null,
             showMessage: false,
@@ -35,7 +36,7 @@
          @mousemove.window="
             targetY = $event.clientY;
 
-            if (isReacting) return;
+            if (isReacting || isHovering) return;
 
             isMoving = true;
             clearTimeout(mouseTimer);
@@ -62,9 +63,15 @@
              :style="`position: fixed; top: ${y}px; transform: translateY(-50%); transition: top 2.8s cubic-bezier(0.22, 1, 0.36, 1)`"
         >
             {{-- Reaction Dog --}}
-            <i class="fa-solid fa-dog {{ $dog->size_class }} hover:scale-120 hover:rotate-12 transition {{ $this->animationClass }}"
-               :class="{ 'dog-follow' : isMoving }"
+            <i class="fa-solid fa-dog {{ $dog->size_class }} transition cursor-pointer {{ $this->animationClass }}"
+               :class="{
+                    'dog-follow' : isMoving,
+                    'scale-120 rotate-12' : isHovering
+               }"
                style="color: {{ $dog->color }}"
+               wire:click.debounce.300ms="showMessage"
+               @mouseenter="isHovering = true; isMoving = false"
+               @mouseleave="isHovering = false"
             ></i>
 
             {{-- メッセージ表示 --}}

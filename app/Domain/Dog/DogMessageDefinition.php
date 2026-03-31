@@ -22,6 +22,7 @@ class DogMessageDefinition
             self::HAPPY_HIGH => [
                 'すごく楽しいワン！',
                 'いつもありがとうだワン！',
+                'うほっうほっ',
             ],
 
             self::HAPPY_LOW => [
