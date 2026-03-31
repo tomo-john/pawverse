@@ -11,6 +11,14 @@ class DogMessageDefinition
     public const HUNGER_HIGH = 'hunger_high';
     public const STAMINA_LOW = 'stamina_low';
 
+    public const PET = 'pet';
+    public const SNACK = 'snack';
+    public const SCOLD = 'scold';
+    public const WALK = 'walk';
+    public const MEAL = 'meal';
+    public const GROOM = 'groom';
+    public const HOSPITAL = 'hospital';
+
     public static function all(): array
     {
         return [
@@ -39,6 +47,12 @@ class DogMessageDefinition
                 'ちょっと疲れたワン',
                 '今日はのんびりしたいワン',
             ],
+
+            self::SNACK => [
+                'ごはんありがとうだワン！',
+                'おいしいワン～',
+            ],
+
         ];
     }
 

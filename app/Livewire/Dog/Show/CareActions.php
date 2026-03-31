@@ -9,6 +9,7 @@ use App\Domain\Dog\DogReactionDefinition;
 use App\Domain\Dog\DogAnimationDefinition;
 use App\Services\Dog\DogActionService;
 use App\Services\Dog\DogCooldownService;
+use App\Services\Dog\DogMessageService;
 
 class CareActions extends Component
 {
@@ -19,10 +20,12 @@ class CareActions extends Component
 
     // bootでDI
     protected DogCooldownService $cooldownService;
+    protected DogMessageService $messageService;
 
-    public function boot(DogCooldownService $cooldownService)
+    public function boot(DogCooldownService $cooldownService, DogMessageService $messageService)
     {
         $this->cooldownService = $cooldownService;
+        $this->messageService = $messageService;
     }
 
     // 初期化処理
@@ -51,6 +54,10 @@ class CareActions extends Component
             reaction: $reaction,
             duration: $def['duration']
         );
+
+        $message = $this->messageService->message($this->dog, $type);
+
+        $this->dispatch('message-show', message: $message);
     }
 
     // クールダウンタイム取得

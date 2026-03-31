@@ -8,8 +8,12 @@ use App\Domain\Dog\DogStatusDefinition;
 
 class DogMessageService
 {
-    public function message(Dog $dog): string
+    public function message(Dog $dog, ?string $overrideType = null): string
     {
+        if ($overrideType) {
+            return $this->random($overrideType);
+        }
+
         foreach (DogMessageDefinition::rules() as [$status, $state, $type]) {
 
             $value = $dog->status->$status;
