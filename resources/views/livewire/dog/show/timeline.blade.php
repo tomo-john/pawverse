@@ -1,6 +1,6 @@
 <div class="bg-white rounded-2xl p-6 shadow-sm border">
 
-    <h2 class="font-bold text-gray-700 mb-4">タイムライン(作成中)</h2>
+    <h2 class="font-bold text-gray-700 mb-4">タイムライン</h2>
 
     @forelse ($timeline as $event)
         <div class="bg-pink-50 text-black rounded-lg my-1 p-1">

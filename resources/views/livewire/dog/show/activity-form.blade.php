@@ -1,5 +1,5 @@
 <div class="bg-white rounded-2xl p-6 shadow-sm border">
-    <h2 class="font-bold text-gray-700 mb-4">今日の記録(作成中)</h2>
+    <h2 class="font-bold text-gray-700 mb-4">今日の記録</h2>
 
     @if (! $this->hasRealDog)
         <div class="text-sm text-gray-400">
@@ -14,7 +14,7 @@
             <div class="text-green-600 mb-4">{{ session('message') }}</div>
         @endif
 
-        <div class="bg-black rounded-2xl p-6 border space-y-6">
+        <div class="bg-zinc-800 rounded-2xl p-6 border border-pink-100 space-y-6 shadow-inner">
             {{-- type: 記録の種類 --}}
             <flux:select label="何をした？🐶" wire:model.live="type">
                 <option value="" disabled>選択してください</option>
