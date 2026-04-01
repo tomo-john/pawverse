@@ -15,11 +15,18 @@ class Show extends Component
     public ?string $activeAnimation = null;
     public ?string $animationUntil = null;
 
-    public function mount(Dog $dog, DogMessageService $service)
+    protected DogMessageService $service;
+
+    public function boot(DogMessageService $service)
+    {
+        $this->service = $service;
+    }
+
+    public function mount(Dog $dog)
     {
         $this->authorize('view', $dog);
         $this->dog = $dog;
-        $this->showMessage($service);
+        $this->showMessage();
     }
 
     public function startAnimation(string $reaction)
@@ -42,9 +49,9 @@ class Show extends Component
         }
     }
 
-    public function showMessage(DogMessageService $service)
+    public function showMessage()
     {
-        $message = $service->message($this->dog);
+        $message = $this->service->message($this->dog);
 
         $this->dispatch('message-show', message: $message);
     }
