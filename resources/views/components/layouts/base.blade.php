@@ -6,7 +6,7 @@
 <body class="min-h-screen bg-white dark:bg-zinc-800 flex flex-col">
 
     {{-- ヘッダー🐶 --}}
-    @include('layouts.partials.header')
+    <x-layouts.partials.header />
 
     {{-- メインコンテンツ🐶 --}}
     <main class="flex-1">
@@ -14,7 +14,7 @@
     </main>
 
     {{-- フッター🐶 --}}
-    @include('layouts.partials.footer')
+    <x-layouts.partials.footer />
 
     @fluxScripts
 </body>
