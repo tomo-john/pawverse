@@ -7,6 +7,7 @@ class DogActionDefinition
     public const PET = 'pet';
     public const SNACK = 'snack';
     public const SCOLD = 'scold';
+    public const TEST = 'test';
 
     public static function all(): array
     {
@@ -55,6 +56,22 @@ class DogActionDefinition
                     'exp' => +30,
                 ],
             ],
+
+            self::TEST => [
+                'label' => 'テスト',
+                'icon' => 'fa-solid fa-dog',
+                'text-color' => 'text-yellow-600',
+                'button-color' => 'yellow',
+                'bg' => 'bg-yellow-50 border-yellow-200',
+                'cooldown' => 0,
+                'effects' => [
+                    'happy' => -50,
+                    'stamina' => -50,
+                    'hunger' => -50,
+                    'exp' => +50,
+                ],
+            ],
+
         ];
     }
 

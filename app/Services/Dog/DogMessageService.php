@@ -30,6 +30,10 @@ class DogMessageService
     {
         $messages = DogMessageDefinition::get($type);
 
+        if (empty($messages)) {
+            $messages = DogMessageDefinition::get(DogMessageDefinition::DEFAULT);
+        }
+
         return $messages[array_rand($messages)];
     }
 

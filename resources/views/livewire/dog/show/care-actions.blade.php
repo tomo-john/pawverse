@@ -11,6 +11,7 @@
                     wire:loading.attr="disabled"
                     wire:loading.class="opacity-50 scale-95"
                     variant="primary"
+                    class="cursor-pointer"
                     color="{{ $action['button-color']}}" size="sm"
                     :disabled="$this->isDisabled($key)"
                 >
