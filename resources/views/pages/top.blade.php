@@ -1,4 +1,4 @@
-@component('layouts.guest')
+<x-layouts.guest>
     <div class="max-w-5xl mx-auto space-y-4 py-16">
 
         <flux:main container>
@@ -74,4 +74,4 @@
 
         </flux:main>
     </div>
-@endcomponent
+</x-layouts.guest>
