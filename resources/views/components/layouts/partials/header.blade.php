@@ -20,9 +20,29 @@
             </a>
 
             @auth
-                <a href="{{ route('dashboard')}}" class="hover:text-pink-500 transition">
-                    Dashboard
-                </a>
+                <flux:dropdown>
+                    <flux:button variant="ghost" icon-trailing="chevron-down" class="text-pink-600 font-bold">
+                        My Dog
+                    </flux:button>
+
+                    <flux:menu>
+                        <flux:menu.item href="{{ route('dashboard') }}" icon="layout-grid">Dashboard</flux:menu.item>
+                        <flux:menu.item href="{{ route('profile.edit') }}" icon="cog">Profile</flux:menu.item>
+                        <flux:menu.separator />
+                        <form method="POST" action="{{ route('logout') }}" class="w-full">
+                            @csrf
+                            <flux:menu.item
+                                as="button"
+                                type="submit"
+                                icon="arrow-right-start-on-rectangle"
+                                class="w-full cursor-pointer"
+                                variant="danger"
+                            >
+                                Logout
+                            </flux:menu.item>
+                        </form>
+                    </flux:menu>
+                </flux:dropdown>
             @endauth
 
             @guest
