@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\Dog\Index;
 use App\Livewire\Dog\Show;
 use App\Livewire\PublicDog\Index as PublicDogIndex;
+use App\Livewire\Dashboard\World;
 
 Route::get('/', function () {
     return view('pages.top');
@@ -12,8 +13,8 @@ Route::get('/', function () {
 // ログイン必須のエリアをグループ化
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    // ダッシュボード
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+    // Dashboard
+    Route::get('dashboard', World::class)->name('dashboard');
 
     // My Dogs
     Route::get('dogs', Index::class)->name('dog.index');
@@ -21,7 +22,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 });
 
-// 公開犬(ログイン不要)
+// Public Dog
 Route::get('public/dogs', PublicDogIndex::class)->name('public.dog.index');
 
 // Sandbox

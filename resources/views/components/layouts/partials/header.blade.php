@@ -16,7 +16,7 @@
             </a>
 
             <a href="{{ route('public.dog.index')}}" class="hover:text-pink-500 transition">
-                Dogs
+                Public Dogs
             </a>
 
             @auth
@@ -26,6 +26,7 @@
                     </flux:button>
 
                     <flux:menu>
+                        <flux:menu.item href="{{ route('dog.index') }}" icon="star">My Dog</flux:menu.item>
                         <flux:menu.item href="{{ route('dashboard') }}" icon="layout-grid">Dashboard</flux:menu.item>
                         <flux:menu.item href="{{ route('profile.edit') }}" icon="cog">Profile</flux:menu.item>
                         <flux:menu.separator />
