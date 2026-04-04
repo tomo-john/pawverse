@@ -7,6 +7,7 @@
         <x-sandbox.alpine.alpine3 /> {{-- @click: ボタンで色を変える --}}
         <x-sandbox.alpine.alpine4 /> {{-- @mouseenter(leave): マウスホバーで反応 --}}
         <x-sandbox.alpine.alpine5 /> {{-- 犬が自動で歩く(ボタンで止める) --}}
+        <x-sandbox.alpine.alpine6 /> {{-- マウスクリックで移動 --}}
     </div>
 
 </x-layouts.guest>
