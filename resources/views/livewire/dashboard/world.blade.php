@@ -1,6 +1,5 @@
 <div class="flex h-full w-full flex-col gap-6"
      x-data="dog()"
-     @keydown.window.b="scaleUp()"
 >
 
     {{-- Dog World --}}
@@ -23,8 +22,13 @@
             <div class="transition-all duration-1000 linear absolute"
                  :style="{ left: x + 'px', top: y + 'px'}"
             >
-                <i class="fa-solid fa-dog text-4xl transition-all duration-500"
-                   :class="{ 'text-7xl' : big, 'animate-bounce' : walking, '-scale-x-100': isLeft }"
+                <i class="fa-solid fa-dog text-4xl transition-all duration-500 cursor-pointer"
+                   :class="{ 'text-7xl': big,
+                             'animate-bounce': walking,
+                             '-scale-x-100': isLeft,
+                             'text-pink-500': walking,
+                   }"
+                   @click="scaleUp()"
                 ></i>
             </div>
         </div>
