@@ -17,14 +17,16 @@
         </button>
     </div>
 
-    <div class="rounded-xl border p-6 h-128 overflow-hidden">
+    <div class="rounded-xl border p-6 h-128 overflow-hidden flex justify-center items-center" x-ref="field">
 
-        <div class="transition-transform duration-200 linear"
-             :style="`transform: translate(${x}px, ${y}px)`"
-        >
-            <i class="fa-solid fa-dog text-4xl transition-all duration-500"
-               :class="{ 'text-7xl' : big, 'animate-bounce' : walking }"
-            ></i>
+        <div class="relative">
+            <div class="transition-all duration-1000 linear absolute"
+                 :style="{ left: x + 'px', top: y + 'px'}"
+            >
+                <i class="fa-solid fa-dog text-4xl transition-all duration-500"
+                   :class="{ 'text-7xl' : big, 'animate-bounce' : walking, '-scale-x-100': isLeft }"
+                ></i>
+            </div>
         </div>
 
     </div>
@@ -38,29 +40,51 @@
         return {
             x: 0,
             y: 0,
+            maxX: 0,
+            maxY: 0,
             big: false,
             walking: false,
+            isLeft: false,
             timer: null,
 
             init() {
+                this.maxX = this.$refs.field.clientWidth / 2;
+                this.maxY = this.$refs.field.clientHeight / 2;
                 this.walk();
             },
-
-            scaleUp() { this.big = ! this.big },
 
             walk() {
                 this.walking = true;
                 clearInterval(this.timer);
 
                 this.timer = setInterval(() => {
-                    this.x += 1;
-                }, 100)
+                    let distance = this.random();
+                    this.isLeft = distance < 0 ? true : false;
+
+                    let newX = this.x + distance;
+                    if (newX > -this.maxX && newX < this.maxX) {
+                        this.x = newX;
+                    };
+
+                    distance = this.random();
+                    let newY = this.y + distance;
+                    if (newY > -this.maxY && newY < this.maxY) {
+                        this.y = newY;
+                    };
+
+                }, 1000)
+            },
+
+            random() {
+                return Math.floor(Math.random() * 101) - 50;
             },
 
             stop() {
                 this.walking = false;
                 clearInterval(this.timer);
             },
+
+            scaleUp() { this.big = ! this.big },
         }
     }
 </script>
