@@ -8,6 +8,11 @@
         <span x-text="`座標: (${x}, ${y})`"></span>
     </div>
 
+    <div class="flex items-center gap-3 text-sm text-gray-400">
+        <i class="fa-solid fa-dog"></i>
+        <span x-text="message"></span>
+    </div>
+
     <div>
         <button class="bg-pink-400 hover:bg-pink-500 rounded-lg px-2 py-1"
                 @click="walking ? stop() : walk()"
@@ -50,6 +55,7 @@
             walking: false,
             isLeft: false,
             timer: null,
+            message: '',
 
             init() {
                 this.maxX = this.$refs.field.clientWidth / 2;
@@ -60,6 +66,7 @@
             walk() {
                 this.walking = true;
                 clearInterval(this.timer);
+                this.message = 'お散歩楽しいワン';
 
                 this.timer = setInterval(() => {
                     let distance = this.random();
@@ -86,6 +93,7 @@
             stop() {
                 this.walking = false;
                 clearInterval(this.timer);
+                this.message = '一休みだワン';
             },
 
             scaleUp() { this.big = ! this.big },
