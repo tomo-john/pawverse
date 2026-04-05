@@ -32,6 +32,11 @@
             <i class="fa-solid fa-dog text-3xl"
                  :class="{ 'text-green-600': green, 'text-black': ! green }"
             ></i>
+
+        </div>
+
+        <div class="text-gray-400 text-center text-sm m-2">
+            どこかクリックしてね🐶 (R key or shift + R)
         </div>
     </div>
 
