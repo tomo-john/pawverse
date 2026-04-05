@@ -10,6 +10,7 @@
         <x-sandbox.alpine.alpine6 /> {{-- マウスクリックで移動 --}}
         <x-sandbox.alpine.alpine7 /> {{-- 自動でランダム移動 --}}
         <x-sandbox.alpine.alpine8 /> {{-- x-forで分身 --}}
+        <x-sandbox.alpine.alpine9 /> {{-- requestAnimationFlame --}}
     </div>
 
 </x-layouts.guest>
