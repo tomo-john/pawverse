@@ -10,13 +10,20 @@
 >
 
     <div class="w-full h-96 border rounded-lg overflow-hidden relative" x-ref="field">
-        <div class="absolute transition-all duration-100"
-             :style="{left: x + 'px', top: y + 'px'}"
-        >
-            <i class="fa-solid fa-dog text-white"
-               :class="isLeft ? '-scale-x-100' : ''"
-            ></i>
+        <div class="absolute transition-all duration-100" :style="{left: x + 'px', top: y + 'px'}">
+            <i class="fa-solid fa-dog text-white" :class="isLeft ? '-scale-x-100' : ''"></i>
         </div>
+
+        <template x-for="wall in walls">
+            <div class="absolute bg-green-500 opacity-50"
+                 :style="{
+                    left: wall.x + 'px',
+                    top: wall.y + 'px',
+                    width: wall.w + 'px',
+                    height: wall.h + 'px'
+                 }"
+            ></div>
+        </template>
     </div>
 
     <div class="my-4">
@@ -33,6 +40,11 @@
             maxX: 0,
             maxY: 0,
             isLeft: false,
+
+            walls: [
+                {x: 200, y: 100, w: 50, h: 50},
+                {x: 250, y: 150, w: 50, h: 50},
+            ],
 
             init() {
                 this.maxX = this.$refs.field.clientWidth - 30;
