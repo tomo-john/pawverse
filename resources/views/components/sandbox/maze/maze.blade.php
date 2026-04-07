@@ -14,7 +14,11 @@
     </div>
 
     <div class="w-full h-96 border rounded-lg overflow-hidden relative" x-ref="field">
-        <div class="absolute transition-all duration-100" :style="{left: x + 'px', top: y + 'px'}" x-ref="dog">
+        <div class="absolute transition-all"
+             :class="isResetting ? 'duration-1000 animate-spin' : 'duration-100'"
+             :style="{left: x + 'px', top: y + 'px'}"
+             x-ref="dog"
+        >
             <i class="fa-solid fa-dog text-white text-3xl" :class="isLeft ? '-scale-x-100' : ''"></i>
         </div>
 
@@ -45,6 +49,7 @@
             maxY: 0,
             size: 0,
             isLeft: false,
+            isResetting: false,
 
             walls: [
                 {x: 50, y: 50, w: 50, h: 50},
@@ -105,17 +110,24 @@
             },
 
             reset() {
+
                 setTimeout(() => {
+                    this.isResetting = true;
                     this.y = -50;
                 }, 100);
 
                 setTimeout(() => {
                     this.x = 10;
-                }, 500);
+                    this.isLeft = false;
+                }, 1100);
 
                 setTimeout(() => {
                     this.y = 10;
-                }, 1000);
+                }, 2100);
+
+                setTimeout(() => {
+                    this.isResetting = false;
+                }, 3100);
             },
         }
     }
