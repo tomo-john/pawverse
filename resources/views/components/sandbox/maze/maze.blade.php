@@ -47,7 +47,7 @@
             y: 10,
             maxX: 0,
             maxY: 0,
-            size: 0,
+            size: 30,
             isLeft: false,
             isResetting: false,
 
@@ -70,27 +70,29 @@
             },
 
             handleKey(event) {
+                if (this.isResetting) return;
+
                 const step = 10;
                 let newX = this.x;
                 let newY = this.y;
 
                 switch (event.key) {
                     case 'ArrowUp':
-                        newY = this.clamp(this.y - step, 0, this.maxY);
+                        newY -= step;
                         break;
 
                     case 'ArrowDown':
-                        newY = this.clamp(this.y + step, 0, this.maxY);
+                        newY += step;
                         break;
 
                     case 'ArrowLeft':
                         this.isLeft = true;
-                        newX = this.clamp(this.x - step, 0, this.maxX);
+                        newX -= step;
                         break;
 
                     case 'ArrowRight':
                         this.isLeft = false;
-                        newX = this.clamp(this.x + step, 0, this.maxX);
+                        newX += step;
                         break;
                 }
 
@@ -102,32 +104,43 @@
             },
 
             canMove(tempX, tempY) {
-                const isHit = this.walls.some(wall => {
-                    return (tempX < wall.x + wall.w && tempX + this.size > wall.x && tempY < wall.y + wall.h && tempY + this.size > wall.y)
+                const isInsideField =
+                    tempX >= 0 &&
+                    tempY >= 0 &&
+                    tempX + this.size <= this.$refs.field.clientWidth &&
+                    tempY + this.size <= this.$refs.field.clientHeight;
+
+                if (!isInsideField) return false;
+                    　
+                const isHitWall = this.walls.some(wall => {
+                    return (
+                        tempX < wall.x + wall.w &&
+                        tempX + this.size > wall.x &&
+                        tempY < wall.y + wall.h &&
+                        tempY + this.size > wall.y
+                    );
                 });
 
-                return !isHit;
+                return !isHitWall;
             },
 
             reset() {
+                this.isResetting = true;
 
-                setTimeout(() => {
-                    this.isResetting = true;
-                    this.y = -50;
-                }, 100);
+                this.y = -50;
 
                 setTimeout(() => {
                     this.x = 10;
                     this.isLeft = false;
-                }, 1100);
+                }, 1000);
 
                 setTimeout(() => {
                     this.y = 10;
-                }, 2100);
+                }, 2000);
 
                 setTimeout(() => {
                     this.isResetting = false;
-                }, 3100);
+                }, 3000);
             },
         }
     }
