@@ -39,6 +39,7 @@
             y: 0,
             maxX: 0,
             maxY: 0,
+            size: 20,
             isLeft: false,
 
             walls: [
@@ -47,8 +48,8 @@
             ],
 
             init() {
-                this.maxX = this.$refs.field.clientWidth - 30;
-                this.maxY = this.$refs.field.clientHeight - 30;
+                this.maxX = this.$refs.field.clientWidth - this.size;
+                this.maxY = this.$refs.field.clientHeight - this.size;
             },
 
             clamp(val, min, max) {
@@ -57,28 +58,43 @@
 
             handleKey(event) {
                 const step = 10;
+                let newX = this.x;
+                let newY = this.y;
+
                 switch (event.key) {
                     case 'ArrowUp':
-                        this.y = this.clamp(this.y - step, 0, this.maxY);
+                        newY = this.clamp(this.y - step, 0, this.maxY);
                         break;
 
                     case 'ArrowDown':
-                        this.y = this.clamp(this.y + step, 0, this.maxY);
+                        newY = this.clamp(this.y + step, 0, this.maxY);
                         break;
 
                     case 'ArrowLeft':
                         this.isLeft = true;
-                        this.x = this.clamp(this.x - step, 0, this.maxX);
+                        newX = this.clamp(this.x - step, 0, this.maxX);
                         break;
 
                     case 'ArrowRight':
                         this.isLeft = false;
-                        this.x = this.clamp(this.x + step, 0, this.maxX);
+                        newX = this.clamp(this.x + step, 0, this.maxX);
                         break;
+                }
+
+                if (this.canMove(newX, newY)) {
+                        this.x = newX;
+                        this.y = newY;
                 }
 
             },
 
+            canMove(tempX, tempY) {
+                const isHit = this.walls.some(wall => {
+                    return (tempX < wall.x + wall.w && tempX + this.size > wall.x && tempY < wall.y + wall.h && tempY + this.size > wall.y)
+                });
+
+                return !isHit;
+            },
         }
     }
 </script>
