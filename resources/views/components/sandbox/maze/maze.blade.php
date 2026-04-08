@@ -3,10 +3,12 @@
 </div>
 
 <div class="max-w-3xl mx-auto" x-data="maze"
-     @keydown.window.arrow-up.prevent="handleKey($event)"
-     @keydown.window.arrow-down.prevent="handleKey($event)"
-     @keydown.window.arrow-left.prevent="handleKey($event)"
-     @keydown.window.arrow-right.prevent="handleKey($event)"
+    @keydown.window.arrow-up.prevent="handleKey($event)"
+    @keydown.window.arrow-down.prevent="handleKey($event)"
+    @keydown.window.arrow-left.prevent="handleKey($event)"
+    @keydown.window.arrow-right.prevent="handleKey($event)"
+    @keydown.window.shift="isDash = true"
+    @keyup.window.shift="isDash = false"
 >
 
     <div class="flex gap-3 items-center my-4">
@@ -16,7 +18,12 @@
 
     <div class="w-full h-96 border rounded-lg overflow-hidden relative" x-ref="field">
         <div class="absolute transition-all"
-             :class="isResetting ? 'duration-1000 animate-spin' : 'duration-100'"
+             :class="{
+                'duration-75 rotate-12': isDash && !isResetting,
+                'duration-75 rotate-348': isDash && isLeft && !isResetting,
+                'duration-100': !isDash && !isResetting,
+                'duration-1000 animate-spin': isResetting,
+             }"
              :style="{left: x + 'px', top: y + 'px'}"
              x-ref="dog"
         >
@@ -50,6 +57,7 @@
             maxY: 0,
             size: 0,
             isLeft: false,
+            isDash: false,
             isResetting: false,
 
             walls: [
