@@ -11,12 +11,19 @@
     @keyup.window.shift="isDash = false"
 >
 
+    {{-- デバッグ用 --}}
     <div class="flex gap-3 items-center my-4">
-        <i class="fa-solid fa-dog text-gray-400 text-3xl"></i>
+        <i class="fa-solid fa-dog text-gray-400 text-xl"></i>
         <span class="text-sm text-gray-400" x-text="`x: ${x}px / y: ${y}px`"></span>
+        <i class="fa-solid fa-arrow-pointer text-gray-400 text-xl"></i>
+        <span class="text-sm text-gray-400" x-text="`x: ${mouseX}px / y: ${mouseY}px`"></span>
     </div>
 
-    <div class="w-full h-96 border rounded-lg overflow-hidden relative" x-ref="field">
+    <div class="w-full h-96 border rounded-lg overflow-hidden relative"
+         x-ref="field"
+         @mousemove="mousePos($event)"
+
+    >
         <div class="absolute transition-all"
              :class="{
                 'duration-75 rotate-12': isDash && !isLeft && !isResetting,
@@ -27,9 +34,10 @@
              :style="{left: x + 'px', top: y + 'px'}"
              x-ref="dog"
         >
-            <i class="fa-solid fa-dog text-white text-3xl" :class="isLeft ? '-scale-x-100' : ''"></i>
+            <i class="fa-solid fa-dog text-yellow-400 text-3xl" :class="isLeft ? '-scale-x-100' : ''"></i>
         </div>
 
+        {{-- Wall --}}
         <template x-for="wall in walls">
             <div class="absolute bg-green-500 opacity-50"
                  :style="{
@@ -39,6 +47,18 @@
                     height: wall.h + 'px'
                  }"
             ></div>
+        </template>
+
+        {{-- Bone --}}
+        <template x-for="bone in bones">
+            <div class="absolute"
+                 :style="{
+                    left: bone.x + 'px',
+                    top: bone.y + 'px',
+                 }"
+            >
+                <i class="fa-solid fa-bone"></i>
+            </div>
         </template>
     </div>
 
@@ -60,12 +80,25 @@
             isDash: false,
             isResetting: false,
 
+            mouseX: 0,
+            mouseY: 0,
+
             walls: [
+                {x: 0, y: 150, w: 50, h: 50},
+                {x: 0, y: 250, w: 50, h: 50},
                 {x: 50, y: 50, w: 50, h: 50},
                 {x: 100, y: 100, w: 50, h: 50},
+                {x: 150, y: 0, w: 50, h: 50},
                 {x: 150, y: 150, w: 50, h: 50},
-                {x: 300, y: 150, w: 100, h: 100},
-                {x: 400, y: 50, w: 200, h: 50},
+                {x: 250, y: 50, w: 100, h: 100},
+                {x: 250, y: 200, w: 100, h: 100},
+            ],
+
+            bones: [
+                {x: 15, y: 65},
+                {x: 15, y: 115},
+                {x: 65, y: 115},
+                {x: 65, y: 165},
             ],
 
             init() {
@@ -150,6 +183,11 @@
                 setTimeout(() => {
                     this.isResetting = false;
                 }, 3000);
+            },
+
+            mousePos(event) {
+                this.mouseX = event.offsetX;
+                this.mouseY = event.offsetY;
             },
         }
     }
