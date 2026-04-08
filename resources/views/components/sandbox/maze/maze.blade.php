@@ -51,7 +51,7 @@
 
         {{-- Bone --}}
         <template x-for="bone in bones">
-            <div class="absolute"
+            <div class="absolute w-[50px] h-[50px] flex justify-center items-center"
                  :style="{
                     left: bone.x + 'px',
                     top: bone.y + 'px',
@@ -95,10 +95,10 @@
             ],
 
             bones: [
-                {x: 15, y: 65},
-                {x: 15, y: 115},
-                {x: 65, y: 115},
-                {x: 65, y: 165},
+                {x: 0, y: 50},
+                {x: 0, y: 100},
+                {x: 50, y: 100},
+                {x: 50, y: 150},
             ],
 
             init() {
