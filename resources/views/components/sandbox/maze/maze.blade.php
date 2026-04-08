@@ -19,8 +19,8 @@
     <div class="w-full h-96 border rounded-lg overflow-hidden relative" x-ref="field">
         <div class="absolute transition-all"
              :class="{
-                'duration-75 rotate-12': isDash && !isResetting,
-                'duration-75 rotate-348': isDash && isLeft && !isResetting,
+                'duration-75 rotate-12': isDash && !isLeft && !isResetting,
+                'duration-75 -rotate-12': isDash && isLeft && !isResetting,
                 'duration-100': !isDash && !isResetting,
                 'duration-1000 animate-spin': isResetting,
              }"
