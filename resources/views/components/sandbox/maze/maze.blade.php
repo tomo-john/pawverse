@@ -9,7 +9,8 @@
      @keydown.window.arrow-right.prevent="handleKey($event)"
 >
 
-    <div class="my-4">
+    <div class="flex gap-3 items-center my-4">
+        <i class="fa-solid fa-dog text-gray-400 text-3xl"></i>
         <span class="text-sm text-gray-400" x-text="`x: ${x}px / y: ${y}px`"></span>
     </div>
 
@@ -47,7 +48,7 @@
             y: 10,
             maxX: 0,
             maxY: 0,
-            size: 30,
+            size: 0,
             isLeft: false,
             isResetting: false,
 
@@ -60,19 +61,19 @@
             ],
 
             init() {
-                this.size = this.$refs.dog.offsetWidth;
+                this.size = this.$refs.dog.offsetWidth || 40;
                 this.maxX = this.$refs.field.clientWidth - this.size;
                 this.maxY = this.$refs.field.clientHeight - this.size;
-            },
-
-            clamp(val, min, max) {
-                return Math.min(Math.max(val, min), max);
             },
 
             handleKey(event) {
                 if (this.isResetting) return;
 
-                const step = 10;
+                if (this.size === 0) {
+                    this.size = this.$refs.dog.offsetWidth;
+                }
+
+                const step = event.shiftKey ? 20 : 10;
                 let newX = this.x;
                 let newY = this.y;
 
@@ -108,7 +109,7 @@
                     tempX >= 0 &&
                     tempY >= 0 &&
                     tempX + this.size <= this.$refs.field.clientWidth &&
-                    tempY + this.size <= this.$refs.field.clientHeight;
+                    tempY + this.size -6 <= this.$refs.field.clientHeight;
 
                 if (!isInsideField) return false;
                     　
@@ -117,7 +118,7 @@
                         tempX < wall.x + wall.w &&
                         tempX + this.size > wall.x &&
                         tempY < wall.y + wall.h &&
-                        tempY + this.size > wall.y
+                        tempY + this.size -6 > wall.y
                     );
                 });
 
