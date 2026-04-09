@@ -24,7 +24,8 @@
          @mousemove="mousePos($event)"
 
     >
-        <div class="absolute transition-all"
+        {{-- Dog --}}
+        <div class="absolute w-[50px] h-[50px] flex justify-center items-center transition-all"
              :class="{
                 'duration-75 rotate-12': isDash && !isLeft && !isResetting,
                 'duration-75 -rotate-12': isDash && isLeft && !isResetting,
@@ -71,8 +72,8 @@
     function maze() {
 
         return {
-            x: 10,
-            y: 10,
+            x: 0,
+            y: 0,
             maxX: 0,
             maxY: 0,
             size: 0,
@@ -102,7 +103,7 @@
             ],
 
             init() {
-                this.size = this.$refs.dog.offsetWidth || 40;
+                this.size = this.$refs.dog.offsetWidth || 50;
                 this.maxX = this.$refs.field.clientWidth - this.size;
                 this.maxY = this.$refs.field.clientHeight - this.size;
             },
