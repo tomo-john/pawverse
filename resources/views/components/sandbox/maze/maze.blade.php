@@ -14,9 +14,11 @@
     {{-- デバッグ用 --}}
     <div class="flex gap-3 items-center my-4">
         <i class="fa-solid fa-dog text-gray-400 text-xl"></i>
-        <span class="text-sm text-gray-400" x-text="`x: ${x}px / y: ${y}px`"></span>
+        <span class="text-sm text-gray-400 w-40 inline-block" x-text="`x: ${x}px / y: ${y}px`"></span>
         <i class="fa-solid fa-arrow-pointer text-gray-400 text-xl"></i>
-        <span class="text-sm text-gray-400" x-text="`x: ${mouseX}px / y: ${mouseY}px`"></span>
+        <span class="text-sm text-gray-400 w-40 inline-block" x-text="`x: ${mouseX}px / y: ${mouseY}px`"></span>
+        <i class="fa-solid fa-bone text-gray-400 text-xl"></i>
+        <span class="text-sm text-gray-400 w-40 inline-block" x-text="score"></span>
     </div>
 
     <div class="w-full h-96 border rounded-lg overflow-hidden relative"
@@ -58,7 +60,9 @@
                     top: bone.y + 'px',
                  }"
             >
-                <div x-show="!bone.isGet">
+                <div x-show="!bone.isGet"
+                     x-transition.duration.500ms
+                >
                     <i class="fa-solid fa-bone"></i>
                 </div>
             </div>
@@ -102,6 +106,10 @@
                 {x: 0, y: 100, isGet: false},
                 {x: 50, y: 100, isGet: false},
                 {x: 50, y: 150, isGet: false},
+                {x: 100, y: 150, isGet: false},
+                {x: 100, y: 200, isGet: false},
+                {x: 150, y: 200, isGet: false},
+                {x: 150, y: 250, isGet: false},
             ],
 
             init() {
@@ -185,6 +193,10 @@
                 })
             },
 
+            get score() {
+                return this.bones.filter(b => b.isGet).length;
+            },
+
             reset() {
                 this.isResetting = true;
 
@@ -201,6 +213,7 @@
 
                 setTimeout(() => {
                     this.isResetting = false;
+                    this.bones.forEach(b => b.isGet = false);
                 }, 3000);
             },
 
