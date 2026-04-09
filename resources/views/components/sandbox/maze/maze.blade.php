@@ -24,8 +24,8 @@
          @mousemove="mousePos($event)"
 
     >
-        {{-- Dog --}}
-        <div class="absolute w-[50px] h-[50px] flex justify-center items-center transition-all"
+        {{-- Dog(移動判定用の枠) --}}
+        <div class="absolute z-20 w-[50px] h-[50px] flex justify-center items-center transition-all"
              :class="{
                 'duration-75 rotate-12': isDash && !isLeft && !isResetting,
                 'duration-75 -rotate-12': isDash && isLeft && !isResetting,
@@ -52,13 +52,15 @@
 
         {{-- Bone --}}
         <template x-for="bone in bones">
-            <div class="absolute w-[50px] h-[50px] flex justify-center items-center"
+            <div class="absolute z-10 w-[50px] h-[50px] flex justify-center items-center"
                  :style="{
                     left: bone.x + 'px',
                     top: bone.y + 'px',
                  }"
             >
-                <i class="fa-solid fa-bone"></i>
+                <div x-show="!bone.isGet">
+                    <i class="fa-solid fa-bone"></i>
+                </div>
             </div>
         </template>
     </div>
@@ -96,10 +98,10 @@
             ],
 
             bones: [
-                {x: 0, y: 50},
-                {x: 0, y: 100},
-                {x: 50, y: 100},
-                {x: 50, y: 150},
+                {x: 0, y: 50, isGet: false},
+                {x: 0, y: 100, isGet: false},
+                {x: 50, y: 100, isGet: false},
+                {x: 50, y: 150, isGet: false},
             ],
 
             init() {
@@ -144,6 +146,8 @@
                         this.y = newY;
                 }
 
+                this.checkGet();
+
             },
 
             canMove(tempX, tempY) {
@@ -167,18 +171,32 @@
                 return !isHitWall;
             },
 
+            checkGet() {
+                this.bones.forEach(bone => {
+                        if (bone.isGet) return;
+
+                        const diffX = Math.abs(this.x - bone.x);
+                        const diffY = Math.abs(this.y - bone.y);
+
+                        if (diffX < 25 && diffY < 25) {
+                            bone.isGet = true;
+                            console.log('骨ゲットだわん🐶');
+                        }
+                })
+            },
+
             reset() {
                 this.isResetting = true;
 
                 this.y = -50;
 
                 setTimeout(() => {
-                    this.x = 10;
+                    this.x = 0;
                     this.isLeft = false;
                 }, 1000);
 
                 setTimeout(() => {
-                    this.y = 10;
+                    this.y = 0;
                 }, 2000);
 
                 setTimeout(() => {
