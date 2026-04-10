@@ -125,14 +125,17 @@
             ],
 
             monsters: [
-                {x: 0, y: 200},
-                {x: 300, y: 300},
+                {x: 0, y: 200, dx: 1},
+                {x: 350, y: 150, dy: 1},
             ],
 
             init() {
                 this.size = this.$refs.dog.offsetWidth || 50;
                 this.maxX = this.$refs.field.clientWidth - this.size;
                 this.maxY = this.$refs.field.clientHeight - this.size;
+                setInterval(() => {
+                    this.moveMonsters();
+                }, 500);
             },
 
             handleKey(event) {
@@ -234,6 +237,19 @@
                 }, 3000);
             },
 
+            moveMonsters() {
+                this.monsters.forEach(monster => {
+                    if (monster.dx) {
+                        monster.x += monster.dx;
+                    }
+
+                    if (monster.dy) {
+                        monster.y += monster.dy;
+                    }
+                })
+            },
+
+            // デバッグ用
             mousePos(event) {
                 this.mouseX = event.offsetX;
                 this.mouseY = event.offsetY;
