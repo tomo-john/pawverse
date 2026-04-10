@@ -67,6 +67,18 @@
                 </div>
             </div>
         </template>
+
+        {{-- Monsters --}}
+        <template x-for="monster in monsters">
+            <div class="absolute z-10 w-[50px] h-[50px] flex justify-center items-center"
+                 :style="{
+                    left: monster.x + 'px',
+                    top: monster.y + 'px',
+                 }"
+            >
+                <i class="fa-solid fa-ghost text-2xl text-pink-500"></i>
+            </div>
+        </template>
     </div>
 
     <div class="flex justify-center gap-3 my-4">
@@ -110,6 +122,11 @@
                 {x: 100, y: 200, isGet: false},
                 {x: 150, y: 200, isGet: false},
                 {x: 150, y: 250, isGet: false},
+            ],
+
+            monsters: [
+                {x: 0, y: 200},
+                {x: 300, y: 300},
             ],
 
             init() {
