@@ -19,6 +19,8 @@
         <span class="text-sm text-gray-400 w-40 inline-block" x-text="`x: ${mouseX}px / y: ${mouseY}px`"></span>
         <i class="fa-solid fa-bone text-gray-400 text-xl"></i>
         <span class="text-sm text-gray-400 w-40 inline-block" x-text="score"></span>
+        <i class="fa-solid fa-heart text-gray-400 text-xl"></i>
+        <span class="text-sm text-gray-400 w-40 inline-block" x-text="hp"></span>
     </div>
 
     <div class="w-full h-96 border rounded-lg overflow-hidden relative"
@@ -91,6 +93,7 @@
     function maze() {
 
         return {
+            hp: 3,
             x: 0,
             y: 0,
             maxX: 0,
@@ -238,13 +241,22 @@
             },
 
             checkHitMonster() {
+                if (this.isResetting) return;
+
                 this.monsters.forEach(monster => {
                     const diffX = Math.abs(this.x - monster.x);
                     const diffY = Math.abs(this.y - monster.y);
 
                     if (diffX < 25 && diffY < 25) {
-                        this.reset();
                         console.log('ぎゃふん🐶');
+                        this.hp--;
+                        this.reset();
+                    }
+
+                    if (this.hp <= 0) {
+                        console.log('GAME OVER🐶');
+                        this.hp = 3;
+                        // ここで後で特別な処理を書く
                     }
                 });
             },
