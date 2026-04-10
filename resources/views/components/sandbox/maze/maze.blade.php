@@ -176,6 +176,7 @@
                 }
 
                 this.checkGet();
+                this.checkHitMonster();
 
             },
 
@@ -202,20 +203,50 @@
 
             checkGet() {
                 this.bones.forEach(bone => {
-                        if (bone.isGet) return;
+                    if (bone.isGet) return;
 
-                        const diffX = Math.abs(this.x - bone.x);
-                        const diffY = Math.abs(this.y - bone.y);
+                    const diffX = Math.abs(this.x - bone.x);
+                    const diffY = Math.abs(this.y - bone.y);
 
-                        if (diffX < 25 && diffY < 25) {
-                            bone.isGet = true;
-                            console.log('骨ゲットだわん🐶');
-                        }
+                    if (diffX < 25 && diffY < 25) {
+                        bone.isGet = true;
+                        console.log('骨ゲットだわん🐶');
+                    }
                 })
             },
 
             get score() {
                 return this.bones.filter(b => b.isGet).length;
+            },
+
+            moveMonsters() {
+                this.monsters.forEach(monster => {
+
+                    const newX = monster.x + monster.dx;
+                    const newY = monster.y + monster.dy;
+
+                    if (this.canMove(newX, newY)) {
+                        monster.x = newX;
+                        monster.y = newY;
+                    } else {
+                        monster.dx *= -1;
+                        monster.dy *= -1;
+                    }
+
+                    this.checkHitMonster();
+                })
+            },
+
+            checkHitMonster() {
+                this.monsters.forEach(monster => {
+                    const diffX = Math.abs(this.x - monster.x);
+                    const diffY = Math.abs(this.y - monster.y);
+
+                    if (diffX < 25 && diffY < 25) {
+                        this.reset();
+                        console.log('ぎゃふん🐶');
+                    }
+                });
             },
 
             reset() {
@@ -236,23 +267,6 @@
                     this.isResetting = false;
                     this.bones.forEach(b => b.isGet = false);
                 }, 3000);
-            },
-
-            moveMonsters() {
-                this.monsters.forEach(monster => {
-
-                    const newX = monster.x + monster.dx;
-                    const newY = monster.y + monster.dy;
-
-                    if (this.canMove(newX, newY)) {
-                        monster.x = newX;
-                        monster.y = newY;
-                    } else {
-                        monster.dx *= -1;
-                        monster.dy *= -1;
-                    }
-
-                })
             },
 
             // デバッグ用
