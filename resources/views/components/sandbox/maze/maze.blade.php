@@ -37,6 +37,7 @@
              :style="{left: x + 'px', top: y + 'px'}"
              x-ref="dog"
         >
+            {{-- 主人公Dog --}}
             <i class="fa-solid fa-dog text-yellow-400 text-3xl" :class="isLeft ? '-scale-x-100' : ''"></i>
         </div>
 
@@ -70,13 +71,13 @@
 
         {{-- Monsters --}}
         <template x-for="monster in monsters">
-            <div class="absolute z-10 w-[50px] h-[50px] flex justify-center items-center"
+            <div class="absolute z-10 w-[50px] h-[50px] flex justify-center items-center transition-all duration-500"
                  :style="{
                     left: monster.x + 'px',
                     top: monster.y + 'px',
                  }"
             >
-                <i class="fa-solid fa-ghost text-2xl text-pink-500"></i>
+                <i class="fa-solid fa-ghost text-2xl text-pink-500 animate-pulse"></i>
             </div>
         </template>
     </div>
@@ -125,8 +126,8 @@
             ],
 
             monsters: [
-                {x: 0, y: 200, dx: 1},
-                {x: 350, y: 150, dy: 1},
+                {x: 0, y: 200, dx: 10, dy: 0},
+                {x: 350, y: 150, dx: 0, dy: 10},
             ],
 
             init() {
@@ -239,13 +240,18 @@
 
             moveMonsters() {
                 this.monsters.forEach(monster => {
-                    if (monster.dx) {
-                        monster.x += monster.dx;
+
+                    const newX = monster.x + monster.dx;
+                    const newY = monster.y + monster.dy;
+
+                    if (this.canMove(newX, newY)) {
+                        monster.x = newX;
+                        monster.y = newY;
+                    } else {
+                        monster.dx *= -1;
+                        monster.dy *= -1;
                     }
 
-                    if (monster.dy) {
-                        monster.y += monster.dy;
-                    }
                 })
             },
 
