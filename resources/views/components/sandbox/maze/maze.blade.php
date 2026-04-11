@@ -96,11 +96,12 @@
             // ゲーム設定値🐶
             config: {
                 dogSize: 50,    // わんちゃんの大きさ
+                maxHp: 3,       // 初期HP
                 hitMargin: 25,  // 当たり判定の距離
                 step: 10,       // 通常の移動距離
                 dashStep: 20,   // ダッシュ時の移動距離
             },
-            hp: 3,
+            hp: 0,
             x: 0,
             y: 0,
             maxX: 0,
@@ -141,7 +142,8 @@
             ],
 
             init() {
-                this.size = this.$refs.dog.offsetWidth || 50;
+                this.size = this.$refs.dog.offsetWidth || this.config.dogSize;
+                this.hp = this.config.maxHp;
                 this.maxX = this.$refs.field.clientWidth - this.size;
                 this.maxY = this.$refs.field.clientHeight - this.size;
                 setInterval(() => {
@@ -254,7 +256,7 @@
 
                     if (this.hp <= 0) {
                         console.log('GAME OVER🐶');
-                        this.hp = 3;
+                        this.hp = this.config.maxHp;
                         // ここで後で特別な処理を書く
                     }
                 });
