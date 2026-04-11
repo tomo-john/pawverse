@@ -4,7 +4,7 @@
         $pages = [
             'alpine' => 'Alpine',
             'maze'   => 'Maze',
-            'map'   => 'Map',
+            'stage'   => 'Stage',
         ];
     @endphp
 
