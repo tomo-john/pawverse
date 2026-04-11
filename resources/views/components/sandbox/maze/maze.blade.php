@@ -93,6 +93,13 @@
     function maze() {
 
         return {
+            // ゲーム設定値🐶
+            config: {
+                dogSize: 50,    // わんちゃんの大きさ
+                hitMargin: 25,  // 当たり判定の距離
+                step: 10,       // 通常の移動距離
+                dashStep: 20,   // ダッシュ時の移動距離
+            },
             hp: 3,
             x: 0,
             y: 0,
@@ -149,7 +156,7 @@
                     this.size = this.$refs.dog.offsetWidth;
                 }
 
-                const step = event.shiftKey ? 20 : 10;
+                const step = event.shiftKey ? this.config.dashStep : this.config.step;
                 let newX = this.x;
                 let newY = this.y;
 
@@ -253,7 +260,7 @@
                 });
             },
 
-            isColliding(objA, objB, threshold = 25) {
+            isColliding(objA, objB, threshold = this.config.hitMargin) {
                 const diffX = Math.abs(objA.x - objB.x);
                 const diffY = Math.abs(objA.y - objB.y);
                 return diffX < threshold && diffY < threshold;
