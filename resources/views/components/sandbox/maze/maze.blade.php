@@ -206,12 +206,7 @@
 
             checkGet() {
                 this.bones.forEach(bone => {
-                    if (bone.isGet) return;
-
-                    const diffX = Math.abs(this.x - bone.x);
-                    const diffY = Math.abs(this.y - bone.y);
-
-                    if (diffX < 25 && diffY < 25) {
+                    if (!bone.isGet && this.isColliding(this, bone)) {
                         bone.isGet = true;
                         console.log('骨ゲットだわん🐶');
                     }
@@ -244,10 +239,7 @@
                 if (this.isResetting) return;
 
                 this.monsters.forEach(monster => {
-                    const diffX = Math.abs(this.x - monster.x);
-                    const diffY = Math.abs(this.y - monster.y);
-
-                    if (diffX < 25 && diffY < 25) {
+                    if (this.isColliding(this, monster)) {
                         console.log('ぎゃふん🐶');
                         this.hp--;
                         this.reset();
@@ -259,6 +251,12 @@
                         // ここで後で特別な処理を書く
                     }
                 });
+            },
+
+            isColliding(objA, objB, threshold = 25) {
+                const diffX = Math.abs(objA.x - objB.x);
+                const diffY = Math.abs(objA.y - objB.y);
+                return diffX < threshold && diffY < threshold;
             },
 
             reset() {
