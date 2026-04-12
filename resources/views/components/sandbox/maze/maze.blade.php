@@ -117,6 +117,17 @@
             <button @click="location.reload()" class="px-6 py-2 bg-red-500 rounded-full hover:bg-red-600 transition">Try Again 🐶</button>
         </div>
 
+        {{-- Game Clear --}}
+        <div x-show="gameState === 'clear'"
+             x-transition.opacity.duration.500ms
+             class="absolute inset-0 z-50 bg-yellow-400/80 flex flex-col justify-center items-center text-white"
+        >
+            <i class="fa-solid fa-crown text-6xl mb-4 animate-spin-slow"></i>
+            <h2 class="text-4xl font-bold mb-4">MISSION COMPLETE !</h2>
+            <p class="mb-6 text-xl">骨を全部守りきったわん！🦴</p>
+            <button @click="location.reload()" class="px-6 py-2 bg-white text-yellow-600 rounded-full hover:bg-gray-100 transition">Next Stage? 🐶</button>
+        </div>
+
     </div>
 
     <div class="flex justify-center gap-3 my-4">
