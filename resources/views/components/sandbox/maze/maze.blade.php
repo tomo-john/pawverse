@@ -20,7 +20,7 @@
          x-ref="field"
     >
         {{-- Dog(移動判定用の枠) --}}
-        <div class="absolute z-20 flex justify-center items-center transition-all"
+        <div class="absolute z-20 flex justify-center items-center transition-all duration-300"
              :class="{
                 'duration-75 rotate-12': isDash && !isLeft && !isResetting,
                 'duration-75 -rotate-12': isDash && isLeft && !isResetting,
@@ -79,7 +79,7 @@
                     height: config.gridSize + 'px',
                  }"
             >
-                <i class="fa-solid fa-ghost text-2xl text-pink-500 animate-pulse"></i>
+                <i class="fa-solid fa-ghost text-2xl text-red-400 animate-pulse"></i>
             </div>
         </template>
     </div>
@@ -95,14 +95,10 @@
         return {
             // ゲーム設定値🐶
             config: {
-                dogSize: 50,    // わんちゃんの大きさ
                 gridSize: 50,   // 1コマの大きさ
                 cols: 10,       // ステージの横幅
                 rows: 6,        // ステージの高さ
                 maxHp: 3,       // 初期HP
-                hitMargin: 25,  // 当たり判定の距離
-                step: 10,       // 通常の移動距離
-                dashStep: 20,   // ダッシュ時の移動距離
             },
 
             hp: 0,
@@ -113,10 +109,8 @@
             player: { x: 0, y: 0 },
 
             walls: [
-                { x: 1, y: 1 },
-                { x: 1, y: 2 },
-                { x: 3, y: 0 },
-                { x: 3, y: 1 },
+                { x: 1, y: 1 },{ x: 1, y: 2 },
+                { x: 3, y: 0 },{ x: 3, y: 1 },
             ],
 
             bones: [
@@ -137,20 +131,33 @@
             handleKey(event) {
                 if (this.isResetting) return;
 
+                let moveDistance = this.isDash ? 2 : 1;
                 let nextX = this.player.x;
                 let nextY = this.player.y;
+                let dx = 0;
+                let dy = 0;
 
                 switch (event.key) {
-                    case 'ArrowUp':    nextY--; break;
-                    case 'ArrowDown':  nextY++; break;
-                    case 'ArrowLeft':  nextX--; this.isLeft = true; break;
-                    case 'ArrowRight': nextX++; this.isLeft = false; break;
+                    case 'ArrowUp':    dy = -1; break;
+                    case 'ArrowDown':  dy = 1; break;
+                    case 'ArrowLeft':  dx = -1; this.isLeft = true; break;
+                    case 'ArrowRight': dx = 1; this.isLeft = false; break;
                 }
 
-                if (this.canMove(nextX, nextY)) {
-                        this.player.x = nextX;
-                        this.player.y = nextY;
+                for (let i = 0; i < moveDistance; i++) {
+                    let testX = nextX + dx;
+                    let testY = nextY + dy;
+
+                    if (this.canMove(testX, testY)) {
+                        nextX = testX;
+                        nextY = testY;
+                    } else {
+                        break;
+                    }
                 }
+
+                this.player.x = nextX;
+                this.player.y = nextY;
 
                 this.checkGet();
                 this.checkHitMonster();
