@@ -1,4 +1,4 @@
-<div class="flex justify-center items-center mt-6">
+<DIv class="flex justify-center items-center mt-6">
     <a href="{{ route('sandbox.page', 'index') }}" class="px-3 py-1 text-pink-500">Back</a>
 </div>
 
@@ -10,6 +10,8 @@
     @keydown.window.shift="isDash = true"
     @keyup.window.shift="isDash = false"
 >
+
+    <div class="text-gray-500 text-xs" x-text="gameState"></div>
 
     {{-- ステータス --}}
     <div class="w-full max-w-3xl flex justify-between items-center mb-2 px-4 font-bold text-gray-700">
@@ -123,6 +125,7 @@
                 maxHp: 3,       // 初期HP
             },
 
+            gameState: 'playing', // 'playing', 'clear', 'gameover'
             hp: 0,
             isLeft: false,
             isDash: false,
@@ -137,11 +140,14 @@
 
             bones: [
                 { x: 3, y: 3, isGet: false },
+                { x: 4, y: 4, isGet: false },
+                { x: 5, y: 5, isGet: false },
             ],
 
             monsters: [
-                {x: 2, y: 2, dx: 1, dy: 0},
+                {x: 0, y: 4, dx: 1, dy: 0},
                 {x: 1, y: 3, dx: 0, dy: 1},
+                {x: 2, y: 2, dx: 1, dy: 0},
             ],
 
             init() {
@@ -207,6 +213,11 @@
                         bone.isGet = true;
                         console.log('骨ゲットだわん🐶');
                     }
+
+                    if (this.score === this.bones.length) {
+                        this.gameState = 'clear';
+                        console.log('完全制覇🐶');
+                    }
                 })
             },
 
@@ -244,9 +255,9 @@
                 });
 
                 if (this.hp <= 0) {
+                    this.gameState = 'gameover';
                     console.log('GAME OVER🐶');
-                    this.hp = this.config.maxHp;
-                    // ここで後で特別な処理を書く
+                    return;
                 }
             },
 
