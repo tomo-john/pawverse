@@ -17,7 +17,7 @@
     >
 
         {{-- Player --}}
-        <div class="absolute z-20 flex justify-center items-center transition-all duration-100"
+        <div class="absolute z-20 flex justify-center items-center transition-all duration-500"
              :style="{
                 left: (player.x * config.gridSize) + 'px',
                 top: (player.y * config.gridSize) + 'px',
@@ -26,13 +26,31 @@
              }"
         >
             <i class="fa-solid fa-dog text-pink-500 text-2xl"
-               :class="isBumping ? 'animate-bounce' : ''"
+               :class="{
+                    'animate-bounce' : isBumping,
+                    '-scale-x-100' : isLeft,
+                    'opacity-50' : isInGrass
+               }"
             ></i>
         </div>
 
+        {{-- Grass --}}
+        <template x-for="grass in grasses">
+            <div class="absolute flex justify-center items-center bg-green-200"
+                 :style="{
+                    left: (grass.x * config.gridSize) + 'px',
+                    top: (grass.y * config.gridSize) + 'px',
+                    width: config.gridSize + 'px',
+                    height: config.gridSize + 'px'
+                 }"
+            >
+                <i class="fa-solid fa-seedling text-green-600 text-lg opacity-60"></i>
+            </div>
+        </template>
+
         {{-- Wall --}}
         <template x-for="wall in walls">
-            <div class="absolute flex justify-center items-center bg-green-200 border border-green-300"
+            <div class="absolute flex justify-center items-center"
                  :style="{
                     left: (wall.x * config.gridSize) + 'px',
                     top: (wall.y * config.gridSize) + 'px',
@@ -58,7 +76,9 @@
                 rows: 6,      // 縦に何マスか
             },
 
+            isLeft: false,
             isBumping: false,
+            isInGrass: false,
 
             player: { x: 0, y: 0 },
             walls: [
@@ -67,8 +87,41 @@
                 { x: 5, y: 3 }, { x: 5, y: 4 },
                 { x: 6, y: 3 }, { x: 8, y: 1 },
             ],
+            grasses: [
+                { x: 0, y: 3 }, { x: 1, y: 3 }, { x: 0, y: 4 }, { x: 1, y: 4 },
+                { x: 7, y: 4 }, { x: 7, y: 5 }, { x: 8, y: 4 }, { x: 8, y: 5 },
+            ],
 
             move(key) {
+                let nextX = this.player.x;
+                let nextY = this.player.y;
+
+                if (key === 'ArrowUp') nextY--;
+                if (key === 'ArrowDown') nextY++;
+                if (key === 'ArrowLeft') {
+                    nextX--;
+                    isLeft = true;
+                }
+                if (key === 'ArrowRight') {
+                    nextX++;
+                    isLeft = false;
+                }
+
+                const isOutOfBounds =
+                    nextX < 0 || nextX >= this.config.cols ||
+                    nextY < 0 || nextY >= this.config.rows;
+
+                const isWall = this.walls.some(w => w.x === nextX && w.y === nextY);
+
+                if (!isOutOfBounds && !isWall) {
+                    this.player.x = nextX;
+                    this.player.y = nextY;
+                    this.isBumping = false;
+                    this.isInGrass = this.grasses.some(g => g.x === nextX && g.y === nextY);
+                } else {
+                    this.isBumping = true;
+                    setTimeout(() => this.isBumping = false, 500);
+                }
             },
         }
     }

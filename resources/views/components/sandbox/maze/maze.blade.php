@@ -61,14 +61,16 @@
 
         {{-- Wall --}}
         <template x-for="wall in walls">
-            <div class="absolute bg-green-500"
+            <div class="absolute flex justify-center items-center"
                  :style="{
                     left: (wall.x * config.gridSize) + 'px',
                     top: (wall.y * config.gridSize) + 'px',
                     width: config.gridSize + 'px',
                     height: config.gridSize + 'px'
                  }"
-            ></div>
+            >
+                <i class="fa-solid fa-tree text-5xl text-green-500"></i>
+            </div>
         </template>
 
         {{-- Bone --}}
