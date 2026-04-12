@@ -2,7 +2,8 @@
     <a href="{{ route('sandbox.page', 'index') }}" class="px-3 py-1 text-pink-500">Back</a>
 </div>
 
-<div class="max-w-3xl mx-auto" x-data="maze"
+
+<div class="max-w-3xl mx-auto flex flex-col justify-center items-center" x-data="maze()"
     @keydown.window.arrow-up.prevent="handleKey($event)"
     @keydown.window.arrow-down.prevent="handleKey($event)"
     @keydown.window.arrow-left.prevent="handleKey($event)"
@@ -11,56 +12,55 @@
     @keyup.window.shift="isDash = false"
 >
 
-    {{-- デバッグ用 --}}
-    <div class="flex gap-3 items-center my-4">
-        <i class="fa-solid fa-dog text-gray-400 text-xl"></i>
-        <span class="text-sm text-gray-400 w-40 inline-block" x-text="`x: ${x}px / y: ${y}px`"></span>
-        <i class="fa-solid fa-arrow-pointer text-gray-400 text-xl"></i>
-        <span class="text-sm text-gray-400 w-40 inline-block" x-text="`x: ${mouseX}px / y: ${mouseY}px`"></span>
-        <i class="fa-solid fa-bone text-gray-400 text-xl"></i>
-        <span class="text-sm text-gray-400 w-40 inline-block" x-text="score"></span>
-        <i class="fa-solid fa-heart text-gray-400 text-xl"></i>
-        <span class="text-sm text-gray-400 w-40 inline-block" x-text="hp"></span>
-    </div>
-
-    <div class="w-full h-96 border rounded-lg overflow-hidden relative"
+    <div class="border rounded-lg overflow-hidden relative"
+         :style="{
+            width: (config.cols * config.gridSize) + 'px',
+            height: (config.rows * config.gridSize) + 'px'
+         }"
          x-ref="field"
          @mousemove="mousePos($event)"
 
     >
         {{-- Dog(移動判定用の枠) --}}
-        <div class="absolute z-20 w-[50px] h-[50px] flex justify-center items-center transition-all"
+        <div class="absolute z-20 flex justify-center items-center transition-all"
              :class="{
                 'duration-75 rotate-12': isDash && !isLeft && !isResetting,
                 'duration-75 -rotate-12': isDash && isLeft && !isResetting,
                 'duration-100': !isDash && !isResetting,
                 'duration-1000 animate-spin': isResetting,
              }"
-             :style="{left: x + 'px', top: y + 'px'}"
+             :style="{
+                left: (player.x * config.gridSize) + 'px',
+                top: (player.y * config.gridSize) + 'px',
+                width: config.gridSize + 'px',
+                height: config.gridSize + 'px',
+             }"
              x-ref="dog"
         >
             {{-- 主人公Dog --}}
-            <i class="fa-solid fa-dog text-yellow-400 text-3xl" :class="isLeft ? '-scale-x-100' : ''"></i>
+            <i class="fa-solid fa-dog text-pink-400 text-3xl" :class="isLeft ? '-scale-x-100' : ''"></i>
         </div>
 
         {{-- Wall --}}
         <template x-for="wall in walls">
-            <div class="absolute bg-green-500 opacity-50"
+            <div class="absolute bg-green-500"
                  :style="{
-                    left: wall.x + 'px',
-                    top: wall.y + 'px',
-                    width: wall.w + 'px',
-                    height: wall.h + 'px'
+                    left: (wall.x * config.gridSize) + 'px',
+                    top: (wall.y * config.gridSize) + 'px',
+                    width: config.gridSize + 'px',
+                    height: config.gridSize + 'px'
                  }"
             ></div>
         </template>
 
         {{-- Bone --}}
         <template x-for="bone in bones">
-            <div class="absolute z-10 w-[50px] h-[50px] flex justify-center items-center"
+            <div class="absolute z-10 flex justify-center items-center"
                  :style="{
-                    left: bone.x + 'px',
-                    top: bone.y + 'px',
+                    left: (bone.x * config.gridSize) + 'px',
+                    top: (bone.y * config.gridSize) + 'px',
+                    width: config.gridSize + 'px',
+                    height: config.gridSize + 'px',
                  }"
             >
                 <div x-show="!bone.isGet"
@@ -96,17 +96,22 @@
             // ゲーム設定値🐶
             config: {
                 dogSize: 50,    // わんちゃんの大きさ
+                gridSize: 50,   // 1コマの大きさ
+                cols: 10,       // ステージの横幅
+                rows: 6,        // ステージの高さ
                 maxHp: 3,       // 初期HP
                 hitMargin: 25,  // 当たり判定の距離
                 step: 10,       // 通常の移動距離
                 dashStep: 20,   // ダッシュ時の移動距離
             },
+
+            player: { x: 0, y: 0 },
+
             hp: 0,
             x: 0,
             y: 0,
             maxX: 0,
             maxY: 0,
-            size: 0,
             isLeft: false,
             isDash: false,
             isResetting: false,
@@ -115,25 +120,14 @@
             mouseY: 0,
 
             walls: [
-                {x: 0, y: 150, w: 50, h: 50},
-                {x: 0, y: 250, w: 50, h: 50},
-                {x: 50, y: 50, w: 50, h: 50},
-                {x: 100, y: 100, w: 50, h: 50},
-                {x: 150, y: 0, w: 50, h: 50},
-                {x: 150, y: 150, w: 50, h: 50},
-                {x: 250, y: 50, w: 100, h: 100},
-                {x: 250, y: 200, w: 100, h: 100},
+                { x: 1, y: 1 },
+                { x: 1, y: 2 },
+                { x: 3, y: 0 },
+                { x: 3, y: 1 },
             ],
 
             bones: [
-                {x: 0, y: 50, isGet: false},
-                {x: 0, y: 100, isGet: false},
-                {x: 50, y: 100, isGet: false},
-                {x: 50, y: 150, isGet: false},
-                {x: 100, y: 150, isGet: false},
-                {x: 100, y: 200, isGet: false},
-                {x: 150, y: 200, isGet: false},
-                {x: 150, y: 250, isGet: false},
+                { x: 3, y: 3, isGet: false },
             ],
 
             monsters: [
@@ -142,7 +136,6 @@
             ],
 
             init() {
-                this.size = this.$refs.dog.offsetWidth || this.config.dogSize;
                 this.hp = this.config.maxHp;
                 this.maxX = this.$refs.field.clientWidth - this.size;
                 this.maxY = this.$refs.field.clientHeight - this.size;
@@ -154,37 +147,20 @@
             handleKey(event) {
                 if (this.isResetting) return;
 
-                if (this.size === 0) {
-                    this.size = this.$refs.dog.offsetWidth;
-                }
-
                 const step = event.shiftKey ? this.config.dashStep : this.config.step;
-                let newX = this.x;
-                let newY = this.y;
+                let nextX = this.player.x;
+                let nextY = this.player.y;
 
                 switch (event.key) {
-                    case 'ArrowUp':
-                        newY -= step;
-                        break;
-
-                    case 'ArrowDown':
-                        newY += step;
-                        break;
-
-                    case 'ArrowLeft':
-                        this.isLeft = true;
-                        newX -= step;
-                        break;
-
-                    case 'ArrowRight':
-                        this.isLeft = false;
-                        newX += step;
-                        break;
+                    case 'ArrowUp':    nextY--; break;
+                    case 'ArrowDown':  nextY++; break;
+                    case 'ArrowLeft':  nextX--; this.isLeft = true; break;
+                    case 'ArrowRight': nextX++; this.isLeft = false; break;
                 }
 
-                if (this.canMove(newX, newY)) {
-                        this.x = newX;
-                        this.y = newY;
+                if (this.canMove(nextX, nextY)) {
+                        this.player.x = nextX;
+                        this.player.y = nextY;
                 }
 
                 this.checkGet();
@@ -192,23 +168,16 @@
 
             },
 
-            canMove(tempX, tempY) {
+            canMove(gx, gy) {
                 const isInsideField =
-                    tempX >= 0 &&
-                    tempY >= 0 &&
-                    tempX + this.size <= this.$refs.field.clientWidth &&
-                    tempY + this.size -6 <= this.$refs.field.clientHeight;
+                    gx >= 0 &&
+                    gy >= 0 &&
+                    gx <= this.config.cols &&
+                    gy <= this.config.rows;
 
                 if (!isInsideField) return false;
                     　
-                const isHitWall = this.walls.some(wall => {
-                    return (
-                        tempX < wall.x + wall.w &&
-                        tempX + this.size > wall.x &&
-                        tempY < wall.y + wall.h &&
-                        tempY + this.size -6 > wall.y
-                    );
-                });
+                const isHitWall = this.walls.some(wall => wall.x === gx && wall.y === gy);
 
                 return !isHitWall;
             },
@@ -262,10 +231,8 @@
                 });
             },
 
-            isColliding(objA, objB, threshold = this.config.hitMargin) {
-                const diffX = Math.abs(objA.x - objB.x);
-                const diffY = Math.abs(objA.y - objB.y);
-                return diffX < threshold && diffY < threshold;
+            isColliding(objA, objB) {
+                return objA.x === objB.x && objA.y === objB.y;
             },
 
             reset() {
