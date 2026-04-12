@@ -1,4 +1,4 @@
-<DIv class="flex justify-center items-center mt-6">
+<div class="flex justify-center items-center mt-6">
     <a href="{{ route('sandbox.page', 'index') }}" class="px-3 py-1 text-pink-500">Back</a>
 </div>
 
@@ -58,7 +58,12 @@
              x-ref="dog"
         >
             {{-- 主人公Dog --}}
-            <i class="fa-solid fa-dog text-pink-400 text-3xl" :class="isLeft ? '-scale-x-100' : ''"></i>
+            <i class="fa-solid fa-dog text-pink-400 text-3xl"
+               :class="{
+                    '-scale-x-100' : isLeft,
+                    'opacity-50 animate-pulse' : isResetting
+               }"
+            ></i>
         </div>
 
         {{-- Wall --}}
