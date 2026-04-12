@@ -106,6 +106,17 @@
                 <i class="fa-solid fa-ghost text-2xl text-red-400 animate-pulse"></i>
             </div>
         </template>
+
+        {{-- Game Over --}}
+        <div x-show="gameState === 'gameover'"
+             x-transition.opacity.duration.500ms
+             class="absolute inset-0 z-50 bg-black/70 flex flex-col justify-center items-center text-white"
+        >
+            <i class="fa-solid fa-skull-crossbones text-6xl mb-4 animate-bounce"></i>
+            <h2 class="text-4xl font-bold mb-4">GAME OVER</h2>
+            <button @click="location.reload()" class="px-6 py-2 bg-red-500 rounded-full hover:bg-red-600 transition">Try Again 🐶</button>
+        </div>
+
     </div>
 
     <div class="flex justify-center gap-3 my-4">
@@ -159,6 +170,7 @@
 
             handleKey(event) {
                 if (this.isResetting) return;
+                if (this.gameState !== 'playing') return;
 
                 let moveDistance = this.isDash ? 2 : 1;
                 let nextX = this.player.x;
