@@ -2,7 +2,6 @@
     <a href="{{ route('sandbox.page', 'index') }}" class="px-3 py-1 text-pink-500">Back</a>
 </div>
 
-
 <div class="max-w-3xl mx-auto flex flex-col justify-center items-center" x-data="maze()"
     @keydown.window.arrow-up.prevent="handleKey($event)"
     @keydown.window.arrow-down.prevent="handleKey($event)"
@@ -12,6 +11,27 @@
     @keyup.window.shift="isDash = false"
 >
 
+    {{-- ステータス --}}
+    <div class="w-full max-w-3xl flex justify-between items-center mb-2 px-4 font-bold text-gray-700">
+        <div class="flex items-center gap-1">
+            <span class="mr-2 text-white">HP:</span>
+            <template x-for="i in hp">
+                <i class="fa-solid fa-heart text-red-500"></i>
+            </template>
+            <template x-for="i in (config.maxHp - hp)">
+                <i class="fa-regular fa-heart text-gray-300"></i>
+            </template>
+        </div>
+
+        <div class="flex items-center gap-2 text-xl">
+            <i class="fa-solid fa-bone text-yellow-600"></i>
+            <span x-text="score" class="text-sm text-white"></span>
+            <span class="text-sm text-gray-400">/</span>
+            <span class="text-sm text-gray-400" x-text="bones.length"></span>
+        </div>
+    </div>
+
+    {{-- ゲームエリア --}}
     <div class="border rounded-lg overflow-hidden relative"
          :style="{
             width: (config.cols * config.gridSize) + 'px',
@@ -19,7 +39,7 @@
          }"
          x-ref="field"
     >
-        {{-- Dog(移動判定用の枠) --}}
+        {{-- Player --}}
         <div class="absolute z-20 flex justify-center items-center transition-all duration-300"
              :class="{
                 'duration-75 rotate-12': isDash && !isLeft && !isResetting,
@@ -119,6 +139,7 @@
 
             monsters: [
                 {x: 2, y: 2, dx: 1, dy: 0},
+                {x: 1, y: 3, dx: 0, dy: 1},
             ],
 
             init() {
