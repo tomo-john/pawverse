@@ -2,67 +2,11 @@
 
     {{-- 左側: 犬専用レーン --}}
     <div class="w-32 flex justify-center"
-         x-data="{
-            y: 100,
-            targetY: 0,
-            isMoving: false,
-            isReacting: false,
-            isHovering: false,
-            scrollTimer: null,
-            mouseTimer: null,
-            showMessage: false,
-            message: '',
-
-            clampY(value) {
-                const dogSize = 96;
-                const minY = dogSize / 2;
-                const maxY = window.innerHeight - dogSize / 2;
-                return Math.min(Math.max(value, minY), maxY);
-            }
-         }"
-
-         @dog-reacted.window="
-            isReacting = true;
-            isMoving = false;
-
-            setTimeout(() => {
-                isReacting = false;
-
-                setTimeout(() => {
-                    y = clampY(targetY);
-                }, 50);
-
-            }, $event.detail.duration * 1000)
-         "
-         @mousemove.window="
-            targetY = $event.clientY;
-
-            if (isReacting || isHovering) return;
-
-            isMoving = true;
-            clearTimeout(mouseTimer);
-            mouseTimer = setTimeout(() => isMoving = false, 100);
-
-            y = clampY(targetY);
-         "
-         @scroll.window="
-            if (isReacting) return;
-
-            isMoving = true;
-            clearTimeout(scrollTimer);
-            scrollTimer = setTimeout(() => isMoving = false, 200);
-         "
-
-         @message-show.window="
-            message = $event.detail.message;
-
-            showMessage = false;
-
-            setTimeout(() => {
-                showMessage = true;
-                setTimeout(() => showMessage = false, 3000);
-            }, 10);
-         "
+         x-data="dogFollower()"
+         @dog-reacted.window="handleReaction($event)"
+         @mousemove.window="handleMouseMove($event)"
+         @scroll.window="handleScroll()"
+         @message-show.window="handleMessage($event)"
     >
         {{-- Dog --}}
         <div class="relative w-24 h-24 flex justify-center items-center"
@@ -131,3 +75,71 @@
     </div>
 
 </div>
+
+<script>
+    function dogFollower() {
+
+        return {
+            y: 100,
+            targetY: 0,
+            isMoving: false,
+            isReacting: false,
+            isHovering: false,
+            scrollTimer: null,
+            mouseTimer: null,
+            showMessage: false,
+            message: '',
+
+            // 画面外に行かないようにガード
+            clampY(value) {
+                const dogSize = 96;
+                const minY = dogSize / 2;
+                const maxY = window.innerHeight - dogSize / 2;
+                return Math.min(Math.max(value, minY), maxY);
+            },
+
+            // リアクション時の動き
+            handleReaction(event) {
+                this.isReacting = true;
+                this.isMoving = false;
+
+                setTimeout(() => {
+                    this.isReacting = false;
+                    setTimeout(() => {
+                        this.y = this.clampY(this.targetY);
+                    }, 50);
+                }, event.detail.duration * 1000);
+            },
+
+            // マウス追従
+            handleMouseMove(event) {
+                this.targetY = event.clientY;
+                if (this.isReacting || this.Hovering) return;
+
+                this.isMoving = true;
+                clearTimeout(this.mouseTimer);
+                this.mouseTimer = setTimeout(() => this.isMoving = false, 100);
+
+                this.y = this.clampY(this.targetY);
+            },
+
+            // スクロール時の判定
+            handleScroll() {
+                if (this.isReacting) return;
+                this.isMoving = true;
+                clearTimeout(this.scrollTimer);
+                this.scrollTimer = setTimeout(() => this.isMoving = false, 200);
+            },
+
+            // メッセージ表示
+            handleMessage(event) {
+                this.message = event.detail.message;
+                this.showMessage = false;
+                setTimeout(() => {
+                    this.showMessage = true;
+                    setTimeout(() => this.showMessage = false, 3000);
+                }, 10);
+            },
+        }
+    }
+</script>
