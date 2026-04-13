@@ -2,30 +2,12 @@
      x-data="dog()"
 >
 
-    {{-- デバッグエリア --}}
-    <div class="flex items-center gap-3 text-sm text-gray-400">
-        <i class="fa-solid fa-dog"></i>
-        <span x-text="`座標: (${x}, ${y})`"></span>
-    </div>
-
-    <div class="flex items-center gap-3 text-sm text-gray-400">
-        <i class="fa-solid fa-dog"></i>
-        <span x-text="message"></span>
-    </div>
-
-    <div>
-        <button class="bg-pink-400 hover:bg-pink-500 rounded-lg px-2 py-1"
-                @click="walking ? stop() : walk()"
-                x-text="walking ? 'STOP' : 'WALK'"
-        >
-        </button>
-    </div>
 
     <h2 class="text-gray-400">
         今日のラッキーわんこ🐶
     </h2>
     <div class="flex items-center gap-3">
-        <p>名前: {{ $luckyDog->name }}</p>
+        <p>名前: {{ $selectedDog->name }}</p>
         <div x-show="selectedDog">
             <button @click="alert(selectedDog.name + 'をなでなでした🐾')"
                     class="px-2 py-1 rounded-lg bg-pink-500 hover:bg-pink-600 cursor-pointer"
@@ -36,83 +18,18 @@
     </div>
 
     {{-- Dog Field --}}
-    <div class="rounded-xl border p-6 h-128 overflow-hidden flex justify-center items-center" x-ref="field">
-
-        <div class="relative">
-            <div class="transition-all duration-1000 linear absolute"
-                 :style="{ left: x + 'px', top: y + 'px'}"
-            >
-                <i class="fa-solid fa-dog text-4xl transition-all duration-500 cursor-pointer"
-                   :class="{ 'text-7xl': big,
-                             'animate-bounce': walking,
-                             '-scale-x-100': isLeft,
-                             'text-pink-500': walking,
-                   }"
-                   @click="scaleUp()"
-                ></i>
-            </div>
-        </div>
-
+    <div class="w-full max-w-3xl mx-auto h-96 rounded-xl border p-6 overflow-hidden flex justify-center items-center" x-ref="field">
+        <i class="fa-solid fa-dog"></i>
     </div>
+
 
 </div>
 
 <script>
     function dog() {
-        console.log('dog関数開始🐶');
 
         return {
-            selectedDog: {{ Js::from($luckyDog) }},
-            x: 0,
-            y: 0,
-            maxX: 0,
-            maxY: 0,
-            big: false,
-            walking: false,
-            isLeft: false,
-            timer: null,
-            message: '',
-
-            init() {
-                this.maxX = this.$refs.field.clientWidth / 2;
-                this.maxY = this.$refs.field.clientHeight / 2;
-                this.walk();
-            },
-
-            walk() {
-                this.walking = true;
-                clearInterval(this.timer);
-                this.message = 'お散歩楽しいワン';
-
-                this.timer = setInterval(() => {
-                    let distance = this.random();
-                    this.isLeft = distance < 0 ? true : false;
-
-                    let newX = this.x + distance;
-                    if (newX > -this.maxX && newX < this.maxX) {
-                        this.x = newX;
-                    };
-
-                    distance = this.random();
-                    let newY = this.y + distance;
-                    if (newY > -this.maxY && newY < this.maxY) {
-                        this.y = newY;
-                    };
-
-                }, 1000)
-            },
-
-            random() {
-                return Math.floor(Math.random() * 101) - 50;
-            },
-
-            stop() {
-                this.walking = false;
-                clearInterval(this.timer);
-                this.message = '一休みだワン';
-            },
-
-            scaleUp() { this.big = ! this.big },
+            selectedDog: {{ Js::from($selectedDog) }},
         }
     }
 </script>

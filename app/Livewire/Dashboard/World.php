@@ -9,14 +9,14 @@ use App\Models\Dog;
 class World extends Component
 {
     public $dogs;
-    public $luckyDog;
+    public $selectedDog;
 
     public function mount()
     {
         $this->dogs = auth()->user()->dogs;
 
         if ($this->dogs->isNotEmpty()) {
-            $this->luckyDog = $this->dogs->random();
+            $this->selectedDog = $this->dogs->random();
         }
     }
 
