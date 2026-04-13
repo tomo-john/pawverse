@@ -2,7 +2,7 @@
      x-data="dog()"
 >
 
-    {{-- Dog World --}}
+    {{-- デバッグエリア --}}
     <div class="flex items-center gap-3 text-sm text-gray-400">
         <i class="fa-solid fa-dog"></i>
         <span x-text="`座標: (${x}, ${y})`"></span>
@@ -21,6 +21,21 @@
         </button>
     </div>
 
+    <h2 class="text-gray-400">
+        今日のラッキーわんこ🐶
+    </h2>
+    <div class="flex items-center gap-3">
+        <p>名前: {{ $luckyDog->name }}</p>
+        <div x-show="selectedDog">
+            <button @click="alert(selectedDog.name + 'をなでなでした🐾')"
+                    class="px-2 py-1 rounded-lg bg-pink-500 hover:bg-pink-600 cursor-pointer"
+            >
+                Alpineでなでなでする
+            </button>
+        </div>
+    </div>
+
+    {{-- Dog Field --}}
     <div class="rounded-xl border p-6 h-128 overflow-hidden flex justify-center items-center" x-ref="field">
 
         <div class="relative">
@@ -47,6 +62,7 @@
         console.log('dog関数開始🐶');
 
         return {
+            selectedDog: {{ Js::from($luckyDog) }},
             x: 0,
             y: 0,
             maxX: 0,
