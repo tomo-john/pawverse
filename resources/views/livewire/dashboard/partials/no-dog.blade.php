@@ -1,13 +1,13 @@
 <div class="max-w-3xl mx-auto" x-data="noDog()">
 
-    <div class="relative border rounded-lg"
+    <div class="relative"
          :style="{
             width: (cols * gridSize) + 'px',
             height: (rows * gridSize) + 'px'
          }"
     >
 
-        <template x-for="item in items">
+        <template x-for="(item, index) in items":key="index">
             <div class="absolute flex justify-center items-center"
                  :style="{
                     left: (item.x * gridSize) + 'px',
@@ -16,9 +16,13 @@
                     height: gridSize + 'px',
                  }"
             >
-                <i class="fa-solid fa-bone"></i>
+                <i :class="item.icon" class="text-pink-400 text-xl"></i>
             </div>
         </template>
+
+        <div class="absolute inset-0 flex justify-center items-center pointer-events-none">
+            <span class="text-gray-400">まだ誰もいないワン...</span>
+        </div>
     </div>
 </div>
 
@@ -29,20 +33,29 @@
             gridSize: 50,
             cols: 10,
             rows: 6,
-            itemCount: 5,
             items: [],
+
+            itemsCount: 5,
+            itemsIcon: [
+                'fa-solid fa-bone',
+                'fa-solid fa-bowl-food',
+                'fa-solid fa-football',
+                'fa-solid fa-baseball-ball',
+                'fa-solid fa-house'
+            ],
 
             init() {
                 this.initItems();
             },
 
             initItems() {
-                for (let i = 0; i < this.itemCount; i++) {
+                this.itemsIcon.forEach(iconClass => {
                     this.items.push({
+                        icon: iconClass,
                         x: Math.floor(Math.random() * this.cols),
                         y: Math.floor(Math.random() * this.rows)
                     });
-                }
+                });
             },
         }
     }
