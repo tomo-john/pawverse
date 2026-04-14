@@ -2,9 +2,8 @@
      x-data="dog()"
 >
 
-
     <flux:heading size="xl">
-        今日のラッキーわんこ🐶
+        今日の選ばれしわんこ🐶
     </flux:heading>
     <div class="flex items-center gap-3">
         <p>名前: {{ $selectedDog->name }}</p>
@@ -18,7 +17,7 @@
     </div>
 
     {{-- Dog Field --}}
-    <div class="w-full max-w-3xl mx-auto h-96 rounded-xl border p-6 overflow-hidden flex justify-center items-center" x-ref="field">
+    <div class="w-full max-w-5xl mx-auto h-96 rounded-xl border p-6 overflow-hidden flex justify-center items-center" x-ref="field">
         <i class="fa-solid fa-dog {{ $selectedDog->sizeClass }}"
            style="color: {{ $selectedDog->color }};"
         ></i>
