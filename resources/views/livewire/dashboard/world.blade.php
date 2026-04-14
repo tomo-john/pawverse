@@ -1,4 +1,4 @@
-<div class="flex h-full w-full flex-col gap-6">
+<div class="flex flex-col gap-6">
 
     @if ($selectedDog)
         @include('livewire.dashboard.partials.with-dog')
