@@ -19,9 +19,17 @@
 
     {{-- Dog Field --}}
     <div class="w-full max-w-3xl mx-auto h-96 rounded-xl border p-6 overflow-hidden flex justify-center items-center" x-ref="field">
-        <i class="fa-solid fa-dog"></i>
+        <i class="fa-solid fa-dog {{ $selectedDog->sizeClass }}"
+           style="color: {{ $selectedDog->color }};"
+        ></i>
     </div>
 
+    {{-- Debug --}}
+    <p class="text-gray-400">
+    サイズ: {{ $selectedDog->sizeClass }} /
+    色: <span style="color: {{ $selectedDog->color }}">{{ $selectedDog->color }}</span> /
+    性格: {{ $selectedDog->realDog?->personality }}({{ $selectedDog->realDog?->personality_label ?? '未登録' }}) /
+    </p>
 
 </div>
 
