@@ -29,10 +29,21 @@
             gridSize: 50,
             cols: 10,
             rows: 6,
-            items: [
-                { x: 2, y: 2 },
-                { x: 3, y: 3 },
-            ],
+            itemCount: 5,
+            items: [],
+
+            init() {
+                this.initItems();
+            },
+
+            initItems() {
+                for (let i = 0; i < this.itemCount; i++) {
+                    this.items.push({
+                        x: Math.floor(Math.random() * this.cols),
+                        y: Math.floor(Math.random() * this.rows)
+                    });
+                }
+            },
         }
     }
 </script>
