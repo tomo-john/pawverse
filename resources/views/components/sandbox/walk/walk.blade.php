@@ -4,7 +4,8 @@
 
 <div class="max-w-3xl mx-auto flex flex-col items-center"
      x-data="walk()"
-     @keydown.window="move($event)"
+     @keydown.window="handleKeyDown($event)"
+     @keyup.window="handleKeyUp($event)"
      tabindex="0"
 >
 
@@ -69,16 +70,20 @@
 
 <script>
     function walk() {
+
         return {
             config: {
                 gridSize: 40, // 1コマのサイズ
                 cols: 30,     // 横に何マスか
-                rows: 12,      // 縦に何マスか
+                rows: 12,     // 縦に何マスか
             },
 
             isLeft: false,
             isBumping: false,
             isInGrass: false,
+
+            activeKeys: new Set(), // 押されているキーを入れる袋
+            moveInterval: null,    // タイマー管理
 
             player: { x: 0, y: 0 },
             walls: [
@@ -92,22 +97,36 @@
                 { x: 7, y: 4 }, { x: 7, y: 5 }, { x: 8, y: 4 }, { x: 8, y: 5 },
             ],
 
-            move(event) {
-                const key = event.key;
-                if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(key)) {
+            init() {
+                this.moveInterval = setInterval(() => {
+                    this.updatePosition();
+                }, 300)
+            },
+
+            handleKeyDown(event) {
+                if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
                     event.preventDefault();
+                    this.activeKeys.add(event.key);
                 }
+            },
+
+            handleKeyUp(event) {
+                this.activeKeys.delete(event.key);
+            },
+
+            updatePosition() {
+                if (this.activeKeys.size === 0) return;
 
                 let nextX = this.player.x;
                 let nextY = this.player.y;
 
-                if (key === 'ArrowUp') nextY--;
-                if (key === 'ArrowDown') nextY++;
-                if (key === 'ArrowLeft') {
+                if (this.activeKeys.has('ArrowUp')) nextY--;
+                if (this.activeKeys.has('ArrowDown')) nextY++;
+                if (this.activeKeys.has('ArrowLeft')) {
                     nextX--;
                     this.isLeft = true;
                 }
-                if (key === 'ArrowRight') {
+                if (this.activeKeys.has('ArrowRight')) {
                     nextX++;
                     this.isLeft = false;
                 }
