@@ -94,12 +94,6 @@
                 { x: 7, y: 4 }, { x: 7, y: 5 }, { x: 8, y: 4 }, { x: 8, y: 5 },
             ],
 
-            init() {
-                this.moveInterval = setInterval(() => {
-                    this.updatePosition();
-                }, 300)
-            },
-
             handleKeyDown(event) {
                 const key = event.key;
                 if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(key)) return;
