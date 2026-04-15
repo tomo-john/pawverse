@@ -4,7 +4,7 @@
 
 <div class="max-w-3xl mx-auto flex flex-col items-center"
      x-data="walk()"
-     @keydown.window="move($event.key)"
+     @keydown.window="move($event)"
      tabindex="0"
 >
 
@@ -92,7 +92,12 @@
                 { x: 7, y: 4 }, { x: 7, y: 5 }, { x: 8, y: 4 }, { x: 8, y: 5 },
             ],
 
-            move(key) {
+            move(event) {
+                const key = event.key;
+                if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(key)) {
+                    event.preventDefault();
+                }
+
                 let nextX = this.player.x;
                 let nextY = this.player.y;
 
