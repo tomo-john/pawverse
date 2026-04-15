@@ -72,8 +72,8 @@
         return {
             config: {
                 gridSize: 40, // 1コマのサイズ
-                cols: 10,     // 横に何マスか
-                rows: 6,      // 縦に何マスか
+                cols: 30,     // 横に何マスか
+                rows: 12,      // 縦に何マスか
             },
 
             isLeft: false,
@@ -100,11 +100,11 @@
                 if (key === 'ArrowDown') nextY++;
                 if (key === 'ArrowLeft') {
                     nextX--;
-                    isLeft = true;
+                    this.isLeft = true;
                 }
                 if (key === 'ArrowRight') {
                     nextX++;
-                    isLeft = false;
+                    this.isLeft = false;
                 }
 
                 const isOutOfBounds =
