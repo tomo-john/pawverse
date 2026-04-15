@@ -5,12 +5,11 @@
 <div class="max-w-3xl mx-auto flex flex-col items-center"
      x-data="walk()"
      @keydown.window="handleKeyDown($event)"
-     @keyup.window="handleKeyUp($event)"
      tabindex="0"
 >
 
     {{-- Field --}}
-    <div class="border-4 border-gray-800 rounded-sm bg-gray-100 overflow-hidden relative"
+    <div class="border-4 border-gray-800 rounded-sm bg-yellow-100 overflow-hidden relative"
          :style="{
             width: (config.cols * config.gridSize) + 'px',
             height: (config.rows * config.gridSize) + 'px'
@@ -18,7 +17,7 @@
     >
 
         {{-- Player --}}
-        <div class="absolute z-20 flex justify-center items-center transition-all duration-500"
+        <div class="absolute z-20 flex justify-center items-center transition-all duration-300"
              :style="{
                 left: (player.x * config.gridSize) + 'px',
                 top: (player.y * config.gridSize) + 'px',
@@ -81,9 +80,7 @@
             isLeft: false,
             isBumping: false,
             isInGrass: false,
-
-            activeKeys: new Set(), // 押されているキーを入れる袋
-            moveInterval: null,    // タイマー管理
+            isMoving: false,
 
             player: { x: 0, y: 0 },
             walls: [
@@ -104,47 +101,43 @@
             },
 
             handleKeyDown(event) {
-                if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
-                    event.preventDefault();
-                    this.activeKeys.add(event.key);
-                }
+                const key = event.key;
+                if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(key)) return;
+
+                event.preventDefault();
+
+                if (this.isMoving) return;
+
+                this.move(key);
+
             },
 
-            handleKeyUp(event) {
-                this.activeKeys.delete(event.key);
-            },
-
-            updatePosition() {
-                if (this.activeKeys.size === 0) return;
-
+            move(key) {
                 let nextX = this.player.x;
                 let nextY = this.player.y;
 
-                if (this.activeKeys.has('ArrowUp')) nextY--;
-                if (this.activeKeys.has('ArrowDown')) nextY++;
-                if (this.activeKeys.has('ArrowLeft')) {
-                    nextX--;
-                    this.isLeft = true;
-                }
-                if (this.activeKeys.has('ArrowRight')) {
-                    nextX++;
-                    this.isLeft = false;
-                }
+                if (key === 'ArrowUp') nextY--;
+                if (key === 'ArrowDown') nextY++;
+                if (key === 'ArrowLeft') { nextX--; this.isLeft = true; }
+                if (key === 'ArrowRight') { nextX++; this.isLeft = false; }
 
-                const isOutOfBounds =
-                    nextX < 0 || nextX >= this.config.cols ||
-                    nextY < 0 || nextY >= this.config.rows;
-
+                const isOutOfBounds = nextX < 0 || nextX >= this.config.cols || nextY < 0 || nextY >= this.config.rows;
                 const isWall = this.walls.some(w => w.x === nextX && w.y === nextY);
 
                 if (!isOutOfBounds && !isWall) {
+                    this.isMoving = true;
                     this.player.x = nextX;
                     this.player.y = nextY;
                     this.isBumping = false;
                     this.isInGrass = this.grasses.some(g => g.x === nextX && g.y === nextY);
+
+                    setTimeout(() => {
+                        this.isMoving = false;
+                    }, 300);
+
                 } else {
                     this.isBumping = true;
-                    setTimeout(() => this.isBumping = false, 500);
+                    setTimeout(() => this.isBumping = false, 300);
                 }
             },
         }
