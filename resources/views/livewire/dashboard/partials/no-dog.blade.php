@@ -34,10 +34,16 @@
         <div class="absolute inset-0 flex flex-col justify-center items-center pointer-events-none">
             <div class="flex items-center text-gray-400">
                 <i class="fa-solid fa-paw mx-1"></i>
-                <span x-text="items.some(i => i.isCollected) ? '誰かいるワン...？' : 'まだ誰もいないワン...'"></span>
+                <span x-text="statusMessage" x-transition.duration.1000ms></span>
             </div>
-            <div class="flex items-center text-gray-400 transition-all duration-1000"
-                 x-show="items.filter(i => i.isCollected).length === 2"
+            <div class="mt-2"
+                 x-show="items.filter(i => i.isCollected).length >= 2"
+                 x-transition.duration.1000ms
+                 :class="{
+                         'opacity-30 animate-pulse' : items.filter(i => i.isCollected).length === 2,
+                         'opacity-70' : items.filter(i => i.isCollected).length === 3,
+                         'opacity-100 animate-bounce' : items.filter(i => i.isCollected).length === 4,
+                 }"
             >
                 <i class="fa-solid fa-dog"></i>
             </div>
@@ -45,7 +51,7 @@
 
     </div>
 
-    {{-- Message Window --}}
+    {{-- Console Message Window --}}
     <div class="w-full bg-gray-100/80 border-4 border-gray-400 p-4 rounded-lg shadow-inner mt-6"
          x-show="message"
          x-transition.opacity.duration.500ms
@@ -112,6 +118,18 @@
 
             cleanItem(targetItem) {
                 targetItem.isCollected = true;
+            },
+
+            get statusMessage() {
+                const count = this.items.filter(i => i.isCollected).length;
+
+                if (count === 0) return 'まだ誰もいないワン...';
+                if (count === 1) return '誰かいたのかワン...？';
+                if (count === 2) return 'クンクン...懐かしい匂いがするワン';
+                if (count === 3) return 'あの子のおもちゃだワン！';
+                if (count === 4) return 'もうすぐ、会える気がするワン...！';
+
+                return '待ってるワン。ずっと';
             },
         }
     }
