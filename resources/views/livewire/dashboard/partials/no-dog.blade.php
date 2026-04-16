@@ -23,7 +23,7 @@
                     <i :class="item.icon"
                        @mouseenter="showMessage()"
                        @mouseleave="hideMessage()"
-                       @click="cleanItem(index)"
+                       @click="cleanItem(item)"
                        class="text-gray-300 text-xl animate-pulse transition-all duration-1000 cursor-pointer"
                     ></i>
                 </div>
@@ -31,8 +31,16 @@
         </template>
 
         {{-- メッセージ --}}
-        <div class="absolute inset-0 flex justify-center items-center pointer-events-none">
-            <span class="text-gray-400"><i class="fa-solid fa-paw mx-1"></i>まだ誰もいないワン...</span>
+        <div class="absolute inset-0 flex flex-col justify-center items-center pointer-events-none">
+            <div class="flex items-center text-gray-400">
+                <i class="fa-solid fa-paw mx-1"></i>
+                <span x-text="items.some(i => i.isCollected) ? '誰かいるワン...？' : 'まだ誰もいないワン...'"></span>
+            </div>
+            <div class="flex items-center text-gray-400 transition-all duration-1000"
+                 x-show="items.filter(i => i.isCollected).length === 2"
+            >
+                <i class="fa-solid fa-dog"></i>
+            </div>
         </div>
 
     </div>
@@ -102,8 +110,8 @@
                 this.message = '';
             },
 
-            cleanItem(index) {
-                console.log('わうん🐶' + index);
+            cleanItem(targetItem) {
+                targetItem.isCollected = true;
             },
         }
     }
