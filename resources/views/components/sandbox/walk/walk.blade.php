@@ -1,4 +1,4 @@
-<div class="flex justify-center items-center mt-6">
+<div class="flex justify-center items-center my-8">
     <a href="{{ route('sandbox.page', 'index') }}" class="px-3 py-1 text-pink-500">Back</a>
 </div>
 
@@ -9,12 +9,27 @@
 >
 
     {{-- Field --}}
-    <div class="border-4 border-gray-800 rounded-sm bg-yellow-100 overflow-hidden relative"
+    <div class="relative border-4 border-gray-800 rounded-sm bg-yellow-100"
          :style="{
             width: (config.cols * config.gridSize) + 'px',
             height: (config.rows * config.gridSize) + 'px'
          }"
     >
+
+
+        {{-- Status --}}
+        <div class="absolute -top-16 left-0 flex gap-3">
+            <div class="bg-white border-2 border-gray-800 p-2 rounded shadow-sm flex items-center gap-2">
+                <i :class="[player.icon, player.color]" class="text-xl"></i>
+                <p x-text="player.name" class="font-bold text-gray-800"></p>
+                <p x-text="'Lv. ' + player.level" class="font-bold text-gray-600 text-sm"></p>
+            </div>
+            <div class="bg-white border-2 border-gray-800 p-2 rounded shadow-sm flex items-center gap-2">
+                <i :class="[buddy.icon, buddy.color]" class="text-xl"></i>
+                <p x-text="buddy.name" class="font-bold text-gray-800"></p>
+                <p x-text="'Lv. ' + buddy.level" class="font-bold text-gray-600 text-sm"></p>
+            </div>
+        </div>
 
         {{-- Player --}}
         <div class="absolute z-20 flex justify-center items-center transition-all duration-300"
@@ -25,12 +40,36 @@
                 height: config.gridSize + 'px',
              }"
         >
-            <i class="fa-solid fa-dog text-pink-500 text-2xl"
-               :class="{
-                    'animate-bounce' : isBumping,
-                    '-scale-x-100' : isLeft,
-                    'opacity-50' : isInGrass
-               }"
+            <i class="text-2xl"
+               :class="[
+                    player.icon,
+                    player.color,
+                    isMoving ? 'rotate-12' : '',
+                    isBumping ? 'animate-bounce' : '',
+                    isLeft ? '-scale-x-100' : '',
+                    isInGrass ? 'opacity-50' : ''
+               ]"
+            ></i>
+        </div>
+
+        {{-- Buddy --}}
+        <div class="absolute z-10 flex justify-center items-center transition-all duration-300"
+             :style="{
+                left: (buddy.x * config.gridSize) + 'px',
+                top: (buddy.y * config.gridSize) + 'px',
+                width: config.gridSize + 'px',
+                height: config.gridSize + 'px',
+             }"
+        >
+            <i class="text-2xl"
+               :class="[
+                    buddy.icon,
+                    buddy.color,
+                    isMoving ? '-rotate-12' : '',
+                    isBumping ? 'animate-bounce' : '',
+                    isLeft ? '-scale-x-100' : '',
+                    isInGrass ? 'opacity-50' : ''
+               ]"
             ></i>
         </div>
 
@@ -61,6 +100,22 @@
                 <i class="fa-solid fa-tree text-green-600 text-2xl"></i>
             </div>
         </template>
+
+        {{-- Items --}}
+        <template x-for="item in items">
+            <div x-show="item.active"
+                 class="absolute flex justify-center items-center"
+                 :style="{
+                    left: (item.x * config.gridSize) + 'px',
+                    top: (item.y * config.gridSize) + 'px',
+                    width: config.gridSize + 'px',
+                    height: config.gridSize + 'px'
+                 }"
+            >
+                <i class="fa-solid fa-bone text-yellow-600 animate-pulse"></i>
+            </div>
+        </template>
+
     </div>
 
     <p class="mt-4 text-gray-500 text-sm">矢印キーで移動してみよう！🐶</p>
@@ -82,7 +137,26 @@
             isInGrass: false,
             isMoving: false,
 
-            player: { x: 0, y: 0 },
+            player: {
+                x: 0,
+                y: 0,
+                name: 'じょん',
+                icon: 'fa-solid fa-dog',
+                color: 'text-pink-500',
+                level: 1,
+            },
+
+            lastPlayerPos: { x: 0, y: 0 },
+
+            buddy: {
+                x: 0,
+                y: 0,
+                name: 'ぴょんきち',
+                icon: 'fa-solid fa-dog',
+                color: 'text-black',
+                level: 1,
+            },
+
             walls: [
                 { x: 1, y: 1 }, { x: 1, y: 2 },
                 { x: 3, y: 0 }, { x: 3, y: 1 },
@@ -93,6 +167,15 @@
                 { x: 0, y: 3 }, { x: 1, y: 3 }, { x: 0, y: 4 }, { x: 1, y: 4 },
                 { x: 7, y: 4 }, { x: 7, y: 5 }, { x: 8, y: 4 }, { x: 8, y: 5 },
             ],
+
+            items: [
+                { x: 5, y: 2, type: 'bone', active: true},
+                { x: 10, y: 5, type: 'bone', active: true},
+                { x: 15, y: 8, type: 'bone', active: true},
+            ],
+
+            init () {
+            },
 
             handleKeyDown(event) {
                 const key = event.key;
@@ -119,11 +202,21 @@
                 const isWall = this.walls.some(w => w.x === nextX && w.y === nextY);
 
                 if (!isOutOfBounds && !isWall) {
+                    this.lastPlayerPos = { x: this.player.x, y: this.player.y };
                     this.isMoving = true;
                     this.player.x = nextX;
                     this.player.y = nextY;
                     this.isBumping = false;
                     this.isInGrass = this.grasses.some(g => g.x === nextX && g.y === nextY);
+
+                    const item = this.items.find(i => i.x === nextX && i.y === nextY && i.active);
+                    if (item) {
+                        item.active = false;
+                        this.player.level++;
+                    }
+
+                    this.buddy.x = this.lastPlayerPos.x;
+                    this.buddy.y = this.lastPlayerPos.y;
 
                     setTimeout(() => {
                         this.isMoving = false;
