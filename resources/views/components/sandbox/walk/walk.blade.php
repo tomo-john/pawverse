@@ -104,6 +104,7 @@
         {{-- Items --}}
         <template x-for="item in items">
             <div x-show="item.active"
+                 x-transition.duration.500ms
                  class="absolute flex justify-center items-center"
                  :style="{
                     left: (item.x * config.gridSize) + 'px',
@@ -120,6 +121,14 @@
 
     <p class="mt-4 text-gray-500 text-sm">矢印キーで移動してみよう！🐶</p>
 
+    {{-- Message Window --}}
+    <div class="w-full bg-white border-4 border-gray-800 p-3 rounded shadow-lg">
+        <div class="flex flex-col">
+            <span class="text-[10px] text-gray-400 font-bold" x-text="buddy.name"></span>
+            <p x-text="message" class="text-gray-800 font-bold text-sm"></p>
+            <span class="text-[8px] text-pink-500 animate-bounce self-end">▼ Press Space</span>
+        </div>
+    </div>
 </div>
 
 <script>
