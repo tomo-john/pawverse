@@ -1,8 +1,8 @@
 <x-layouts.guest>
 
+<div x-data="sandbox()">
     @php
         $pages = [
-            'alpine' => 'Alpine',
             'maze'   => 'Maze',
             'walk'   => 'Walk',
         ];
@@ -30,6 +30,23 @@
             @endforeach
         </div>
 
+        {{-- Alpine --}}
+        <div class="animate-bounce">
+            <a href="{{ route('sandbox.page', 'alpine') }}">
+                <i class="fa-solid fa-dog"></i>
+            </a>
+        </div>
     </div>
+
+</div>
+
+<script>
+    function sandbox() {
+        console.log('sandbox🐶');
+
+        return {
+        }
+    }
+</script>
 
 </x-layouts.guest>
