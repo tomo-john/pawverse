@@ -13,7 +13,7 @@ class World extends Component
 
     public function mount()
     {
-        $this->dogs = auth()->user()->dogs;
+        $this->dogs = auth()->user()->dogs()->with('status')->get();
 
         if ($this->dogs->isNotEmpty()) {
             $this->selectedDog = $this->dogs->random();

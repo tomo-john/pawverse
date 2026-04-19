@@ -19,6 +19,10 @@ class Dog extends Model
         'is_public',
     ];
 
+    protected $appends = [
+        'size_class',
+    ];
+
     protected $casts = [
         'is_public' => 'boolean',
     ];
