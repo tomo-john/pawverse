@@ -1,4 +1,4 @@
-<div class="max-w-3xl mx-auto" x-data="noDog()">
+<div class="max-w-3xl mx-auto" x-data="noDog('{{ route('dog.index') }}')">
 
     <div class="relative"
          :style="{
@@ -6,6 +6,18 @@
             height: (rows * gridSize) + 'px'
          }"
     >
+
+        {{-- Path --}}
+        <div class="absolute bottom-2 right-2 flex justify-center items-center">
+            <div class="transition-all duration-[2000ms] ease-in-out cursor-pointer"
+                 :class="[houseOpacity, canEnter ? 'hover:scale-110 animate-pulse' : '']"
+                 @click="canEnter && goCreate()"
+            >
+                <i class="fa-solid fa-house text-2xl"
+                   :class="[collectedCount >= 5 ? 'scale-125 text-yellow-300 drop-shadow-lg' : 'text-gray-400']"
+                ></i>
+            </div>
+        </div>
 
         {{-- かつてのおもちゃ --}}
         <template x-for="(item, index) in items":key="index">
@@ -39,7 +51,6 @@
                 <i class="fa-solid fa-dog" :class="dogAnimation"></i>
             </div>
         </div>
-
     </div>
 
     {{-- Console Message Window --}}
@@ -52,27 +63,30 @@
             <p x-text="message" class="text-gray-500 font-bold text-sm"></p>
         </div>
     </div>
+
 </div>
 
 <script>
-    function noDog() {
+    function noDog(nextUrl) {
 
         return {
+            nextUrl,
+
             gridSize: 50,
             cols: 10,
             rows: 6,
             items: [],
 
-            itemsCount: 5,
             itemsIcon: [
                 'fa-solid fa-bone',
                 'fa-solid fa-bowl-food',
+                'fa-solid fa-bicycle',
                 'fa-solid fa-football',
                 'fa-solid fa-baseball-ball',
-                'fa-solid fa-house'
             ],
 
             message: '',
+            overrideMessage: '',
 
             init() {
                 this.initItems();
@@ -131,20 +145,46 @@
                     2: 'opacity-30',
                     3: 'opacity-70',
                     4: 'opacity-100',
+                    5: 'opacity-0',
+                };
+                return opacities[this.collectedCount] || 'opacity-0';
+            },
+
+            get houseOpacity() {
+                const opacities = {
+                    0: 'opacity-0',
+                    1: 'opacity-0',
+                    2: 'opacity-30',
+                    3: 'opacity-60',
+                    4: 'opacity-80',
                     5: 'opacity-100',
                 };
                 return opacities[this.collectedCount] || 'opacity-0';
             },
 
             get statusMessage() {
+                if (this.overrideMessage) return  this.overrideMessage;
+
                 const count = this.collectedCount;
 
                 if (count === 0) return 'まだ誰もいないワン...';
                 if (count === 1) return '誰かいたのかワン...？';
-                if (count === 2) return 'クンクン...懐かしい匂いがするワン';
+                if (count === 2) return '...あっちから気配がするワン';
                 if (count === 3) return 'あの子のおもちゃだワン！';
                 if (count === 4) return 'もうすぐ、会える気がするワン...！';
                 return '待ってるワン。ずっと';
+            },
+
+            get canEnter() {
+                return this.collectedCount >= 2;
+            },
+
+            goCreate() {
+                this.overrideMessage = '....!';
+
+                setTimeout(() => {
+                    window.location.href = this.nextUrl;;
+                }, 800);
             },
         }
     }
