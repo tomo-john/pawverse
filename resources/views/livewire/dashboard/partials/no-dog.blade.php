@@ -11,11 +11,24 @@
         <div class="absolute bottom-2 right-2 flex justify-center items-center">
             <div class="transition-all duration-[2000ms] ease-in-out cursor-pointer"
                  :class="[houseOpacity, canEnter ? 'hover:scale-110 animate-pulse' : '']"
-                 @click="canEnter && goCreate()"
+                 @click="goCreate()"
             >
-                <i class="fa-solid fa-house text-2xl"
+                <i class="fa-solid fa-house text-3xl"
                    :class="[collectedCount >= 5 ? 'scale-125 text-yellow-300 drop-shadow-lg' : 'text-gray-400']"
                 ></i>
+            </div>
+        </div>
+
+        {{-- Next Dog --}}
+        <div class="absolute bottom-2 right-3 flex justify-center items-center pointer-events-none">
+            <div
+                x-show="nextDogFlg"
+                x-transition:enter="transition ease-out duration-700"
+                x-transition:enter-start="opacity-0 translate-y-2"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                class="text-gray-400"
+            >
+                <i class="fa-solid fa-dog text-xl"></i>
             </div>
         </div>
 
@@ -75,43 +88,19 @@
             gridSize: 50,
             cols: 10,
             rows: 6,
-            items: [],
-
-            itemsIcon: [
-                'fa-solid fa-bone',
-                'fa-solid fa-bowl-food',
-                'fa-solid fa-bicycle',
-                'fa-solid fa-football',
-                'fa-solid fa-baseball-ball',
+            items: [
+                { x: 2, y: 4, icon: 'fa-solid fa-bone'},
+                { x: 7, y: 5 , icon: 'fa-solid fa-bowl-food'},
+                { x: 4, y: 1, icon: 'fa-solid fa-bicycle'},
+                { x: 6, y: 3, icon: 'fa-solid fa-football'},
+                { x: 3, y: 5, icon: 'fa-solid fa-baseball-ball'},
             ],
 
             message: '',
             overrideMessage: '',
+            nextDogFlg: false,
 
-            init() {
-                this.initItems();
-            },
-
-            initItems() {
-                this.itemsIcon.forEach(iconClass => {
-                    let x, y, isOccupied;
-
-                    do {
-                        x = Math.floor(Math.random() * this.cols),
-                        y = Math.floor(Math.random() * this.rows)
-
-                        isOccupied = this.items.some(i => i.x === x && i.y === y);
-
-                    } while (isOccupied);
-
-                    this.items.push({
-                        icon: iconClass,
-                        x: x,
-                        y: y,
-                        isCollected: false
-                    });
-                });
-            },
+            init() {},
 
             showMessage() {
                 this.message = 'かたづけますか?';
@@ -139,15 +128,20 @@
             },
 
             get dogOpacity() {
-                const opacities = {
-                    0: 'opacity-0',
-                    1: 'opacity-0',
-                    2: 'opacity-30',
-                    3: 'opacity-70',
-                    4: 'opacity-100',
-                    5: 'opacity-0',
-                };
-                return opacities[this.collectedCount] || 'opacity-0';
+                const count = this.collectedCount;
+
+                if (count < 5) {
+                    const opacities = {
+                        0: 'opacity-0',
+                        1: 'opacity-0',
+                        2: 'opacity-30',
+                        3: 'opacity-70',
+                        4: 'opacity-100',
+                    };
+                    return opacities[count] || 'opacity-0';
+                }
+
+                return 'opacity-0 translate-x-10 duration-[2500ms]';
             },
 
             get houseOpacity() {
@@ -180,7 +174,11 @@
             },
 
             goCreate() {
-                this.overrideMessage = '....!';
+                if (!this.canEnter) return;
+
+                this.overrideMessage = '...見つけたワン!';
+
+                this.nextDogFlg = true;
 
                 setTimeout(() => {
                     window.location.href = this.nextUrl;;
