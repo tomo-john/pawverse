@@ -17,21 +17,54 @@
         return {
             x: 100,
             y: 100,
+            isMoving: false,
 
             init () {
-                this.wander();
-                console.log(this.selectedDog.status.level);
+                if (this.behavior.type === 'sleep') {
+                    this.sleep();
+                }
+
+                if (this.behavior.type === 'follow') {
+                    this.follow();
+                }
+
+                if (this.behavior.type === 'wander') {
+                    this.wander();
+                }
+
+                console.log(this.selectedDog.status.stamina);
+                console.log(this.behavior.type);
+            },
+
+            sleep() {
+            },
+
+            follow() {
+                setInterval(() => {
+                    const targetX = this.$data.mouseX;
+                    const targetY = this.$data.mouseY;
+                    const dx = targetX - this.x;
+                    const dy = targetY - this.y;
+
+                    if (Math.abs(dx) > 5) {
+                        this.x += dx * 0.1 * this.behavior.speed;
+                    }
+                    if (Math.abs(dy) >5) {
+                        this.y += dy * 0.1 * this.behavior.speed;
+                    }
+                }, 30);
+
             },
 
             wander () {
                 const parent = this.$el.parentElement;
-                console.log(parent.clientWidth);
 
                 setInterval(() => {
                     this.x = Math.random() * parent.clientWidth;
                     this.y = Math.random() * parent.clientHeight;
-                }, 3000);
+                }, 3000 / this.behavior.speed);
             },
+
         }
     }
 </script>
