@@ -10,8 +10,7 @@ use App\Services\Dashboard\DogBehaviorService;
 class World extends Component
 {
     public $dogs;
-    public $selectedDog;
-    public $behavior;
+    public $behaviors = [];
 
     protected DogBehaviorService $service;
 
@@ -25,8 +24,9 @@ class World extends Component
         $this->dogs = auth()->user()->dogs()->with('status')->get();
 
         if ($this->dogs->isNotEmpty()) {
-            $this->selectedDog = $this->dogs->random();
-            $this->behavior = $this->service->resolveBehavior($this->selectedDog);
+            foreach ($this->dogs as $dog) {
+                $this->behaviors[$dog->id] = $this->service->resolveBehavior($dog);
+            }
         }
     }
 

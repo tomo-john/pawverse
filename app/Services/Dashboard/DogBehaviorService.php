@@ -16,7 +16,7 @@ class DogBehaviorService
             ];
         }
 
-        if ($dog->status->stamina < 50) {
+        if ($dog->status->stamina < 150) {
             return [
                 'type' => 'follow',
                 'speed' => 1

@@ -1,23 +1,28 @@
 <div
-    x-data="dogActor()"
-    class="absolute transition-all duration-1000"
-    :style="{
-        left: x + 'px',
-        top: y + 'px'
-    }"
+    x-data="dogActor({{ Js::from($dog) }}, {{ Js::from($behavior) }})"
+    class="absolute pointer-events-none"
+    :style="{ left: x + 'px', top: y + 'px' }"
 >
-    <i class="fa-solid fa-dog"
-       :class="selectedDog.size_class"
-       :style="{color: selectedDog.color}"
+    <i class="fa-solid fa-dog transition-transform duration-300"
+       :class="[
+           dog.size_class,
+           isLeft ? '-scale-x-100' : 'scale-x-100',
+           isSniffing ? 'dog-kunkun' : ''
+       ]"
+       :style="{color: dog.color}"
     ></i>
 </div>
 
 <script>
-    function dogActor() {
+    function dogActor(dog, behavior) {
         return {
-            x: 100,
-            y: 100,
+            dog,
+            behavior,
+            x: Math.random() * 300,
+            y: Math.random() * 300,
+            isLeft: false,
             isMoving: false,
+            isSniffing: false,
 
             init () {
                 if (this.behavior.type === 'sleep') {
@@ -31,9 +36,6 @@
                 if (this.behavior.type === 'wander') {
                     this.wander();
                 }
-
-                console.log(this.selectedDog.status.stamina);
-                console.log(this.behavior.type);
             },
 
             sleep() {
@@ -41,28 +43,66 @@
 
             follow() {
                 setInterval(() => {
+                    if (Math.random() < 0.05) {
+                        this.isMoving = false;
+                        return;
+                    }
+
                     const targetX = this.$data.mouseX;
                     const targetY = this.$data.mouseY;
+
                     const dx = targetX - this.x;
                     const dy = targetY - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (Math.abs(dx) > 5) {
-                        this.x += dx * 0.1 * this.behavior.speed;
+                    if (distance < 20) {
+                        this.isSniffing = true;
+                        this.isMoving = false;
+                        return;
                     }
-                    if (Math.abs(dy) >5) {
-                        this.y += dy * 0.1 * this.behavior.speed;
-                    }
+
+                    this.isSniffing = false;
+                    this.isMoving = true;
+
+                    const speed = this.behavior.speed * 2;
+
+                    this.x += (dx / distance) * speed;
+                    this.y += (dy / distance) * speed;
+
+                    this.isLeft = dx < 0;
                 }, 30);
 
             },
 
             wander () {
-                const parent = this.$el.parentElement;
+                let targetX = this.x;
+                let targetY = this.y;
+                this.isSniffing = false;
 
                 setInterval(() => {
-                    this.x = Math.random() * parent.clientWidth;
-                    this.y = Math.random() * parent.clientHeight;
-                }, 3000 / this.behavior.speed);
+                    const parent = this.$el.parentElement;
+                    targetX = Math.random() * parent.clientWidth;
+                    targetY = Math.random() * parent.clientHeight;
+                    this.isSniffing = false;
+                }, 5000);
+
+                setInterval(() => {
+                    const dx = targetX - this.x;
+                    const dy = targetY - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 10) {
+                        this.isSniffing = true;
+                        return;
+                    }
+
+                    const speed = this.behavior.speed * 2;
+
+                    this.x += (dx / distance) * speed;
+                    this.y += (dy / distance) * speed;
+
+                    this.isLeft = dx < 0;
+                }, 30)
             },
 
         }

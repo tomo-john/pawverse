@@ -1,20 +1,23 @@
-<div class="relative w-full h-[400px] bg-green-100 overflow-hidden"
+<div class="relative w-full h-[400px] bg-green-100 cursor-pointer overflow-hidden"
      x-data="world()"
      x-ref="world"
      @mousemove="mouseX = $event.offsetX; mouseY = $event.offsetY"
 >
 
-    @include('livewire.dashboard.partials.dog-actor')
+    @foreach ($dogs as $dog)
+        @include('livewire.dashboard.partials.dog-actor', [
+            'dog' => $dog,
+            'behavior' => $behaviors[$dog->id]
+        ])
+    @endforeach
 
 </div>
 
 <script>
     function world() {
         return {
-            selectedDog: {{ Js::from($selectedDog) }},
-            behavior: {{ Js::from($behavior) }},
-            mouseX: 0,
-            mouseY: 0,
+            mouseX: 100,
+            mouseY: 100,
         }
     }
 </script>
