@@ -181,11 +181,20 @@ select:focus[data-flux-control] {
 
 @keyframes dog-sleep {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(2px); }
+    50% { transform: translateY(4px); }
 }
 
 .dog-sleep {
     animation: dog-sleep 2s ease-in-out infinite;
     opacity: 0.7;
+}
+
+@keyframes dog-zzz {
+    0%, 100% { transform: translate(-50%, 0); }
+    50%      { transform: translate(-50%, 6px); }
+}
+
+.dog-zzz {
+    animation: dog-zzz 2s ease-in-out infinite;
 }
 

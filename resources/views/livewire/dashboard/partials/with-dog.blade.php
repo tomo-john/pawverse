@@ -16,8 +16,16 @@
 <script>
     function world() {
         return {
-            mouseX: 100,
-            mouseY: 100,
+            mouseX: 0,
+            mouseY: 0,
+
+            init() {
+                const width = this.$refs.world.clientWidth;
+                const height = this.$refs.world.clientHeight;
+
+                this.mouseX = width / 2;
+                this.mouseY = height / 2;
+            },
         }
     }
 </script>
