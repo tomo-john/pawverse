@@ -8,13 +8,26 @@
 >
     <div :class="isLeft ? '-scale-x-100' : 'scale-x-100'">
         <div :class="stateClass" class="relative">
+            {{-- Dog --}}
             <i class="fa-solid fa-dog" :class="dog.size_class" :style="{color: dog.color}"></i>
+
+            {{-- zzz --}}
             <span x-show="state === 'sleeping'"
-                  class="absolute -top-6 left-1/2 text-xs text-gray-400"
+                  class="absolute -top-6 left-1/2 text-xs flex items-end gap-1"
             >
-                <span class="dog-zzz inline-block" style="animation-delay: 0s;">z</span>
-                <span class="dog-zzz inline-block" style="animation-delay: 0.3s;">z</span>
-                <span class="dog-zzz inline-block" style="animation-delay: 0.6s;">z</span>
+                <span class="dog-zzz inline-flex justify-center items-center" style="animation-delay: 0s;"><i class="fa-solid fa-z text-gray-400"></i></span>
+                <span class="dog-zzz inline-flex justify-center items-center" style="animation-delay: 0.3s;"><i class="fa-solid fa-z text-gray-400"></i></span>
+                <span class="dog-zzz inline-flex justify-center items-center" style="animation-delay: 0.6s;"><i class="fa-solid fa-z text-gray-400"></i></span>
+            </span>
+
+            {{-- Bubble --}}
+            <span
+                x-show="bubble"
+                class="absolute -top-6 left-1/2 -translate-x-1/2 text-xs"
+                x-transition.opacity
+            >
+                <span x-show="bubble === 'happy'"><i class="fa-solid fa-music text-black"></i></span>
+                <span x-show="bubble === 'alert'"><i class="fa-solid fa-exclamation text-pink-500"></i></span>
             </span>
         </div>
     </div>
@@ -30,6 +43,7 @@
             y: Math.random() * 300,
             isLeft: false,
             state: 'idle', // idle | moving | sniffing | sleeping
+            bubble: null,
 
             init () {
                 if (this.behavior.type === 'sleep') {
@@ -67,15 +81,12 @@
 
             sleep() {
                 this.state = 'sleeping';
+                this.showBubble('sleep', 3000);
             },
 
             follow() {
                 setInterval(() => {
-                    this.moveToward(
-                        this.$data.mouseX,
-                        this.$data.mouseY,
-                        this.behavior.speed * 2
-                    );
+                    this.moveToward(this.$data.mouseX, this.$data.mouseY,this.behavior.speed * 2);
                 }, 30);
 
             },
@@ -88,6 +99,11 @@
                     const parent = this.$el.parentElement;
                     targetX = Math.random() * parent.clientWidth;
                     targetY = Math.random() * parent.clientHeight;
+
+                    if (Math.random() < 0.3) {
+                        this.showBubble('happy', 1000);
+                    }
+
                 }, 5000);
 
                 setInterval(() => {
@@ -101,6 +117,16 @@
                     'dog-sleep': this.state === 'sleeping',
                     'dog-kunkun': this.state === 'sniffing',
                 }
+            },
+
+            showBubble(type, duration = 2000) {
+                this.bubble = type;
+
+                setTimeout(() => {
+                    if (this.bubble === type) {
+                        this.bubble = null;
+                    }
+                }, duration)
             },
         }
     }
