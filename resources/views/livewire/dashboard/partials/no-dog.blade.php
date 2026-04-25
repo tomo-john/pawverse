@@ -11,6 +11,8 @@
         <div class="absolute bottom-2 right-2 flex justify-center items-center">
             <div class="transition-all duration-[2000ms] ease-in-out cursor-pointer"
                  :class="[houseOpacity, canEnter ? 'hover:scale-110 animate-pulse' : '']"
+                 @mouseenter="showMessage('house')"
+                 @mouseleave="hideMessage()"
                  @click="goCreate()"
             >
                 <i class="fa-solid fa-house text-3xl"
@@ -46,7 +48,7 @@
                      x-transition.duration.500ms
                 >
                     <i :class="item.icon"
-                       @mouseenter="showMessage()"
+                       @mouseenter="showMessage('item')"
                        @mouseleave="hideMessage()"
                        @click="cleanItem(item)"
                        class="text-gray-300 text-xl animate-pulse transition-all duration-1000 cursor-pointer"
@@ -97,17 +99,28 @@
             ],
 
             message: '',
+            hoverTarget: null,
             overrideMessage: '',
             nextDogFlg: false,
 
             init() {},
 
-            showMessage() {
-                this.message = 'かたづけますか?';
+            showMessage(type) {
+                this.hoverTarget = type;
+                if (type === 'item') {
+                    this.message = 'かたづけますか?';
+                } else if (type === 'house') {
+                    if (this.canEnter) {
+                        this.message = 'あの子のいるPawverseへ..行きますか？';
+                    } else {
+                        this.message = 'まだ準備ができていないようです。';
+                    }
+                }
             },
 
             hideMessage() {
                 this.message = '';
+                this.hoverTarget = null;
             },
 
             cleanItem(targetItem) {
