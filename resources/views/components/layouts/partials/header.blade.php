@@ -1,27 +1,27 @@
 {{-- 共通ヘッダー🐶 --}}
-<header class="sticky top-0 z-50 backdrop-blur bg-white/70 dark:bg-zinc-900/70 border-b border-zinc-200 dark:border-zinc-800">
+<header class="sticky top-0 z-50 backdrop-blur bg-white/80 border-b border-pink-100 shadow-sm">
     <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
 
         {{-- ロゴ --}}
-        <a href="{{ route('home') }}" class="flex items-center gap-2 text-pink-600 font-semibold">
-            <img src="{{ asset('favicon.svg')}}" class="w-7 h-7">
+        <a href="{{ route('home') }}" class="flex items-center gap-2 text-lg text-pink-600 font-semibold hover:opacity-80 transition">
+            <img src="{{ asset('favicon.svg')}}" class="w-8 h-8">
             <span class="tracking-tight">Pawverse</span>
         </a>
 
         {{-- ナビ --}}
         <nav class="flex items-center gap-6 text-sm font-medium">
 
-            <a href="{{ route('home') }}" class="hover:text-pink-500 transition">
+            <a href="{{ route('home') }}" class="text-slate-600 hover:text-pink-500 transition">
                 Home
             </a>
 
-            <a href="{{ route('public.dog.index')}}" class="hover:text-pink-500 transition">
+            <a href="{{ route('public.dog.index')}}" class="text-slate-600 hover:text-pink-500 transition">
                 Public Dogs
             </a>
 
             @auth
                 <flux:dropdown>
-                    <flux:button variant="ghost" icon-trailing="chevron-down" class="text-pink-600 font-bold">
+                    <flux:button variant="primary" icon-trailing="chevron-down" class="text-pink-600 font-bold hover:bg-pink-50 active:bg-pink-100 transition-all">
                         My Dog
                     </flux:button>
 
@@ -48,7 +48,7 @@
 
             @guest
                 <a href="{{ route('login') }}"
-                   class="px-4 py-1.5 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition shadow-sm">
+                   class="px-5 py-2 rounded-full bg-pink-500 text-white font-bold hover:bg-pink-600 transition shadow-sm hover:shadow-lg active:scale-95 transition-all">
                     Login
                 </a>
             @endguest

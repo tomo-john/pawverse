@@ -1,24 +1,24 @@
 {{-- 共通フッター🐶 --}}
-<footer class="mt-20 border-t border-pink-200 dark:border-pink-900 pt-8 pb-6 text-center">
+<footer class="mt-20 border-t border-pink-200 bg-white pt-12 pb-8 text-center">
 
-    <div class="text-lg font-semibold text-pink-600">
-        <img src="{{ asset('favicon.svg')}}" alt="Pawverse logo" class="w-8 h-8 inline align-middle">
+    <div class="text-lg font-bold text-pink-600 flex items-center justify-center gap-2">
+        <img src="{{ asset('favicon.svg')}}" alt="Pawverse logo" class="w-8 h-8 inline">
         Pawverse
-        <i class="fa-solid fa-dog"></i>
+        <i class="fa-solid fa-dog text-pink-400"></i>
     </div>
 
-    <p class="text-sm text-zinc-500 mt-2">
+    <p class="text-sm text-slate-500 mt-3">
         あなただけのわんこを育てる場所
     </p>
 
-    <div class="flex justify-center gap-6 mt-4 text-sm">
-        <a href="#" class="text-pink-500 hover:text-pink-600">About</a>
-        <a href="#" class="text-pink-500 hover:text-pink-600">Privacy</a>
-        <a href="#" class="text-pink-500 hover:text-pink-600">Contact</a>
+    <div class="flex justify-center gap-8 mt-6 text-sm">
+        <a href="#" class="text-slate-400 hover:text-pink-500 transition-colors">About</a>
+        <a href="#" class="text-slate-400 hover:text-pink-500 transition-colors">Privacy</a>
+        <a href="#" class="text-slate-400 hover:text-pink-500 transition-colors">Contact</a>
     </div>
 
-    <div class="text-xs text-zinc-400 mt-6">
-        © {{ date('Y') }} Pawverse
+    <div class="text-[10px] text-slate-300 mt-10 uppercase tracking-widest">
+        © {{ date('Y') }} Pawverse - Made with ❤ for Dogs
     </div>
 
 </footer>
