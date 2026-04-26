@@ -5,6 +5,7 @@
         $pages = [
             'maze'   => 'Maze',
             'walk'   => 'Walk',
+            'field'   => 'Field',
         ];
     @endphp
 

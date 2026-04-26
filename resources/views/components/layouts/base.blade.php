@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     @include('partials.head')
 </head>
-<body class="min-h-screen bg-white dark:bg-zinc-800 flex flex-col">
+<body class="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
 
     {{-- ヘッダー🐶 --}}
     <x-layouts.partials.header />
