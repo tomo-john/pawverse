@@ -98,37 +98,76 @@
                 { x: 3, y: 5, icon: 'fa-solid fa-baseball-ball'},
             ],
 
-            message: '',
+            messageState: {
+                mode: 'status',
+                key: null,
+            },
+
             hoverTarget: null,
             overrideMessage: '',
             nextDogFlg: false,
 
             init() {},
 
+            // actions(イベント系)
             showMessage(type) {
-                this.hoverTarget = type;
-                if (type === 'item') {
-                    this.message = 'かたづけますか?';
-                } else if (type === 'house') {
-                    if (this.canEnter) {
-                        this.message = 'あの子のいるPawverseへ..行きますか？';
-                    } else {
-                        this.message = 'まだ準備ができていないようです。';
-                    }
-                }
+                this.messageState = { mode: 'hover', key: type };
             },
 
             hideMessage() {
-                this.message = '';
-                this.hoverTarget = null;
+                this.messageState = { mode: 'status', key: null };
             },
 
             cleanItem(targetItem) {
                 targetItem.isCollected = true;
             },
 
+            goCreate() {
+                if (!this.canEnter) return;
+
+                this.overrideMessage = '...見つけたワン!';
+
+                this.nextDogFlg = true;
+
+                setTimeout(() => {
+                    window.location.href = this.nextUrl;;
+                }, 800);
+            },
+
+            // computed (依存系)
             get collectedCount() {
                 return this.items.filter(i => i.isCollected).length;
+            },
+
+            get canEnter() {
+                return this.collectedCount >= 2;
+            },
+
+            get statusMessage() {
+                if (this.overrideMessage) return  this.overrideMessage;
+
+                const count = this.collectedCount;
+
+                if (count === 0) return 'まだ誰もいないワン...';
+                if (count === 1) return '誰かいたのかワン...？';
+                if (count === 2) return '...あっちから気配がするワン';
+                if (count === 3) return 'あの子のおもちゃだワン！';
+                if (count === 4) return 'もうすぐ、会える気がするワン...！';
+                return '待ってるワン。ずっと';
+            },
+
+            get message() {
+                if (this.messageState.mode !== 'hover') return '';
+
+                const key = this.messageState.key;
+
+                if (key === 'item') return 'かたずけますか？';
+
+                if (key === 'house') {
+                    return this.canEnter
+                        ? 'あの子のいるPawverseへ..行きますか？'
+                        : 'まだ準備ができていないようです。';
+                }
             },
 
             get dogAnimation() {
@@ -167,35 +206,6 @@
                     5: 'opacity-100',
                 };
                 return opacities[this.collectedCount] || 'opacity-0';
-            },
-
-            get statusMessage() {
-                if (this.overrideMessage) return  this.overrideMessage;
-
-                const count = this.collectedCount;
-
-                if (count === 0) return 'まだ誰もいないワン...';
-                if (count === 1) return '誰かいたのかワン...？';
-                if (count === 2) return '...あっちから気配がするワン';
-                if (count === 3) return 'あの子のおもちゃだワン！';
-                if (count === 4) return 'もうすぐ、会える気がするワン...！';
-                return '待ってるワン。ずっと';
-            },
-
-            get canEnter() {
-                return this.collectedCount >= 2;
-            },
-
-            goCreate() {
-                if (!this.canEnter) return;
-
-                this.overrideMessage = '...見つけたワン!';
-
-                this.nextDogFlg = true;
-
-                setTimeout(() => {
-                    window.location.href = this.nextUrl;;
-                }, 800);
             },
         }
     }
