@@ -3,7 +3,7 @@
 <head>
     @include('partials.head')
 </head>
-<body class="antialiased font-sans">
+<body class="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
 
     <div class="min-h-screen flex flex-col justify-center items-center px-4 my-4">
 
