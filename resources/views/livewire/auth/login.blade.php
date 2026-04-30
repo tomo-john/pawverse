@@ -30,23 +30,35 @@
                 @enderror
             </div>
 
-            <div class="space-y-1 relative">
+            <div x-data="{ show: false }" class="space-y-1 relative">
                 <label class="block text-sm font-bold text-slate-700 ml-1" for="password">
                     {{ __('Password') }}
                 </label>
-                <input id="password"
-                       name="password"
-                       type="password"
-                       required
-                       autocomplete="current-password"
-                       class="w-full bg-pink-50/30 px-4 py-3 rounded-2xl border-2 border-pink-100 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 transition-colors outline-none"
-                >
+
+                <div class="relative">
+                    <input id="password"
+                           name="password"
+                           :type="show ? 'text' : 'password'"
+                           required
+                           autocomplete="current-password"
+                           class="w-full bg-pink-50/30 px-4 py-3 rounded-2xl border-2 border-pink-100 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 transition-colors outline-none"
+                    >
+
+                    <button type="button"
+                            @click="show = !show"
+                            class="absolute inset-y-0 right-3 flex items-center text-slate-400 hover:text-pink-500"
+                    >
+                        <i x-show="!show" class="fa-solid fa-eye"></i>
+                        <i x-show="show" class="fa-solid fa-eye-slash"></i>
+                    </button>
+                </div>
+
                 @error('password')
                     <p class="text-xs text-rose-500 mt-1 ml-2 font-bold">{{ $message }}</p>
                 @enderror
 
                 <a href="{{ route('password.request') }}"
-                   class="absolute top-0 right-0 text-xs font-bod text-pink-400 hover:text-pink-600 transition-colors"
+                   class="absolute top-0 right-0 text-xs font-bold text-pink-400 hover:text-pink-600 transition-colors"
                    wire:navigate
                 >
                     {{ __('Forgot your password?') }}
