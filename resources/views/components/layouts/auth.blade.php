@@ -24,7 +24,7 @@
             </div>
         </a>
 
-        <div class="w-full max-w-sm">
+        <div class="w-full max-w-sm" x-data="followDog()">
             {{ $slot }}
         </div>
 
@@ -45,6 +45,26 @@
 
             }
         }
+
+        function followDog() {
+            return {
+                topPos: 0,
+                visible: false,
+
+                updatePos(event) {
+                    const inputRect = event.target.getBoundingClientRect();
+                    const formRect = this.$refs.form.getBoundingClientRect();
+
+                    this.topPos = inputRect.top - formRect.top + inputRect.height / 2 -10;
+                    this.visible = true;
+                },
+
+                resetPos() {
+                    this.visible = false;
+                },
+            }
+        }
+
     </script>
 
     @fluxScripts

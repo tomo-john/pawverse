@@ -1,7 +1,14 @@
 <x-layouts.auth>
-    <div class="flex flex-col gap-8 bg-white p-10 rounded-2xl shadow-xl shadow-pink-100/50 border-4 border-white relative overflow-hidden">
+    <div class="flex flex-col gap-8 bg-white p-10 rounded-2xl shadow-xl shadow-pink-100/50 border-4 border-white relative overflow-hidden" x-ref="form">
 
         <i class="fa-solid fa-paw absolute -top-4 -right-4 text-pink-50 text-8xl rotate-12 -z-0"></i>
+
+        <i class="fa-solid fa-dog text-pink-400 absolute transition-all duration-200 ease-in-out z-20"
+           :style="`
+                top: ${topPos}px;
+                transform: translateX(${visible ? '-30px' : '-60px'});
+           `"
+        ></i>
 
         <div class="relative z-10 space-y-2 text-center">
             <h2 class="text-2xl font-black text-pink-600 tracking-tighter">{{ __('Log in to your account') }}</h2>
@@ -24,6 +31,8 @@
                        autofocus
                        autocomplete="email"
                        class="w-full bg-pink-50/30 px-4 py-3 rounded-2xl border-2 border-pink-100 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 transition-all outline-none"
+                       @focus="updatePos($event)"
+                       @blur="resetPos()"
                 >
                 @error('email')
                     <p class="text-xs text-rose-500 mt-1 ml-2 font-bold">{{ $message }}</p>
@@ -42,10 +51,14 @@
                            required
                            autocomplete="current-password"
                            class="w-full bg-pink-50/30 px-4 py-3 rounded-2xl border-2 border-pink-100 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 transition-colors outline-none"
+                           @focus="updatePos($event)"
+                           @blur="resetPos()"
                     >
 
                     <button type="button"
                             @click="show = !show"
+                            @focus="updatePos($event)"
+                            @blur="resetPos()"
                             class="absolute inset-y-0 right-3 flex items-center text-slate-400 hover:text-pink-500"
                     >
                         <i x-show="!show" class="fa-solid fa-eye"></i>
