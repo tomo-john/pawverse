@@ -3,9 +3,21 @@
 <head>
     @include('partials.head')
 </head>
-<body class="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
+<body class="min-h-screen bg-pink-50 text-slate-900 flex flex-col">
 
     <div class="min-h-screen flex flex-col justify-center items-center px-4 my-4">
+
+        <div class="fixed inset-0 pointer-events-none opacity-[0.03]">
+            <div class="absolute top-10 left-10 rotate-12">
+                <i class="fa-solid fa-paw text-[120px]"></i>
+            </div>
+            <div class="absolute bottom-20 right-10 -rotate-12">
+                <i class="fa-solid fa-paw text-[160px]"></i>
+            </div>
+            <div class="absolute top-1/2 left-1/3 rotate-6">
+                <i class="fa-solid fa-paw text-[100px]"></i>
+            </div>
+        </div>
 
         <a href="{{ route('home') }}"
            x-data="welcomeDog()"
