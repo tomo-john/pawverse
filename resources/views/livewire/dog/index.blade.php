@@ -1,10 +1,6 @@
 <div class="max-w-5xl mx-auto space-y-4">
 
-    <flux:heading size="xl">
-        <i class="fa-solid fa-paw"></i>
-        Pawverse Dog
-    </flux:heading>
-
+    {{-- Toast --}}
     <x-dog.toast />
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
@@ -39,7 +35,7 @@
 
     <flux:separator variant="subtle" class="my-6" />
 
-    <!-- Index -->
+    {{-- Index --}}
     @include('livewire.dog.index._list')
 
 </div>

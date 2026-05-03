@@ -92,7 +92,7 @@
             rows: 6,
             items: [
                 { x: 2, y: 4, icon: 'fa-solid fa-bone'},
-                { x: 7, y: 5 , icon: 'fa-solid fa-bowl-food'},
+                { x: 7, y: 5, icon: 'fa-solid fa-bowl-food'},
                 { x: 4, y: 1, icon: 'fa-solid fa-bicycle'},
                 { x: 6, y: 3, icon: 'fa-solid fa-football'},
                 { x: 3, y: 5, icon: 'fa-solid fa-baseball-ball'},
@@ -161,7 +161,7 @@
 
                 const key = this.messageState.key;
 
-                if (key === 'item') return 'かたずけますか？';
+                if (key === 'item') return 'かたづけますか？';
 
                 if (key === 'house') {
                     return this.canEnter
