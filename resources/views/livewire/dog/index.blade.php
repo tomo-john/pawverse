@@ -2,46 +2,51 @@
 
     {{-- Background --}}
     <div class="absolute inset-0 pointer-events-none opacity-[0.04]">
-        <i class="fa-solid fa-paw absolute top-10 left-10 text-8xl rotate-12"></i>
+        <i class="fa-solid fa-paw absolute top-10 -left-10 text-8xl rotate-12"></i>
         <i class="fa-solid fa-paw absolute bottom-10 right-10 text-9xl -rotate-12"></i>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+    <div class="relative z-10 p-6">
 
-        {{-- Form --}}
-        <div class="lg:col-span-2"
-             x-data
-             x-on:scroll-to-form.window="
-                setTimeout(() => {
-                    const form = document.getElementById('dog-form');
-                    const input = document.getElementById('dog-name');
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
 
-                    form?.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'center'
-                    });
+            {{-- Form --}}
+            <div class="lg:col-span-2"
+                 x-data
+                 x-on:scroll-to-form.window="
+                    setTimeout(() => {
+                        const form = document.getElementById('dog-form');
+                        const input = document.getElementById('dog-name');
 
-                    input?.focus();
+                        form?.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
 
-                }, 100)
-             "
-        >
-            @include('livewire.dog.index._form')
-        </div>
+                        input?.focus();
 
-        {{-- Preview --}}
-        <div class="lg:col-span-1">
-            @include('livewire.dog.index._preview')
+                    }, 100)
+                 "
+            >
+                @include('livewire.dog.index._form')
+            </div>
+
+            {{-- Preview --}}
+            <div class="lg:col-span-1">
+                @include('livewire.dog.index._preview')
+            </div>
+
         </div>
 
     </div>
 
-    <flux:separator variant="subtle" class="my-6" />
-    <div class="flex items-center gap-4 py-2">
+    {{-- Separator --}}
+    <div class="flex items-center gap-4 py-6 opacity-70">
+        <i class="fa-solid fa-paw text-pink-300 animate-pulse"></i>
         <div class="h-px flex-1 bg-pink-100"></div>
-        <i class="fa-solid fa-paw text-pink-300"></i>
+        <i class="fa-solid fa-paw text-pink-300 animate-pulse"></i>
         <div class="h-px flex-1 bg-pink-100"></div>
-        <i class="fa-solid fa-paw text-pink-300"></i>
+        <i class="fa-solid fa-paw text-pink-300 animate-pulse"></i>
     </div>
 
     {{-- Index --}}
