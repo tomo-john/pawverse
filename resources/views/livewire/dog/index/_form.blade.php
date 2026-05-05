@@ -53,20 +53,20 @@
 
     {{-- size --}}
     <div class="space-y-1">
-        <label class="text-sm font-medium">大きさ</label>
+        <label class="text-sm font-medium text-slate-500">大きさ</label>
 
         <input type="range"
                min="1"
                max="9"
                step="1"
                wire:model.live="size_level"
-               class="w-full">
+               class="w-full accent-pink-300 cursor-pointer bg-pink-100 rounded-lg">
 
-        <div class="text-sm text-slate-500">
+        <div class="text-sm text-slate-400">
             {{
-                $size_level < 3 ? '小さめだわん' :
-                    ($size_level < 7 ? 'いい感じの大きさだわん' :
-                    '大きいわん！頼もしいわん')
+                $size_level < 3 ? '小さくてかわいいわん🐶' :
+                    ($size_level < 7 ? 'いい感じの大きさだわん🐶' :
+                    '大きいわん！頼もしいわん🐶')
             }}
         </div>
     </div>
@@ -77,7 +77,7 @@
                wire:model="is_public"
                class="w-4 h-4 accent-pink-500"
         >
-        <span class="text-sm text-slate-500 font-medium">
+        <span class="text-sm font-medium text-slate-500">
             みんなにも会わせてあげる？
         </span>
     </label>
@@ -94,8 +94,8 @@
 
         <button
             wire:click="resetForm"
-            class="flex-1 text-sm py-2 rounded-2xl bg-slate-300 text-white font-bold transition-all duration-200
-                   hover:text-black hover:scale-[1.05] active:scale-95"
+            class="flex-1 text-sm py-2 rounded-2xl bg-slate-100 text-slate-400 font-bold transition-all duration-200
+                   hover:text-pink-400 hover:bg-pink-50 hover:scale-[1.05] active:scale-95"
         >
             やりなおす
         </button>

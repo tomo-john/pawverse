@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 class Index extends Component
 {
     public $name;
-    public $color = '#000000';
+    public $color = '#e60076';
     public $size_level = 5;
     public $is_public = false;
     public $editingId = null;
