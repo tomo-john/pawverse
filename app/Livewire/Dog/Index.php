@@ -62,7 +62,7 @@ class Index extends Component
             'editingId',
         ]);
 
-        $this->color = '#000000';
+        $this->color = '#e60076';
         $this->size_level = 5;
         $this->is_public = false;
     }
@@ -81,8 +81,12 @@ class Index extends Component
             }
 
             $this->dispatch('notify',
-                message: $this->editingId ? '更新しました' : '登録しました',
-                variant: 'success'
+                message: $this->editingId
+                    ? 'この子、もっと素敵になったわん🐶✨'
+                    : '新しい子を迎えたわん!',
+                variant: $this->editingId
+                    ? 'info'
+                    : 'success',
             );
 
             $this->resetForm();
