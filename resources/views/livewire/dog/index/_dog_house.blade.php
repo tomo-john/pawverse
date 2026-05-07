@@ -29,32 +29,71 @@
         <i class="fa-solid fa-dog {{ $dog->size_class }}
                   transition-all duration-300
                   hover:scale-110 hover:-rotate-3"
+           :class="isLeft ? '-scale-x-100' : 'scale-x-100'"
            style="color: {{ $dog->color }}"></i>
 
+        {{-- セリフ --}}
         <div x-show="showMessage"
              x-transition.duration.200ms
-             class="absolute -top-10 right-0"
+             class="absolute -top-10 left-1/2 -translate-x-1/2 z-30"
         >
             <span x-text="message" class="text-sm font-bold text-slate-500 bg-white px-2 py-1 rounded-xl"></span>
         </div>
     </div>
 
+    {{-- edit --}}
     <div class="absolute bottom-5 right-8 z-30 opacity-0 group-hover:opacity-100 transition">
         <button wire:click="edit({{ $dog->id }})"
                 class="fa-solid fa-bone text-2xl text-gray-500 -rotate-12 cursor-pointer"
-                @mouseover="showMessage = true"
-                @mouseleave="showMessage = false"
+                @mouseenter="openMessage('お色直しするわん？')"
+                @mouseleave="closeMessage()"
         >
         </button>
     </div>
+
+    {{-- show --}}
+    <div class="absolute bottom-10 left-8 z-30 opacity-0 group-hover:opacity-100 transition">
+        <a href="{{ route('dog.show', $dog)}}"
+                class="fa-solid fa-baseball text-2xl text-sky-500 cursor-pointer"
+                @mouseenter="openMessage('お部屋にいくわん？'); isLeft = true"
+                @mouseleave="closeMessage(); isLeft = false"
+        >
+        </a>
+    </div>
+
+    {{-- is_public --}}
+    <div class="absolute top-4 left-4 z-30">
+        {{ $dog->is_public }}
+    </div>
+
+    {{-- 仮の削除ボタン --}}
+    <div class="absolute top-4 right-4 z-30 opacity-0 group-hover:opacity-100 transition">
+        <button wire:click="delete({{ $dog->id }})"
+                wire:confirm="本当にお別れしますか...？"
+                class="fa-solid fa-trash-can text-rose-500 cursor-pointer"
+        >
+        </button>
+    </div>
+
 
 </div>
 
 <script>
     function dogHouse() {
         return {
+            isLeft: false,
             showMessage: false,
-            message: 'お色直しするわん？',
+            message: '',
+
+            openMessage(message = '') {
+                this.message = message;
+                this.showMessage = true;
+            },
+
+            closeMessage() {
+                this.message = '';
+                this.showMessage = false;
+            },
         }
     }
 </script>
