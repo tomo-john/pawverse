@@ -4,7 +4,6 @@
     <div class="text-lg font-bold text-pink-600 flex items-center justify-center gap-2">
         <img src="{{ asset('favicon.svg')}}" alt="Pawverse logo" class="w-8 h-8 inline">
         Pawverse
-        <i class="fa-solid fa-dog text-pink-400"></i>
     </div>
 
     <p class="text-sm text-slate-500 mt-3">

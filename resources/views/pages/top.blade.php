@@ -7,7 +7,8 @@
                     Pawverse
                 </flux:heading>
                 <flux:text class="mt-4 text-lg text-slate-600 font-medium">
-                    あたなだけのわんこを育てて記録するアプリ🐶
+                    あたなだけのわんこを育てて記録するアプリ
+                    <i class="fa-solid fa-dog"></i>
                 </flux:text>
             </div>
 
@@ -60,7 +61,10 @@
             <flux:separator class="!bg-pink-200 mb-10" />
 
             <section class="bg-gradient-to-br from-pink-50 to-orange-50 rounded-2xl p-10 text-center border-2 border-white shadow-liner">
-                <flux:heading size="md" level="2" class="text-pink-600 mb-6">🐶気になったら🐶</flux:heading>
+                <flux:heading size="md" level="2" class="text-pink-600 mb-6">
+                    待ってるわん
+                    <i class="fa-solid fa-dog"></i>
+                </flux:heading>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
                     <flux:button variant="primary" color="pink" class="px-10 py-6 rounded-full shadow-lg shadow-pink-200/50 text-lg" as="a" href="{{ route('register') }}">
                         わんこを迎えてみる(新規登録)
