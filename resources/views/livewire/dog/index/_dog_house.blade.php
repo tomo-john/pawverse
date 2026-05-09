@@ -21,7 +21,7 @@
 
             <div class="absolute top-0 left-1/2 -translate-x-1/2 translate-y-5
                         px-3 py-1 text-xs rounded-full bg-white/90 backdrop-blur border border-pink-100 text-slate-500 shadow whitespace-nowrap">
-                {{ Str::limit($dog->name, 10) }}
+                {{ Str::limit($dog->name, 12) }}
             </div>
         </div>
 
@@ -47,7 +47,7 @@
     {{-- edit --}}
     <div class="absolute bottom-5 right-8 z-30 opacity-0 group-hover:opacity-100 transition">
         <button wire:click="edit({{ $dog->id }})"
-                class="fa-solid fa-bone text-2xl text-gray-500 -rotate-12 cursor-pointer"
+                class="fa-solid fa-bone text-2xl text-amber-500 -rotate-12 cursor-pointer"
                 @mouseenter="openMessage('お色直しするわん？')"
                 @mouseleave="closeMessage()"
         >
@@ -68,15 +68,23 @@
     <div class="absolute top-4 left-4 z-30">
         @if ($dog->is_public)
             <i class="fa-regular fa-sun text-2xl text-red-500"
-               @mouseenter="openMessage('お外で遊んでるわん')"
-               @mouseleave="closeMessage()"
+               @mouseenter="openMessage('お外で遊んでるわん'); isLeft = true"
+               @mouseleave="closeMessage(); isLeft = false"
             ></i>
         @else
             <i class="fa-regular fa-moon text-2xl text-amber-200"
-               @mouseenter="openMessage('お家が一番だわん')"
-               @mouseleave="closeMessage()"
+               @mouseenter="openMessage('お家が一番だわん'); isLeft = true"
+               @mouseleave="closeMessage(); isLeft = false"
             ></i>
         @endif
+    </div>
+
+    {{-- エサ(装飾) --}}
+    <div class="absolute top-24 right-16 z-30 hover:rotate-6 transition">
+        <i class="fa-solid fa-bowl-food text-2xl text-stone-500"
+           @mouseenter="openMessage('むちゅ')"
+           @mouseleave="closeMessage()"
+        ></i>
     </div>
 
     {{-- 仮の削除ボタン(あくまで仮) --}}
