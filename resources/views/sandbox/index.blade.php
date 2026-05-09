@@ -6,6 +6,7 @@
             'maze'   => 'Maze',
             'walk'   => 'Walk',
             'field'   => 'Field',
+            'flex'   => 'Flex',
         ];
     @endphp
 
