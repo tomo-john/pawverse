@@ -16,8 +16,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard
     Route::get('dashboard', World::class)->name('dashboard');
 
-    // My Dogs
+    // Dogs
     Route::get('dogs', Index::class)->name('dog.index');
+    Route::get('dogs/create', Create::class)->name('dog.create');
     Route::get('dogs/{dog}', Show::class)->name('dog.show');
 
 });

@@ -9,6 +9,15 @@
     {{-- Dogs --}}
     @include('livewire.dog.index._dog_village')
 
+    {{-- Separator --}}
+    <div class="flex items-center gap-4 py-6 opacity-70">
+        <i class="fa-solid fa-paw text-pink-300 animate-pulse"></i>
+        <div class="h-px flex-1 bg-pink-100"></div>
+        <i class="fa-solid fa-paw text-pink-300 animate-pulse"></i>
+        <div class="h-px flex-1 bg-pink-100"></div>
+        <i class="fa-solid fa-paw text-pink-300 animate-pulse"></i>
+    </div>
+
     {{-- Form & Prevview--}}
     <div class="relative z-10 p-6">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
