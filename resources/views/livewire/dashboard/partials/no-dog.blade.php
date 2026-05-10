@@ -1,4 +1,4 @@
-<div class="max-w-3xl mx-auto" x-data="noDog('{{ route('dog.index') }}')">
+<div class="max-w-3xl mx-auto" x-data="noDog('{{ route('dog.create') }}')">
 
     <div class="relative"
          :style="{

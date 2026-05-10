@@ -4,7 +4,7 @@ namespace App\Livewire\Dog;
 
 use Livewire\Component;
 use Livewire\Attributes\Computed;
-use App\Models\Dog as DogModel;
+use App\Models\Dog;
 use Illuminate\Support\Collection;
 
 class Index extends Component
@@ -14,6 +14,13 @@ class Index extends Component
     public $size_level = 5;
     public $is_public = false;
     public $editingId = null;
+
+    public function mount() :void
+    {
+        if (auth()->user()->dogs()->doesntExist()) {
+            $this->redirectRoute('dog.create');
+        }
+    }
 
     #[Computed]
     public function dogs(): Collection
@@ -26,7 +33,7 @@ class Index extends Component
     #[Computed]
     public function sizeClass(): string
     {
-        return DogModel::SIZE_CLASSES[$this->size_level] ?? 'text-5xl';
+        return Dog::SIZE_CLASSES[$this->size_level] ?? 'text-5xl';
     }
 
     public function updatedName(): void
@@ -73,11 +80,11 @@ class Index extends Component
 
         try {
             if ($this->editingId) {
-                $dog = DogModel::findOrFail($this->editingId);
+                $dog = Dog::findOrFail($this->editingId);
                 $this->authorize('update', $dog);
                 $dog->update($this->dogPayload());
             } else {
-                $dog = DogModel::create($this->dogPayload());
+                $dog = Dog::create($this->dogPayload());
             }
 
             $this->dispatch('notify',
@@ -103,7 +110,7 @@ class Index extends Component
 
     public function edit(int $id): void
     {
-        $dog = DogModel::findOrFail($id);
+        $dog = Dog::findOrFail($id);
         $this->authorize('update', $dog);
 
         $this->editingId = $dog->id;
@@ -117,7 +124,7 @@ class Index extends Component
 
     public function delete(int $id): void
     {
-        $dog = DogModel::findOrFail($id);
+        $dog = Dog::findOrFail($id);
         $this->authorize('delete', $dog);
         $dog->delete();
 

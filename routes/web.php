@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Dog\Index;
+use App\Livewire\Dog\Create;
 use App\Livewire\Dog\Show;
 use App\Livewire\PublicDog\Index as PublicDogIndex;
 use App\Livewire\Dashboard\World;
