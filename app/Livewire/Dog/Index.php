@@ -29,6 +29,12 @@ class Index extends Component
         return DogModel::SIZE_CLASSES[$this->size_level] ?? 'text-5xl';
     }
 
+    #[Computed]
+    public function hasName(): bool
+    {
+        return filled($this->name);
+    }
+
     public function updatedName(): void
     {
         $this->validateOnly('name');

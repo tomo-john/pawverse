@@ -11,6 +11,16 @@
             @include('livewire.dog.index._dog_house')
         @endforeach
     </div>
+
+    {{-- Separator --}}
+    <div class="flex items-center gap-4 py-6 opacity-70">
+        <i class="fa-solid fa-paw text-pink-300 animate-pulse"></i>
+        <div class="h-px flex-1 bg-pink-100"></div>
+        <i class="fa-solid fa-paw text-pink-300 animate-pulse"></i>
+        <div class="h-px flex-1 bg-pink-100"></div>
+        <i class="fa-solid fa-paw text-pink-300 animate-pulse"></i>
+    </div>
+
 @else
     @include('livewire.dog.index._empty_village')
 @endif

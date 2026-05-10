@@ -16,8 +16,7 @@
        @mouseleave="closeMessage()"
     >
         <div class="relative">
-            <i class="fa-solid fa-house text-8xl text-amber-300 drop-shadow-md transition group-hover:scale-110"
-            ></i>
+            <i class="fa-solid fa-house text-8xl text-amber-300 drop-shadow-md transition group-hover:scale-110"></i>
 
             <div class="absolute top-0 left-1/2 -translate-x-1/2 translate-y-5
                         px-3 py-1 text-xs rounded-full bg-white/90 backdrop-blur border border-pink-100 text-slate-500 shadow whitespace-nowrap">
