@@ -31,17 +31,6 @@ class Create extends Component
     }
 
     #[Computed]
-    public function currentStep(): int
-    {
-        if (!$this->hasCustomName)      return 1;
-        if (!$this->hasCustomColor)     return 2;
-        if (!$this->hasCustomSize)      return 3;
-        if (!$this->hasCustomIsPublic)  return 4;
-
-        return 5;
-    }
-
-    #[Computed]
     public function hasCustomName(): bool
     {
         return filled($this->name);
@@ -56,13 +45,13 @@ class Create extends Component
     #[Computed]
     public function hasCustomSize(): bool
     {
-        return !is_null($this-size_level);
+        return !is_null($this->size_level);
     }
 
     #[Computed]
     public function hasCustomIsPublic(): bool
     {
-        return !is_null($this-is_public);
+        return !is_null($this->is_public);
     }
 
     #[Computed]
@@ -70,18 +59,27 @@ class Create extends Component
     {
         return match($this->step) {
             0 => 'あの子のこと教えてほしいわん',
-            1 => '名前を教えてほしいわん',
-            2 => '毛色を教えてほしいわん',
-            3 => '大きさを教えてほしいわん',
-            4 => '公開するかを教えてほしいわん',
+            1 => 'あの子の名前は何だったかな',
+            2 => 'どんな毛色だったかな',
+            3 => 'どれくらいの大きさだったかな',
+            4 => 'この子をみんなにもみせてあげる？',
             default => '🐶',
         };
     }
 
     #[Computed]
+    public function sizeClass(): string
+    {
+        return Dog::SIZE_CLASSES[$this->size_level] ?? 'text-5xl';
+    }
+
+    #[Computed]
     public function canSave(): bool
     {
-        return $this->currentStep >= 5;
+        return $this->hasCustomName
+            && $this->hasCustomColor
+            && $this->hasCustomSize
+            && $this->hasCustomIsPublic
     }
 
     public function render()
