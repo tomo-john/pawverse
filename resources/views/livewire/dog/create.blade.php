@@ -1,26 +1,26 @@
-<div x-data="createDog()" class="max-w-3xl mx-auto flex flex-col gap-3">
+<div x-data="{ overrideMessage: '' }"
+     x-on:message.window="overrideMessage = $event.detail.text"
+     x-on:message-clear="overrideMessage = ''"
+     class="max-w-3xl mx-auto flex flex-col gap-3"
+>
 
     {{-- Dog Area --}}
     <div class="relative flex flex-col items-center gap-2 h-84">
-        <i @class([
-            'fa-solid fa-house text-9xl text-gray-300 opacity-30 transition-all duration-500',
-            'text-gray-300 opacity-50 animate-pulse' => $step === 1,
-            ])></i>
-        <i @class([ 'fa-solid fa-dog opacity-0 transition-all duration-500',
-            $this->sizeClass => $this->hasCustomSize,
-            'opacity-20 animate-pulse' => $step >= 1 && $this->hasCustomName,
-            'opacity-40' => $step === 2 && $this->hasCustomColor,
-            'opacity-60' => $step === 3,
-            'opacity-80' => $step === 4,
-            '-rotate-6' => $this->hasCustomIsPublic,
-            'rotate-6' => $step === 4 && $is_public === false,
-            ])
-            style="color: {{ $color }}"
-        ></i>
+        <i class="{{ $this->houseClasses }}"></i>
+        <i class="{{ $this->dogClasses }}" style="color: {{ $color }}"></i>
         <div class="absolute top-0 left-1/2 -translate-x-1/2 translate-y-5
                     px-3 py-1 text-xs rounded-full bg-white/90 backdrop-blur border border-pink-100 text-slate-500 shadow whitespace-nowrap">
             {{ Str::limit($name ? $name : '...', 12) }}
         </div>
+
+        @foreach($this->worldItems as $item)
+            <div @class([
+                 'absolute opacity-0 scale-50 text-2xl text-gray-300 transition-all duration-700', $item['icon'], $item['pos'],
+                 'opacity-100 scale-100 animate-pulse' => $step >= $item['step'],
+            ])
+            >
+            </div>
+        @endforeach
     </div>
 
     {{-- Console Message --}}
@@ -29,7 +29,7 @@
     >
         <div class="flex items-center gap-3 animate-pulse">
             <i class="fa-solid fa-circle-question text-gray-400"></i>
-            <p class="text-gray-500 font-bold text-sm">{{ $this->consoleMessage }}</p>
+            <p x-text="overrideMessage || @js($this->consoleMessage)" class="text-gray-500 font-bold text-sm"></p>
         </div>
     </div>
 
@@ -57,7 +57,11 @@
                 </div>
             </div>
             <div class="text-sm text-slate-500">
-                あのこの毛色
+                @if(!$this->hasCustomColor)
+                    あのこの毛色
+                @else
+                    こんな色だった気がするわん
+                @endif
             </div>
         </div>
     @endif
@@ -72,7 +76,11 @@
                    class="w-64 accent-pink-300 cursor-pointer bg-pink-100 rounded-lg">
 
             <div class="text-sm text-slate-500">
-                あの子の大きさ
+                @if(!$this->hasCustomSize)
+                    あの子の大きさ
+                @else
+                    これくらいの大きさだったかな？
+                @endif
             </div>
         </div>
     @endif
@@ -101,23 +109,15 @@
                     いいえ
                 </button>
             </div>
-            @if(is_null($is_public))
-                <div class="text-sm text-slate-500">
+            <div class="text-sm text-slate-500">
+                @if(is_null($is_public))
                     どちらか選んでね
-                </div>
-            @endif
-
-            @if($is_public)
-                <div class="text-sm text-slate-500">
+                @elseif($is_public === true)
                     みんなに見てもらうわん!
-                </div>
-            @endif
-
-            @if($is_public === false)
-                <div class="text-sm text-slate-500">
+                @elseif($is_public === false)
                     お家が一番なんだわん
-                </div>
-            @endif
+                @endif
+            </div>
         </div>
     @endif
 
@@ -139,11 +139,3 @@
     </div>
 
 </div>
-
-<script>
-    function creatDog() {
-        return {
-
-        }
-    }
-</script>

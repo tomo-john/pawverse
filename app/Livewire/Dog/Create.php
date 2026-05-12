@@ -22,12 +22,33 @@ class Create extends Component
 
     public function nextStep(): void
     {
+        if ($this->step === 1 && !$this->hasCustomName) {
+            $this->dispatch('message', text: 'まだ名前がないみたいだわん...');
+            return;
+        }
+
+        if ($this->step === 2 && !$this->hasCustomColor) {
+            $this->dispatch('message', text: '毛色を選んでほしいわん');
+            return;
+        }
+
+        if ($this->step === 3 && !$this->hasCustomSize) {
+            $this->dispatch('message', text: 'サイズを選んでほしいわん');
+            return;
+        }
+
+        if ($this->step === 4 && !$this->hasCustomIsPublic) {
+            return;
+        }
+
         $this->step++;
+        $this->dispatch('message-clear');
     }
 
     public function prevStep(): void
     {
         $this->step--;
+        $this->dispatch('message-clear');
     }
 
     #[Computed]
@@ -74,12 +95,92 @@ class Create extends Component
     }
 
     #[Computed]
+    public function dogClasses(): string
+    {
+        $classes = ['fa-solid', 'fa-dog', 'opacity-0', 'transition-all', 'duration-500',];
+
+        if($this->hasCustomSize) {
+            $classes[] = $this->sizeClass;
+        }
+
+        if($this->step >= 1 && $this->hasCustomName) {
+            $classes[] = 'opacity-20 animate-pulse';
+        }
+
+        if($this->step === 2 && $this->hasCustomColor) {
+            $classes[] = 'opacity-40';
+        }
+
+        if($this->step === 3) {
+            $classes[] = 'opacity-60';
+        }
+
+        if($this->step === 4) {
+            $classes[] = 'opacity-80';
+        }
+
+        if($this->hasCustomIsPublic) {
+            $classes[] = '-rotate-6';
+        }
+
+        if($this->step === 4 && $this->is_public === false) {
+            $classes[] = 'rotate-6';
+        }
+
+        return implode(' ', $classes);
+    }
+
+    #[Computed]
+    public function houseClasses(): string
+    {
+        $classes = ['fa-solid fa-house text-9xl text-gray-300 opacity-30 animate-pulse transition-all duration-500',];
+
+        if($this->hasCustomSize) {
+            $classes[] = 'text-yellow-300 opacity-60';
+        }
+
+        return implode(' ', $classes);
+    }
+
+    #[Computed]
+    public function worldItems(): array
+    {
+        return [
+            [
+                'icon' => 'fa-solid fa-bone',
+                'pos'  => 'top-30 right-55',
+                'step' => 1,
+            ],
+            [
+                'icon' => 'fa-solid fa-football',
+                'pos'  => 'bottom-30 left-40',
+                'step' => 2,
+            ],
+            [
+                'icon' => 'fa-solid fa-bicycle',
+                'pos'  => 'bottom-5 right-5',
+                'step' => 3,
+            ],
+            [
+                'icon' => 'fa-solid fa-baseball-ball',
+                'pos'  => 'top-15 right-15',
+                'step' => 4,
+            ],
+            [
+                'icon' => 'fa-solid fa-bowl-food',
+                'pos'  => 'top-25 left-70',
+                'step' => 5,
+            ],
+        ];
+    }
+
+    #[Computed]
     public function canSave(): bool
     {
         return $this->hasCustomName
             && $this->hasCustomColor
             && $this->hasCustomSize
-            && $this->hasCustomIsPublic
+            && $this->hasCustomIsPublic;
     }
 
     public function render()
