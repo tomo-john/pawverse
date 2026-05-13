@@ -84,7 +84,8 @@ class Create extends Component
             2 => 'どんな毛色だったかな',
             3 => 'どれくらいの大きさだったかな',
             4 => 'この子をみんなにもみせてあげる？',
-            default => '🐶',
+            5 => 'あの子が、こっちを見てるわん...',
+            default => 'pawverseの世界へようこそ',
         };
     }
 
@@ -97,35 +98,25 @@ class Create extends Component
     #[Computed]
     public function dogClasses(): string
     {
-        $classes = ['fa-solid', 'fa-dog', 'opacity-0', 'transition-all', 'duration-500',];
+        $classes = ['fa-solid', 'fa-dog', 'transition-all', 'duration-500', 'inline-block'];
 
-        if($this->hasCustomSize) {
-            $classes[] = $this->sizeClass;
-        }
+        $classes[] = $this->hasCustomSize ? $this->sizeClass : 'text-5xl';
 
-        if($this->step >= 1 && $this->hasCustomName) {
-            $classes[] = 'opacity-20 animate-pulse';
-        }
+        $classes[] = match(true) {
+            $this->step === 5 && $this->canSave => 'opacity-100 animate-bounce',
+            $this->step === 4 => 'opacity-80 animate-pulse',
+            $this->step === 3 => 'opacity-60 animate-pulse',
+            $this->step === 2 && $this->hasCustomColor => 'opacity-40 animate-pulse',
+            $this->step >= 1 && $this->hasCustomName => 'opacity-20 animate-pulse',
+            default => 'opacity-0',
+        };
 
-        if($this->step === 2 && $this->hasCustomColor) {
-            $classes[] = 'opacity-40';
-        }
-
-        if($this->step === 3) {
-            $classes[] = 'opacity-60';
-        }
-
-        if($this->step === 4) {
-            $classes[] = 'opacity-80';
-        }
-
-        if($this->hasCustomIsPublic) {
-            $classes[] = '-rotate-6';
-        }
-
-        if($this->step === 4 && $this->is_public === false) {
-            $classes[] = 'rotate-6';
-        }
+        $classes[] = match(true) {
+            $this->step === 5 => 'rotate-0',
+            $this->is_public === true => '-rotate-6',
+            $this->is_public === false => 'rotate-6',
+            default => 'rotate-0',
+        };
 
         return implode(' ', $classes);
     }
@@ -133,10 +124,17 @@ class Create extends Component
     #[Computed]
     public function houseClasses(): string
     {
-        $classes = ['fa-solid fa-house text-9xl text-gray-300 opacity-30 animate-pulse transition-all duration-500',];
+        $classes = ['fa-solid', 'fa-house', 'text-9xl', 'transition-all', 'duration-500'];
 
-        if($this->hasCustomSize) {
-            $classes[] = 'text-yellow-300 opacity-60';
+        $classes[] = ($this->step === 5 && $this->canSave)
+            ? 'text-amber-300 drop-shadow-lg'
+            : 'text-gray-300';
+
+        if($this->step === 5) {
+            $classes[] = 'opacity-100';
+        } else {
+            $classes[] = 'animate-pulse';
+            $classes[] = $this->hasCustomSize ? 'opacity-60' : 'opacity-30';
         }
 
         return implode(' ', $classes);

@@ -121,6 +121,18 @@
         </div>
     @endif
 
+    @if($step === 5 && $this->canSave)
+        <div class="flex items-center justify-center">
+            <button type = "button"
+                    wire:click=""
+                    class="w-24 px-4 py-2 rounded-2xl font-bold cursor-pointer transition-all duration-300 border-2
+                           bg-slate-300 text-white shadow-lg"
+            >
+                Create
+            </button>
+        </div>
+    @endif
+
     {{-- 進行ボタン --}}
     <div class="flex items-center justify-center gap-4 text-2xl">
         @if($step === 0)
@@ -133,7 +145,7 @@
             <button wire:click="prevStep" class="cursor-pointer"><i class="fa-regular fa-circle-left"></i></button>
         @endif
 
-        @if($step >= 1)
+        @if($step >= 1 && $step < 5)
             <button wire:click="nextStep" class="cursor-pointer"><i class="fa-regular fa-circle-right"></i></button>
         @endif
     </div>
