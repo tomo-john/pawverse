@@ -6,6 +6,7 @@
 
     {{-- Dog Area --}}
     <div class="relative flex flex-col items-center gap-2 h-84">
+        {{-- 犬小屋・犬・表札 --}}
         <i class="{{ $this->houseClasses }}"></i>
         <i class="{{ $this->dogClasses }}" style="color: {{ $color }}"></i>
         <div class="absolute top-0 left-1/2 -translate-x-1/2 translate-y-5
@@ -13,10 +14,14 @@
             {{ Str::limit($name ? $name : '...', 12) }}
         </div>
 
+        {{-- おもちゃ --}}
         @foreach($this->worldItems as $item)
             <div @class([
-                 'absolute opacity-0 scale-50 text-2xl text-gray-300 transition-all duration-700', $item['icon'], $item['pos'],
+                 'absolute text-2xl transition-all duration-700', $item['icon'], $item['pos'],
+                 'opacity-0 scale-10' => $step < $item['step'],
                  'opacity-100 scale-100 animate-pulse' => $step >= $item['step'],
+                 'text-gray-300 animate-pulse' => $step < 5,
+                 'drop-shadow-sm ' . $item['active_color'] => $step === 5,
             ])
             >
             </div>
@@ -40,7 +45,7 @@
                    class="max-w-2xl px-2 py-2 cursor-pointer rounded-2xl bg-pink-50/50 border-2 border-pink-100 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition"
             >
             <div class="text-sm text-slate-500">
-                あのこの名前
+                あのこの名前({{ mb_strlen($name) }} / 20文字)
             </div>
         </div>
     @endif

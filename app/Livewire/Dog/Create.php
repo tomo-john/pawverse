@@ -22,9 +22,16 @@ class Create extends Component
 
     public function nextStep(): void
     {
-        if ($this->step === 1 && !$this->hasCustomName) {
-            $this->dispatch('message', text: 'まだ名前がないみたいだわん...');
-            return;
+        if ($this->step === 1) {
+            if(!$this->hasCustomName) {
+                $this->dispatch('message', text: 'まだ名前がないみたいだわん...');
+                return;
+            }
+
+            if(!$this->isNameValid) {
+                $this->dispatch('message', text: '名前長すぎるわん...');
+                return;
+            }
         }
 
         if ($this->step === 2 && !$this->hasCustomColor) {
@@ -49,6 +56,12 @@ class Create extends Component
     {
         $this->step--;
         $this->dispatch('message-clear');
+    }
+
+    #[Computed]
+    public function isNameValid(): bool
+    {
+        return mb_strlen($this->name) <= 20;
     }
 
     #[Computed]
@@ -146,28 +159,33 @@ class Create extends Component
         return [
             [
                 'icon' => 'fa-solid fa-bone',
-                'pos'  => 'top-30 right-55',
+                'pos'  => 'top-[30%] left-[25%]',
                 'step' => 1,
+                'active_color' => 'text-amber-200',
             ],
             [
                 'icon' => 'fa-solid fa-football',
-                'pos'  => 'bottom-30 left-40',
+                'pos'  => 'bottom-[30%] left-[30%]',
                 'step' => 2,
+                'active_color' => 'text-emerald-400',
             ],
             [
                 'icon' => 'fa-solid fa-bicycle',
-                'pos'  => 'bottom-5 right-5',
+                'pos'  => 'bottom-[5%] right-[5%]',
                 'step' => 3,
+                'active_color' => 'text-sky-400',
             ],
             [
                 'icon' => 'fa-solid fa-baseball-ball',
-                'pos'  => 'top-15 right-15',
+                'pos'  => 'top-[15%] right-[15%]',
                 'step' => 4,
+                'active_color' => 'text-rose-400',
             ],
             [
                 'icon' => 'fa-solid fa-bowl-food',
-                'pos'  => 'top-25 left-70',
+                'pos'  => 'top-[45%] left-[60%]',
                 'step' => 5,
+                'active_color' => 'text-orange-400',
             ],
         ];
     }
