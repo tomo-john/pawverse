@@ -214,17 +214,47 @@ class Create extends Component
             && $this->hasCustomIsPublic;
     }
 
-    // 保存処理系
+    // 保存処理関連
     protected function rules(): array
     {
+        return [
+            'name'        => 'required|string|max:20',
+            'color'       => ['required', 'regex:/^#[0-9A-Fa-f]{6}$/'],
+            'size_level'  => 'required|integer|min:1|max:9',
+            'is_public'   => 'required|boolean',
+        ];
     }
 
     protected function dogPayload(): array
     {
+        return [
+            'user_id'     => auth()->id(),
+            'name'        => $this->name,
+            'color'       => $this->color,
+            'size_level'  => $this->size_level,
+            'is_public'   => $this->is_public,
+        ];
     }
 
     public function save(): void
     {
+        if($this->step !== 5 || !$this->canSave) {
+            return;
+        }
+
+        $this->validate();
+
+        try {
+            $dog = Dog::create($this->dogPayload());
+
+            $this->dispatch('message-clear');
+            $this->dispatch('dog-created');
+
+        } catch (\Throwable $e) {
+            logger($e);
+
+            $this->dispatch('message', text: 'うまく迎えられなかったわん...');
+        }
     }
 
     public function render()
