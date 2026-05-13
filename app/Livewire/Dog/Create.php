@@ -15,11 +15,6 @@ class Create extends Component
     public $is_public = null;
     public int $step = 0;
 
-    public function mount() :void
-    {
-        // mount
-    }
-
     public function nextStep(): void
     {
         if ($this->step === 1) {
@@ -45,6 +40,7 @@ class Create extends Component
         }
 
         if ($this->step === 4 && !$this->hasCustomIsPublic) {
+            $this->dispatch('message', text: 'みんなに公開するか決めてほしいわん');
             return;
         }
 
@@ -154,6 +150,25 @@ class Create extends Component
     }
 
     #[Computed]
+    public function publicIconClasses(): string
+    {
+        $classes = ['absolute', 'text-2xl', 'top-[5%]', 'left-[35%]', 'transition-all', 'duration-500'];
+
+        if($this->step >= 4 && !is_null($this->is_public)) {
+            $classes[] = $this->is_public ? 'fa-regular fa-sun' : 'fa-regular fa-moon';
+        }
+
+        $classes[] = match(true) {
+            $this->step === 5 && $this->is_public === true => 'opacity-100 text-red-500 drop-shadow-sm',
+            $this->step === 5 && $this->is_public === false => 'opacity-100 text-amber-200 drop-shadow-sm',
+            $this->step === 4 && !is_null($this->is_public) => 'opacity-50 text-gray-200 animation-pulse',
+            default => 'oacity-0 scale-50'
+        };
+
+        return implode(' ', $classes);
+    }
+
+    #[Computed]
     public function worldItems(): array
     {
         return [
@@ -197,6 +212,19 @@ class Create extends Component
             && $this->hasCustomColor
             && $this->hasCustomSize
             && $this->hasCustomIsPublic;
+    }
+
+    // 保存処理系
+    protected function rules(): array
+    {
+    }
+
+    protected function dogPayload(): array
+    {
+    }
+
+    public function save(): void
+    {
     }
 
     public function render()

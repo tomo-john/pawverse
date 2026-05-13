@@ -26,6 +26,9 @@
             >
             </div>
         @endforeach
+
+        {{-- 公開/非公開アイコン --}}
+        <i class="{{ $this->publicIconClasses }}"></i>
     </div>
 
     {{-- Console Message --}}
@@ -129,11 +132,11 @@
     @if($step === 5 && $this->canSave)
         <div class="flex items-center justify-center">
             <button type = "button"
-                    wire:click=""
-                    class="w-24 px-4 py-2 rounded-2xl font-bold cursor-pointer transition-all duration-300 border-2
-                           bg-slate-300 text-white shadow-lg"
+                    wire:click="save"
+                    class="w-fit px-4 py-2 rounded-2xl font-bold cursor-pointer transition-all duration-300 border-2
+                           bg-slate-300 text-white shadow-lg hover:bg-pink-400 hover:scale-105"
             >
-                Create
+                迎えいれる
             </button>
         </div>
     @endif
