@@ -99,6 +99,28 @@ class Create extends Component
     }
 
     #[Computed]
+    public function formMessage(): string
+    {
+        return match(true) {
+            $this->step === 1 => "あのこの名前(" . mb_strlen($this->name).  "/ 20文字)",
+
+            $this->step === 2 => $this->hasCustomColor
+                ? 'こんな毛色だった気がするわん'
+                : 'あのこの毛色',
+
+            $this->step === 3 => $this->hasCustomSize
+                ? 'これくらいの大きさだったかな？'
+                : 'あのこの大きさ',
+
+            $this->step === 4 => !is_null($this->is_public)
+                ? ($this->is_public ? 'みんなに見てもらうわん！' : 'お家が一番なんだわん')
+                : 'どちらか選んでね',
+
+            default => '',
+        };
+    }
+
+    #[Computed]
     public function sizeClass(): string
     {
         return Dog::SIZE_CLASSES[$this->size_level] ?? 'text-5xl';
@@ -162,7 +184,7 @@ class Create extends Component
             $this->step === 5 && $this->is_public === true => 'opacity-100 text-red-500 drop-shadow-sm',
             $this->step === 5 && $this->is_public === false => 'opacity-100 text-amber-200 drop-shadow-sm',
             $this->step === 4 && !is_null($this->is_public) => 'opacity-50 text-gray-200 animate-pulse',
-            default => 'oacity-0 scale-50'
+            default => 'opacity-0 scale-50'
         };
 
         return implode(' ', $classes);

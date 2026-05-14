@@ -54,7 +54,7 @@
                    class="max-w-2xl px-2 py-2 cursor-pointer rounded-2xl bg-pink-50/50 border-2 border-pink-100 focus:border-pink-400 focus:ring-2 focus:ring-pink-200 outline-none transition"
             >
             <div class="text-sm text-slate-500">
-                あのこの名前({{ mb_strlen($name) }} / 20文字)
+                {{ $this->formMessage }}
             </div>
         </div>
     @endif
@@ -71,11 +71,7 @@
                 </div>
             </div>
             <div class="text-sm text-slate-500">
-                @if(!$this->hasCustomColor)
-                    あのこの毛色
-                @else
-                    こんな色だった気がするわん
-                @endif
+                {{ $this->formMessage }}
             </div>
         </div>
     @endif
@@ -90,11 +86,7 @@
                    class="w-64 accent-pink-300 cursor-pointer bg-pink-100 rounded-lg">
 
             <div class="text-sm text-slate-500">
-                @if(!$this->hasCustomSize)
-                    あの子の大きさ
-                @else
-                    これくらいの大きさだったかな？
-                @endif
+                {{ $this->formMessage }}
             </div>
         </div>
     @endif
@@ -124,13 +116,7 @@
                 </button>
             </div>
             <div class="text-sm text-slate-500">
-                @if(is_null($is_public))
-                    どちらか選んでね
-                @elseif($is_public === true)
-                    みんなに見てもらうわん!
-                @elseif($is_public === false)
-                    お家が一番なんだわん
-                @endif
+                {{ $this->formMessage }}
             </div>
         </div>
     @endif
@@ -169,7 +155,7 @@
     {{-- World Start Overlay --}}
     <div x-show="worldFlash"
          x-transition.opacity.duration.2000ms
-         class="fixed inset-0 z-100 pinter-events-none bg-white flex items-center justify-center"
+         class="fixed inset-0 z-[100] pointer-events-none bg-white flex items-center justify-center"
     >
          <h2 class="text-4xl font-bold text-gray-400 animate-pulse">
              Welcome to Pawverse...
@@ -197,7 +183,7 @@
                 // Redirect
                 setTimeout(() => {
                     window.location.href = '/dogs';
-                }, 2800)
+                }, 3300)
             },
         }
     }
