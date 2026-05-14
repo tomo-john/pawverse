@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Dashboard;
+namespace App\Domain\Dog;
 
 class DogBehaviorDefinition
 {

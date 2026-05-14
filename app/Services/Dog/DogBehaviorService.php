@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services\Dashboard;
+namespace App\Services\Dog;
 
 use App\Models\Dog;
-use App\Domain\Dashboard\DogBehaviorDefinition;
+use App\Domain\Dog\DogBehaviorDefinition;
 
 class DogBehaviorService
 {

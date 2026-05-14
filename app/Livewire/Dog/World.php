@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Livewire\Dashboard;
+namespace App\Livewire\Dog;
 
 use Livewire\Component;
 use Livewire\Attributes\Computed;
 use App\Models\Dog;
-use App\Services\Dashboard\DogBehaviorService;
+use App\Services\Dog\DogBehaviorService;
 
 class World extends Component
 {
@@ -32,7 +32,7 @@ class World extends Component
 
     public function render()
     {
-        return view('livewire.dashboard.world')
+        return view('livewire.dog.world')
             ->layout('components.layouts.app');
     }
 }
