@@ -8,7 +8,13 @@
     <div class="relative flex flex-col items-center gap-2 h-84">
         {{-- 犬小屋・犬・表札 --}}
         <i class="{{ $this->houseClasses }}"></i>
-        <i class="{{ $this->dogClasses }}" style="color: {{ $color }}" :class="{ 'animate-none scale-120': worldStarted }"></i>
+        <i class="{{ $this->dogClasses }}"
+           style="color: {{ $color }}"
+           :class="{
+                'animate-none translate-y-10 rotate-3': dogApproach,
+                'animate-none scale-120': worldStarted
+           }"
+       ></i>
         <div class="absolute top-0 left-1/2 -translate-x-1/2 translate-y-5
                     px-3 py-1 text-xs rounded-full bg-white/90 backdrop-blur border border-pink-100 text-slate-500 shadow whitespace-nowrap">
             {{ Str::limit($name ? $name : '...', 12) }}
@@ -133,6 +139,8 @@
         <div class="flex items-center justify-center">
             <button type = "button"
                     wire:click="save"
+                    @mouseenter="dogApproach = true"
+                    @mouseleave="dogApproach = false"
                     class="w-fit px-4 py-2 rounded-2xl font-bold cursor-pointer transition-all duration-300 border-2
                            bg-slate-300 text-white shadow-lg hover:bg-pink-400 hover:scale-105"
             >
@@ -173,6 +181,7 @@
     function dogCreate() {
         return {
             overrideMessage: '',
+            dogApproach: false,
             worldStarted: false,
             worldFlash: false,
 
