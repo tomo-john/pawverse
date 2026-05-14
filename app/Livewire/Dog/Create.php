@@ -161,7 +161,7 @@ class Create extends Component
         $classes[] = match(true) {
             $this->step === 5 && $this->is_public === true => 'opacity-100 text-red-500 drop-shadow-sm',
             $this->step === 5 && $this->is_public === false => 'opacity-100 text-amber-200 drop-shadow-sm',
-            $this->step === 4 && !is_null($this->is_public) => 'opacity-50 text-gray-200 animation-pulse',
+            $this->step === 4 && !is_null($this->is_public) => 'opacity-50 text-gray-200 animate-pulse',
             default => 'oacity-0 scale-50'
         };
 

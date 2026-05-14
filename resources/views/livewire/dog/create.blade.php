@@ -1,14 +1,14 @@
-<div x-data="{ overrideMessage: '' }"
+<div x-data="dogCreate()"
      x-on:message.window="overrideMessage = $event.detail.text"
      x-on:message-clear="overrideMessage = ''"
+     x-on:dog-created.window="startWorld()"
      class="max-w-3xl mx-auto flex flex-col gap-3"
 >
-
     {{-- Dog Area --}}
     <div class="relative flex flex-col items-center gap-2 h-84">
         {{-- 犬小屋・犬・表札 --}}
         <i class="{{ $this->houseClasses }}"></i>
-        <i class="{{ $this->dogClasses }}" style="color: {{ $color }}"></i>
+        <i class="{{ $this->dogClasses }}" style="color: {{ $color }}" :class="{ 'animate-none scale-120': worldStarted }"></i>
         <div class="absolute top-0 left-1/2 -translate-x-1/2 translate-y-5
                     px-3 py-1 text-xs rounded-full bg-white/90 backdrop-blur border border-pink-100 text-slate-500 shadow whitespace-nowrap">
             {{ Str::limit($name ? $name : '...', 12) }}
@@ -158,4 +158,38 @@
         @endif
     </div>
 
+    {{-- World Start Overlay --}}
+    <div x-show="worldFlash"
+         x-transition.opacity.duration.2000ms
+         class="fixed inset-0 z-100 pinter-events-none bg-white flex items-center justify-center"
+    >
+         <h2 class="text-4xl font-bold text-gray-400 animate-pulse">
+             Welcome to Pawverse...
+         </h2>
+    </div>
 </div>
+
+<script>
+    function dogCreate() {
+        return {
+            overrideMessage: '',
+            worldStarted: false,
+            worldFlash: false,
+
+            startWorld() {
+                this.overrideMessage = '......!!!';
+
+                this.worldStarted = true;
+
+                setTimeout(() => {
+                    this.worldFlash = true;
+                }, 1200);
+
+                // Redirect
+                setTimeout(() => {
+                    window.location.href = '/dogs';
+                }, 2800)
+            },
+        }
+    }
+</script>
