@@ -182,7 +182,7 @@
 
                 // Redirect
                 setTimeout(() => {
-                    window.location.href = '/dogs';
+                    window.location.href = '/dogs/village';
                 }, 3300)
             },
         }

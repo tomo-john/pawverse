@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 use App\Livewire\Dog\World;
-use App\Livewire\Dog\Index;
+use App\Livewire\Dog\Village;
 use App\Livewire\Dog\Create;
 use App\Livewire\Dog\Show;
 use App\Livewire\PublicDog\Index as PublicDogIndex;
@@ -17,7 +17,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Dogs
     Route::get('dogs/world', World::class)->name('dog.world');
-    Route::get('dogs', Index::class)->name('dog.index');
+    Route::get('dogs/village', Village::class)->name('dog.village');
     Route::get('dogs/create', Create::class)->name('dog.create');
     Route::get('dogs/{dog}', Show::class)->name('dog.show');
 

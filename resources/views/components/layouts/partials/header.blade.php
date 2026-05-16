@@ -22,11 +22,11 @@
             @auth
                 <flux:dropdown>
                     <flux:button variant="primary" icon-trailing="chevron-down" class="text-pink-600 font-bold hover:bg-pink-50 active:bg-pink-100 transition-all">
-                        My Dog
+                        Dog
                     </flux:button>
 
                     <flux:menu>
-                        <flux:menu.item href="{{ route('dog.index') }}" icon="star">My Dog</flux:menu.item>
+                        <flux:menu.item href="{{ route('dog.village') }}" icon="star">Dog Village</flux:menu.item>
                         <flux:menu.item href="{{ route('dashboard') }}" icon="layout-grid">Dashboard</flux:menu.item>
                         <flux:menu.item href="{{ route('profile.edit') }}" icon="cog">Profile</flux:menu.item>
                         <flux:menu.separator />

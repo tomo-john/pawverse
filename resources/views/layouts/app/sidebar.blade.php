@@ -19,9 +19,9 @@
 
                 <!-- Dogs -->
                 <flux:sidebar.group heading="Dog" class="grid">
-                    <!-- My Dogs -->
-                    <flux:sidebar.item icon="star" :href="route('dog.index')" :current="request()->routeIs('dog.index')" wire:navigate>
-                        My Dogs
+                    <!-- Dog Village -->
+                    <flux:sidebar.item icon="star" :href="route('dog.village')" :current="request()->routeIs('dog.index')" wire:navigate>
+                        Dog Village
                     </flux:sidebar.item>
 
                     <!-- Public Dogs -->

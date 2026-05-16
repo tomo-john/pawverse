@@ -7,7 +7,7 @@ use Livewire\Attributes\Computed;
 use App\Models\Dog;
 use Illuminate\Support\Collection;
 
-class Index extends Component
+class Village extends Component
 {
     public $name;
     public $color = '#e60076';
@@ -136,7 +136,7 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.dog.index')
+        return view('livewire.dog.village')
             ->layout('components.layouts.app');
     }
 }

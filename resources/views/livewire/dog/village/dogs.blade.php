@@ -7,6 +7,6 @@
 
 <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
     @foreach($this->dogs as $dog)
-        @include('livewire.dog.index._dog_house')
+        @include('livewire.dog.village.dog_area')
     @endforeach
 </div>

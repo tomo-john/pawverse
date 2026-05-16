@@ -7,7 +7,7 @@
     </div>
 
     {{-- Dogs --}}
-    @include('livewire.dog.index._dog_village')
+    @include('livewire.dog.village.dogs')
 
     {{-- Separator --}}
     <div class="flex items-center gap-4 py-6 opacity-70">
@@ -40,12 +40,12 @@
                     }, 100)
                  "
             >
-                @include('livewire.dog.index._form')
+                @include('livewire.dog.village.form')
             </div>
 
             {{-- Preview --}}
             <div class="lg:col-span-1">
-                @include('livewire.dog.index._preview')
+                @include('livewire.dog.village.preview')
             </div>
         </div>
     </div>
