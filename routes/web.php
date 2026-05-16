@@ -5,7 +5,7 @@ use Livewire\Volt\Volt;
 use App\Livewire\Dog\World;
 use App\Livewire\Dog\Village;
 use App\Livewire\Dog\Create;
-use App\Livewire\Dog\Show;
+use App\Livewire\Dog\House;
 use App\Livewire\PublicDog\Index as PublicDogIndex;
 
 Route::get('/', function () {
@@ -19,7 +19,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dogs/world', World::class)->name('dog.world');
     Route::get('dogs/village', Village::class)->name('dog.village');
     Route::get('dogs/create', Create::class)->name('dog.create');
-    Route::get('dogs/{dog}', Show::class)->name('dog.show');
+    Route::get('dogs/{dog}', House::class)->name('dog.house');
 
     // Dashboard(Volt)
     Volt::route('dashboard', 'dashboard')->name('dashboard');

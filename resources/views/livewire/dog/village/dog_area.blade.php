@@ -9,8 +9,8 @@
     {{-- 地面 --}}
     <div class="absolute bottom-0 left-0 w-full h-16 bg-green-100 rounded-3xl"></div>
 
-    {{-- 犬小屋(show) --}}
-    <a href="{{ route('dog.show', $dog) }}"
+    {{-- 犬小屋 --}}
+    <a href="{{ route('dog.house', $dog) }}"
        class="absolute top-6 flex flex-col items-center group z-10"
        @mouseenter="openMessage('お部屋にいくわん？')"
        @mouseleave="closeMessage()"
@@ -53,9 +53,9 @@
         </button>
     </div>
 
-    {{-- テスト(いったんshow) --}}
+    {{-- テスト(仮) --}}
     <div class="absolute bottom-15 left-8 z-30 opacity-0 group-hover:opacity-100 transition">
-        <a href="{{ route('dog.show', $dog)}}"
+        <a href="{{ route('dog.house', $dog)}}"
                 class="fa-solid fa-baseball text-2xl text-sky-500 cursor-pointer"
                 @mouseenter="openMessage('遊ぶわん？'); isLeft = true"
                 @mouseleave="closeMessage(); isLeft = false"

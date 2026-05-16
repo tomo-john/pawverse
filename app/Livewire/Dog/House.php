@@ -9,7 +9,7 @@ use App\Models\Dog;
 use App\Domain\Dog\DogAnimationDefinition;
 use App\Services\Dog\DogMessageService;
 
-class Show extends Component
+class House extends Component
 {
     public Dog $dog;
     public ?string $activeAnimation = null;
@@ -74,7 +74,7 @@ class Show extends Component
 
     public function render()
     {
-        return view('livewire.dog.show')
+        return view('livewire.dog.house')
             ->layout('components.layouts.app');
     }
 

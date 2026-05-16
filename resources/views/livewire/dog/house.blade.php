@@ -56,19 +56,19 @@
             </div>
 
             {{-- statau-panel: ステータス表示エリア　--}}
-            <livewire:dog.show.status-panel :dog="$dog" />
+            <livewire:dog.house.status-panel :dog="$dog" />
 
             {{-- real-dog-card: リアルわんこ情報エリア　--}}
-            <livewire:dog.show.real-dog-card :dog="$dog" />
+            <livewire:dog.house.real-dog-card :dog="$dog" />
 
             {{-- care-actions: お世話エリア(DogAction)　--}}
-            <livewire:dog.show.care-actions :dog="$dog" />
+            <livewire:dog.house.care-actions :dog="$dog" />
 
             {{-- activity-form: 現実行動入力フォーム(RealDogActivity)　--}}
-            <livewire:dog.show.activity-form :dog="$dog" />
+            <livewire:dog.house.activity-form :dog="$dog" />
 
             {{-- timeline: タイムライン　--}}
-            <livewire:dog.show.timeline :dog="$dog" />
+            <livewire:dog.house.timeline :dog="$dog" />
 
         </div>
 
