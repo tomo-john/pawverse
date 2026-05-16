@@ -27,6 +27,7 @@
 
                     <flux:menu>
                         <flux:menu.item href="{{ route('dog.village') }}" icon="star">Dog Village</flux:menu.item>
+                        <flux:menu.item href="{{ route('dog.kennel-manager') }}" icon="layout-grid">Kennel Manager</flux:menu.item>
                         <flux:menu.item href="{{ route('dashboard') }}" icon="layout-grid">Dashboard</flux:menu.item>
                         <flux:menu.item href="{{ route('profile.edit') }}" icon="cog">Profile</flux:menu.item>
                         <flux:menu.separator />

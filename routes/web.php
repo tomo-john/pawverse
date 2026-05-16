@@ -7,6 +7,7 @@ use App\Livewire\Dog\Village;
 use App\Livewire\Dog\Create;
 use App\Livewire\Dog\House;
 use App\Livewire\PublicDog\Index as PublicDogIndex;
+use App\Livewire\Dog\KennelManager;
 
 Route::get('/', function () {
     return view('pages.top');
@@ -14,6 +15,9 @@ Route::get('/', function () {
 
 // ログイン必須のエリアをグループ化
 Route::middleware(['auth', 'verified'])->group(function () {
+
+    // 旧Village(Index) 検証用
+    Route::get('dogs/kennel-manager', KennelManager::class)->name('dog.kennel-manager');
 
     // Dogs
     Route::get('dogs/world', World::class)->name('dog.world');
