@@ -26,6 +26,7 @@
                     </flux:button>
 
                     <flux:menu>
+                        <flux:menu.item href="{{ route('dog.world') }}" icon="star">Dog World</flux:menu.item>
                         <flux:menu.item href="{{ route('dog.village') }}" icon="star">Dog Village</flux:menu.item>
                         <flux:menu.item href="{{ route('dog.kennel-manager') }}" icon="layout-grid">Kennel Manager</flux:menu.item>
                         <flux:menu.item href="{{ route('dashboard') }}" icon="layout-grid">Dashboard</flux:menu.item>

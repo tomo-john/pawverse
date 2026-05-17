@@ -19,8 +19,13 @@
 
                 <!-- Dogs -->
                 <flux:sidebar.group heading="Dog" class="grid">
+                    <!-- Dog World -->
+                    <flux:sidebar.item icon="star" :href="route('dog.world')" :current="request()->routeIs('dog.world')" wire:navigate>
+                        Dog World
+                    </flux:sidebar.item>
+
                     <!-- Dog Village -->
-                    <flux:sidebar.item icon="star" :href="route('dog.village')" :current="request()->routeIs('dog.index')" wire:navigate>
+                    <flux:sidebar.item icon="star" :href="route('dog.village')" :current="request()->routeIs('dog.village')" wire:navigate>
                         Dog Village
                     </flux:sidebar.item>
 
