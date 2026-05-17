@@ -10,10 +10,7 @@ use Illuminate\Support\Collection;
 class Village extends Component
 {
     public $name;
-    public $color = '#e60076';
-    public $size_level = 5;
-    public $is_public = false;
-    public $editingId = null;
+    public $size_level = null;
 
     public function mount() :void
     {
