@@ -29,6 +29,11 @@
                         Dog Village
                     </flux:sidebar.item>
 
+                    <!-- Dog Kennel Manager -->
+                    <flux:sidebar.item icon="star" :href="route('dog.kennel-manager')" :current="request()->routeIs('dog.kennel-manager')" wire:navigate>
+                        Dog Kennel Manager
+                    </flux:sidebar.item>
+
                     <!-- Public Dogs -->
                     <flux:sidebar.item icon="star" :href="route('public.dog.index')" :current="request()->routeIs('public.dog.index')" wire:navigate>
                         Public Dogs

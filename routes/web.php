@@ -26,7 +26,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dogs/{dog}', House::class)->name('dog.house');
 
     // Dashboard(Volt)
-    Volt::route('dashboard', 'dashboard')->name('dashboard');
+    Volt::route('/dashboard', 'dashboard')->name('dashboard');
 
 });
 
