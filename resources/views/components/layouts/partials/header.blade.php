@@ -1,4 +1,4 @@
-{{-- 共通ヘッダー🐶 --}}
+{{-- 共通ヘッダー --}}
 <header class="sticky top-0 z-50 backdrop-blur bg-white/80 border-b border-pink-100 shadow-sm">
     <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
 
@@ -15,37 +15,8 @@
                 Home
             </a>
 
-            <a href="{{ route('public.dog.index')}}" class="text-slate-600 hover:text-pink-500 transition">
-                Public Dogs
-            </a>
-
             @auth
-                <flux:dropdown>
-                    <flux:button variant="primary" icon-trailing="chevron-down" class="text-pink-600 font-bold hover:bg-pink-50 active:bg-pink-100 transition-all">
-                        Dog
-                    </flux:button>
 
-                    <flux:menu>
-                        <flux:menu.item href="{{ route('dog.world') }}" icon="star">Dog World</flux:menu.item>
-                        <flux:menu.item href="{{ route('dog.village') }}" icon="star">Dog Village</flux:menu.item>
-                        <flux:menu.item href="{{ route('dog.kennel-manager') }}" icon="layout-grid">Kennel Manager</flux:menu.item>
-                        <flux:menu.item href="{{ route('dashboard') }}" icon="layout-grid">Dashboard</flux:menu.item>
-                        <flux:menu.item href="{{ route('profile.edit') }}" icon="cog">Profile</flux:menu.item>
-                        <flux:menu.separator />
-                        <form method="POST" action="{{ route('logout') }}" class="w-full">
-                            @csrf
-                            <flux:menu.item
-                                as="button"
-                                type="submit"
-                                icon="arrow-right-start-on-rectangle"
-                                class="w-full cursor-pointer"
-                                variant="danger"
-                            >
-                                Logout
-                            </flux:menu.item>
-                        </form>
-                    </flux:menu>
-                </flux:dropdown>
             @endauth
 
             @guest

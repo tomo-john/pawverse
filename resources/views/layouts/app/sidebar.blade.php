@@ -17,29 +17,6 @@
                     </flux:sidebar.item>
                 </flux:sidebar.group>
 
-                <!-- Dogs -->
-                <flux:sidebar.group heading="Dog" class="grid">
-                    <!-- Dog World -->
-                    <flux:sidebar.item icon="star" :href="route('dog.world')" :current="request()->routeIs('dog.world')" wire:navigate>
-                        Dog World
-                    </flux:sidebar.item>
-
-                    <!-- Dog Village -->
-                    <flux:sidebar.item icon="star" :href="route('dog.village')" :current="request()->routeIs('dog.village')" wire:navigate>
-                        Dog Village
-                    </flux:sidebar.item>
-
-                    <!-- Dog Kennel Manager -->
-                    <flux:sidebar.item icon="star" :href="route('dog.kennel-manager')" :current="request()->routeIs('dog.kennel-manager')" wire:navigate>
-                        Dog Kennel Manager
-                    </flux:sidebar.item>
-
-                    <!-- Public Dogs -->
-                    <flux:sidebar.item icon="star" :href="route('public.dog.index')" :current="request()->routeIs('public.dog.index')" wire:navigate>
-                        Public Dogs
-                    </flux:sidebar.item>
-                </flux:sidebar.group>
-
             </flux:sidebar.nav>
 
             <flux:spacer />

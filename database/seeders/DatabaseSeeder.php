@@ -14,9 +14,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // 固定の管理者ユーザー (Admin john)
+        // 固定の管理者ユーザー (Admin)
         User::factory()->create([
-            'name' => 'Admin john',
+            'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('password'),
             'is_admin' => true,
@@ -24,22 +24,16 @@ class DatabaseSeeder extends Seeder
 
         // 固定の一般ユーザー (User john)
         User::factory()->create([
-            'name' => 'User john',
+            'name' => 'john',
             'email' => 'john@gmail.com',
             'password' => Hash::make('password'),
         ]);
 
         // 固定の一般ユーザー (User pyon)
         User::factory()->create([
-            'name' => 'User pyon',
+            'name' => 'pyon',
             'email' => 'pyon@gmail.com',
             'password' => Hash::make('password'),
         ]);
-
-        // ランダムユーザーの作成
-        // User::factory(10)->create();
-
-        // ランダムDog生成
-        $this->call(DogSeeder::class);
     }
 }
