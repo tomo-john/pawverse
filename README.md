@@ -11,3 +11,6 @@
 - **Starter Kidt**: Laravel Breeze
 - **Frontend**: Livewire, Alpine.js, Tailwind CSS
 
+## その他
+- 2026/09: アプリ構成案から見直し0ベースから作り直し開始
+
