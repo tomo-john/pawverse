@@ -15,7 +15,7 @@ test('new users can register', function () {
     ]);
 
     $response->assertSessionHasNoErrors()
-        ->assertRedirect(route('dog.world', absolute: false));
+        ->assertRedirect(route('dashboard', absolute: false));
 
     $this->assertAuthenticated();
 });
